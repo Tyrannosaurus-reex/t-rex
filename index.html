@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#f4b7c7">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" href="icono.png">
+
+    <title>Cartita</title>
+
+</head>
+
+<body>
+
+    <!-- NUBES -->
+
+    <div class="nube nube1"></div>
+    <div class="nube nube2"></div>
+    <div class="nube nube3"></div>
+    <div class="nube nube4"></div>
+    <div class="nube nube5"></div>
+    <div class="nube nube6"></div>
+
+
+    <!-- BRILLITOS -->
+
+    <div class="brillo brillo1">✦</div>
+    <div class="brillo brillo2">✧</div>
+    <div class="brillo brillo3">✦</div>
+    <div class="brillo brillo4">✧</div>
+    <div class="brillo brillo5">✦</div>
+    <div class="brillo brillo6">✧</div>
+
+
+    <!-- =========================
+         SOBRE
+    ========================== -->
+
+    <section id="pantallaSobre">
+
+        <div id="zonaSobre">
+
+            <div class="sobre" id="sobre">
+
+                <div class="sombra"></div>
+
+                <div class="papel">
+                    <div class="borde-papel"></div>
+                </div>
+
+                <div class="sobre-base"></div>
+
+                <div class="doblez izquierda"></div>
+
+                <div class="doblez derecha"></div>
+
+                <div class="tapa"></div>
+
+                <div class="sello">
+                    <span>✦</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTADOR
+        ========================== -->
+
+        <div id="contador" class="oculto">
+
+            <div class="contador-caja">
+
+                <div class="mini-sello">
+                    ✦
+                </div>
+
+                <div id="tiempo">
+
+                    <div class="numero">
+                        <span id="dias">00</span>
+                        <small>días</small>
+                    </div>
+
+                    <div class="separador">
+                        :
+                    </div>
+
+                    <div class="numero">
+                        <span id="horas">00</span>
+                        <small>horas</small>
+                    </div>
+
+                    <div class="separador">
+                        :
+                    </div>
+
+                    <div class="numero">
+                        <span id="minutos">00</span>
+                        <small>min</small>
+                    </div>
+
+                    <div class="separador">
+                        :
+                    </div>
+
+                    <div class="numero">
+                        <span id="segundos">00</span>
+                        <small>seg</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CARTA
+    ========================== -->
+
+    <section id="pantallaCarta" class="oculto">
+
+        <div class="decoracionCarta">
+
+            <span>✦</span>
+            <span>✧</span>
+            <span>✦</span>
+            <span>✧</span>
+            <span>✦</span>
+
+        </div>
+
+
+        <div class="carta-contenedor">
+
+            <img
+                id="imagenCarta"
+                src="carta.png"
+                alt="Carta"
+            >
+
+        </div>
+
+
+        <button id="volver">
+            ← Volver
+        </button>
+
+    </section>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+    "name": "Cartita",
+    "short_name": "Cartita",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#f8c4d2",
+    "theme_color": "#f4b7c7",
+    "orientation": "portrait",
+
+    "icons": [
+        {
+            "src": "icono.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
