@@ -4,140 +4,582 @@
     box-sizing: border-box;
 }
 
+
+html,
 body {
-    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+
     overflow: hidden;
-    background: radial-gradient(circle at center, #ffe3ea, #f8c4d2, #efacbe);
+
     font-family: Arial, sans-serif;
 }
 
 
-/* =========================
+body {
+    background: #f5b8c8;
+}
+
+
+/* ================================
+   CARGANDO
+================================ */
+
+body.cargando #pantallaNavegador,
+body.cargando #pantallaSobre,
+body.cargando #pantallaCarta {
+    visibility: hidden;
+}
+
+
+/* ================================
+   OCULTO
+================================ */
+
+.oculto {
+    display: none !important;
+}
+
+
+/* ================================
+   PANTALLA NAVEGADOR
+================================ */
+
+#pantallaNavegador {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 25% 20%,
+            #fffaff 0%,
+            #ffeaf1 30%,
+            #f6c5d4 65%,
+            #e8a5b9 100%
+        );
+
+    z-index: 999;
+}
+
+
+#pantallaNavegador::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.35
+        );
+
+    filter: blur(45px);
+
+    top: -130px;
+    right: -80px;
+}
+
+
+#pantallaNavegador::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    filter: blur(45px);
+
+    bottom: -130px;
+    left: -80px;
+}
+
+
+/* ================================
+   OLA
+================================ */
+
+.mensajeNavegador {
+
+    position: relative;
+
+    z-index: 5;
+
+    padding:
+        24px 36px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    backdrop-filter:
+        blur(15px);
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.85
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(
+            130,
+            65,
+            85,
+            0.15
+        );
+
+    color: #a45b70;
+
+    font-size: 25px;
+
+    letter-spacing: 1px;
+
+    animation:
+        aparecer
+        0.8s ease;
+}
+
+
+/* ================================
+   NUBES DEL NAVEGADOR
+================================ */
+
+.nubecita {
+
+    position: absolute;
+
+    width: 145px;
+    height: 40px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-radius:
+        50% 55% 45% 50%;
+
+    filter: blur(0.4px);
+}
+
+
+.nubecita::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 65px;
+    height: 52px;
+
+    left: 20px;
+    bottom: 10px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-radius:
+        60% 50% 45% 55%;
+}
+
+
+.nubecita::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 55px;
+    height: 45px;
+
+    right: 18px;
+    bottom: 8px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-radius:
+        50% 60% 45% 50%;
+}
+
+
+.nav-nube1 {
+    left: -30px;
+    top: 17%;
+}
+
+
+.nav-nube2 {
+    right: -35px;
+    bottom: 15%;
+
+    transform: scale(0.75);
+}
+
+
+.decoracion-navegador span {
+
+    position: absolute;
+
+    color: white;
+
+    font-size: 24px;
+
+    animation:
+        brillo
+        3s ease-in-out infinite;
+}
+
+
+.decoracion-navegador span:nth-of-type(1) {
+    left: 15%;
+    top: 22%;
+}
+
+
+.decoracion-navegador span:nth-of-type(2) {
+    right: 15%;
+    bottom: 23%;
+}
+
+
+/* ================================
+   PANTALLA SOBRE
+================================ */
+
+#pantallaSobre {
+
+    width: 100vw;
+    height: 100vh;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #ffe8ef 0%,
+            #f8c7d5 45%,
+            #edacbf 100%
+        );
+}
+
+
+/* ================================
    NUBES
-========================= */
+================================ */
 
 .nube {
+
     position: absolute;
-    width: 120px;
-    height: 35px;
-    background: rgba(255, 255, 255, 0.75);
-    border-radius: 50px;
+
+    width: 150px;
+    height: 42px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    border-radius:
+        55% 45% 50% 45%;
+
+    opacity: 0.85;
+
     z-index: 0;
-    animation: moverNube 7s ease-in-out infinite;
+
+    filter: blur(0.4px);
+
+    animation:
+        nubeFlotando
+        8s ease-in-out infinite;
 }
 
-.nube::before,
-.nube::after {
-    content: "";
-    position: absolute;
-    background: rgba(255, 255, 255, 0.75);
-    border-radius: 50%;
-}
 
 .nube::before {
-    width: 55px;
-    height: 55px;
-    left: 15px;
-    bottom: 3px;
+
+    content: "";
+
+    position: absolute;
+
+    width: 65px;
+    height: 58px;
+
+    left: 18px;
+    bottom: 12px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    border-radius:
+        58% 48% 50% 45%;
+
+    transform:
+        rotate(-4deg);
 }
+
 
 .nube::after {
-    width: 45px;
-    height: 45px;
-    right: 15px;
-    bottom: 3px;
+
+    content: "";
+
+    position: absolute;
+
+    width: 58px;
+    height: 52px;
+
+    right: 22px;
+    bottom: 10px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    border-radius:
+        50% 60% 45% 50%;
+
+    transform:
+        rotate(5deg);
 }
 
+
+.nube span {
+
+    position: absolute;
+
+    display: block;
+
+    width: 48px;
+    height: 43px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    border-radius:
+        55% 50% 45% 55%;
+}
+
+
+.nube span:nth-child(1) {
+
+    left: 52px;
+    bottom: 18px;
+}
+
+
+.nube span:nth-child(2) {
+
+    left: 78px;
+    bottom: 10px;
+
+    transform:
+        scale(0.75);
+}
+
+
+.nube span:nth-child(3) {
+
+    left: 15px;
+    bottom: 4px;
+
+    transform:
+        scale(0.55);
+}
+
+
 .nube1 {
-    left: -20px;
+    left: -30px;
     top: 12%;
 }
 
+
 .nube2 {
-    right: -20px;
+    right: -35px;
     top: 25%;
-    transform: scale(0.8);
+
+    transform: scale(0.72);
 }
+
 
 .nube3 {
-    left: 5%;
-    bottom: 12%;
-    transform: scale(0.7);
+    left: 4%;
+    bottom: 10%;
+
+    transform: scale(0.65);
 }
+
 
 .nube4 {
-    right: 5%;
+    right: 3%;
     bottom: 8%;
-    transform: scale(0.6);
+
+    transform: scale(0.55);
 }
+
 
 .nube5 {
-    left: 35%;
+    left: 38%;
     top: 5%;
-    transform: scale(0.45);
+
+    transform: scale(0.42);
 }
 
-.nube6 {
-    right: 35%;
-    bottom: 20%;
-    transform: scale(0.4);
-}
 
-@keyframes moverNube {
-    0%, 100% {
+@keyframes nubeFlotando {
+
+    0%,
+    100% {
         margin-left: 0;
+        margin-top: 0;
     }
 
     50% {
-        margin-left: 15px;
+        margin-left: 12px;
+        margin-top: -5px;
     }
 }
 
 
-/* =========================
-   BRILLITOS
-========================= */
+/* ================================
+   BRILLOS
+================================ */
 
 .brillo {
+
     position: absolute;
+
     color: white;
+
     font-size: 22px;
+
     z-index: 1;
-    animation: brillar 3s ease-in-out infinite;
+
+    animation:
+        brillo
+        3s ease-in-out infinite;
 }
+
 
 .brillo1 {
     left: 12%;
     top: 30%;
 }
 
+
 .brillo2 {
     left: 25%;
     top: 17%;
 }
+
 
 .brillo3 {
     right: 15%;
     top: 35%;
 }
 
+
 .brillo4 {
     right: 25%;
     bottom: 20%;
 }
+
 
 .brillo5 {
     left: 17%;
     bottom: 30%;
 }
 
+
 .brillo6 {
     right: 8%;
     bottom: 38%;
 }
 
-@keyframes brillar {
-    0%, 100% {
+
+@keyframes brillo {
+
+    0%,
+    100% {
         opacity: 0.3;
         transform: scale(0.8);
     }
@@ -149,38 +591,25 @@ body {
 }
 
 
-/* =========================
-   PANTALLA PRINCIPAL
-========================= */
-
-#pantallaSobre {
-    width: 100vw;
-    height: 100vh;
-
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-}
-
-
-/* =========================
+/* ================================
    SOBRE
-========================= */
+================================ */
 
 #zonaSobre {
+
     position: relative;
+
     z-index: 10;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 }
 
+
 .sobre {
+
     width: 270px;
     height: 185px;
 
@@ -188,25 +617,35 @@ body {
 
     cursor: pointer;
 
-    animation: flotar 3s ease-in-out infinite;
+    animation:
+        flotar
+        3s ease-in-out infinite;
 
-    filter: drop-shadow(
-        0 20px 20px rgba(130, 60, 80, 0.18)
-    );
+    filter:
+        drop-shadow(
+            0 20px 20px
+            rgba(
+                130,
+                60,
+                80,
+                0.18
+            )
+        );
 }
+
 
 .sobre:hover {
     transform: scale(1.05);
 }
+
 
 .sobre:active {
     transform: scale(0.97);
 }
 
 
-/* SOMBRA */
-
 .sombra {
+
     position: absolute;
 
     width: 230px;
@@ -215,7 +654,13 @@ body {
     left: 20px;
     bottom: -18px;
 
-    background: rgba(120, 60, 80, 0.15);
+    background:
+        rgba(
+            120,
+            60,
+            80,
+            0.15
+        );
 
     border-radius: 50%;
 
@@ -225,31 +670,8 @@ body {
 }
 
 
-/* BASE */
-
-.sobre-base {
-    position: absolute;
-
-    width: 270px;
-    height: 185px;
-
-    bottom: 0;
-
-    background: linear-gradient(
-        145deg,
-        #ffffff,
-        #fff5f7
-    );
-
-    border-radius: 9px;
-
-    z-index: 3;
-}
-
-
-/* PAPEL */
-
 .papel {
+
     position: absolute;
 
     width: 160px;
@@ -262,27 +684,60 @@ body {
 
     z-index: 2;
 
-    transform: translateY(12px);
+    transform:
+        translateY(12px);
 
     box-shadow:
-        0 5px 12px rgba(80, 40, 50, 0.13);
+        0 5px 12px
+        rgba(
+            80,
+            40,
+            50,
+            0.13
+        );
 
     transition:
-        transform 0.9s ease;
+        transform
+        0.9s ease;
 }
 
+
 .borde-papel {
+
     position: absolute;
 
     inset: 8px;
 
-    border: 1px solid #f0d9df;
+    border:
+        1px solid
+        #f0d9df;
 }
 
 
-/* DOBLECES */
+.sobre-base {
+
+    position: absolute;
+
+    width: 270px;
+    height: 185px;
+
+    bottom: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fff5f7
+        );
+
+    border-radius: 9px;
+
+    z-index: 3;
+}
+
 
 .doblez {
+
     position: absolute;
 
     bottom: 0;
@@ -293,24 +748,37 @@ body {
     z-index: 5;
 }
 
+
 .doblez.izquierda {
+
     left: 0;
 
-    border-bottom: 105px solid #f2dfe4;
-    border-right: 135px solid transparent;
+    border-bottom:
+        105px solid
+        #f2dfe4;
+
+    border-right:
+        135px solid
+        transparent;
 }
+
 
 .doblez.derecha {
+
     right: 0;
 
-    border-bottom: 105px solid #f2dfe4;
-    border-left: 135px solid transparent;
+    border-bottom:
+        105px solid
+        #f2dfe4;
+
+    border-left:
+        135px solid
+        transparent;
 }
 
 
-/* TAPA */
-
 .tapa {
+
     position: absolute;
 
     top: 0;
@@ -319,22 +787,31 @@ body {
     width: 0;
     height: 0;
 
-    border-left: 135px solid transparent;
-    border-right: 135px solid transparent;
-    border-top: 105px solid #f8eef0;
+    border-left:
+        135px solid
+        transparent;
+
+    border-right:
+        135px solid
+        transparent;
+
+    border-top:
+        105px solid
+        #f8eef0;
 
     z-index: 7;
 
-    transform-origin: top center;
+    transform-origin:
+        top center;
 
     transition:
-        transform 0.9s ease;
+        transform
+        0.9s ease;
 }
 
 
-/* SELLO */
-
 .sello {
+
     position: absolute;
 
     width: 43px;
@@ -343,68 +820,95 @@ body {
     left: 50%;
     top: 84px;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
-    background: radial-gradient(
-        circle,
-        #d98c9e,
-        #c87389
-    );
+    background:
+        radial-gradient(
+            circle,
+            #d98c9e,
+            #c87389
+        );
 
     border-radius: 50%;
 
     z-index: 9;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
     color: white;
 
     box-shadow:
-        0 4px 8px rgba(120, 50, 70, 0.2);
+        0 4px 8px
+        rgba(
+            120,
+            50,
+            70,
+            0.2
+        );
 
     transition:
-        transform 0.7s,
-        opacity 0.5s;
+        transform
+        0.7s,
+        opacity
+        0.5s;
 }
 
+
 .sello::before {
+
     content: "";
 
     position: absolute;
 
     inset: 5px;
 
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.5
+        );
 
     border-radius: 50%;
 }
+
 
 .sello span {
     position: relative;
 }
 
 
-/* =========================
-   APERTURA
-========================= */
-
 .sobre.abriendo {
     animation: none;
 }
 
+
 .sobre.abriendo .tapa {
-    transform: rotateX(180deg);
+
+    transform:
+        rotateX(180deg);
+
     z-index: 1;
 }
 
+
 .sobre.abriendo .papel {
-    transform: translateY(-45px);
+
+    transform:
+        translateY(-45px);
+
     z-index: 8;
 }
 
+
 .sobre.abriendo .sello {
+
     transform:
         translateX(-50%)
         scale(0.5);
@@ -412,22 +916,28 @@ body {
     opacity: 0;
 }
 
+
 @keyframes flotar {
-    0%, 100% {
-        transform: translateY(0);
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-9px);
+        transform:
+            translateY(-9px);
     }
 }
 
 
-/* =========================
+/* ================================
    CONTADOR
-========================= */
+================================ */
 
 #contador {
+
     position: relative;
 
     width: 100%;
@@ -442,22 +952,47 @@ body {
     z-index: 20;
 }
 
+
 .contador-caja {
-    padding: 18px 24px;
 
-    background: rgba(255, 255, 255, 0.55);
+    padding:
+        18px 24px;
 
-    backdrop-filter: blur(12px);
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
 
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    backdrop-filter:
+        blur(12px);
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.85
+        );
 
     border-radius: 24px;
 
     box-shadow:
-        0 15px 40px rgba(120, 60, 80, 0.14);
+        0 15px 40px
+        rgba(
+            120,
+            60,
+            80,
+            0.14
+        );
 }
 
+
 .mini-sello {
+
     text-align: center;
 
     margin-bottom: 10px;
@@ -467,7 +1002,9 @@ body {
     font-size: 20px;
 }
 
+
 #tiempo {
+
     display: flex;
 
     justify-content: center;
@@ -476,31 +1013,37 @@ body {
     gap: 8px;
 }
 
+
 .numero {
+
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
 
-    text-align: center;
-
     color: #9e5369;
 }
 
+
 .numero span {
+
     font-size: 26px;
 
     font-weight: bold;
 }
 
+
 .numero small {
+
     font-size: 10px;
 
     margin-top: 3px;
 }
 
+
 .separador {
+
     font-size: 22px;
 
     margin-bottom: 13px;
@@ -508,16 +1051,13 @@ body {
     color: #b66a7f;
 }
 
-.oculto {
-    display: none !important;
-}
 
-
-/* =========================
-   CARTA
-========================= */
+/* ==================================================
+   PANTALLA DE LA CARTA
+================================================== */
 
 #pantallaCarta {
+
     width: 100vw;
     height: 100vh;
 
@@ -527,13 +1067,6 @@ body {
 
     z-index: 100;
 
-    background: radial-gradient(
-        circle at center,
-        #ffe9ef,
-        #f7c4d2,
-        #edabbc
-    );
-
     display: flex;
 
     flex-direction: column;
@@ -542,102 +1075,381 @@ body {
     align-items: center;
 
     padding: 25px;
+
+    overflow: hidden;
+
+    /*
+       FONDO BONITO
+    */
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(
+                255,
+                255,
+                255,
+                0.8
+            ) 0%,
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(
+                255,
+                255,
+                255,
+                0.6
+            ) 0%,
+            transparent 22%
+        ),
+
+        radial-gradient(
+            circle at 75% 80%,
+            rgba(
+                255,
+                255,
+                255,
+                0.45
+            ) 0%,
+            transparent 25%
+        ),
+
+        linear-gradient(
+            135deg,
+            #f7c3d1,
+            #f9dce5,
+            #eab0c2
+        );
 }
 
 
-/* DECORACIÓN */
+/* ================================
+   LUCES
+================================ */
 
-.decoracionCarta span {
+.luz {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(45px);
+
+    pointer-events: none;
+}
+
+
+.luz1 {
+
+    width: 220px;
+    height: 220px;
+
+    top: -70px;
+    left: -60px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.5
+        );
+}
+
+
+.luz2 {
+
+    width: 250px;
+    height: 250px;
+
+    right: -80px;
+    top: 25%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.35
+        );
+}
+
+
+.luz3 {
+
+    width: 230px;
+    height: 230px;
+
+    bottom: -90px;
+    left: 25%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.3
+        );
+}
+
+
+/* ================================
+   DECORACIÓN
+================================ */
+
+.decoracionCarta {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+.estrella {
+
     position: absolute;
 
     color: white;
 
-    font-size: 25px;
+    text-shadow:
+        0 2px 10px
+        rgba(
+            180,
+            90,
+            120,
+            0.25
+        );
 
     animation:
-        brillarCarta
+        estrellaBrilla
         3s ease-in-out infinite;
 }
 
-.decoracionCarta span:nth-child(1) {
-    left: 10%;
-    top: 12%;
+
+.e1 {
+
+    left: 8%;
+    top: 13%;
+
+    font-size: 26px;
 }
 
-.decoracionCarta span:nth-child(2) {
+
+.e2 {
+
     right: 12%;
     top: 20%;
+
+    font-size: 20px;
 }
 
-.decoracionCarta span:nth-child(3) {
-    left: 17%;
-    bottom: 22%;
+
+.e3 {
+
+    left: 14%;
+    bottom: 20%;
+
+    font-size: 18px;
 }
 
-.decoracionCarta span:nth-child(4) {
-    right: 20%;
-    bottom: 15%;
+
+.e4 {
+
+    right: 17%;
+    bottom: 14%;
+
+    font-size: 27px;
 }
 
-.decoracionCarta span:nth-child(5) {
+
+.e5 {
+
     right: 7%;
-    top: 50%;
+    top: 52%;
+
+    font-size: 16px;
 }
 
-@keyframes brillarCarta {
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.8);
+
+.e6 {
+
+    left: 27%;
+    top: 8%;
+
+    font-size: 15px;
+}
+
+
+@keyframes estrellaBrilla {
+
+    0%,
+    100% {
+
+        opacity: 0.35;
+
+        transform:
+            scale(0.8)
+            rotate(0deg);
     }
 
     50% {
+
         opacity: 1;
-        transform: scale(1.3);
+
+        transform:
+            scale(1.25)
+            rotate(12deg);
     }
 }
 
 
-/* IMAGEN */
+/* ================================
+   MARCO DE LA CARTA
+================================ */
 
-.carta-contenedor {
+.carta-marco {
+
+    position: relative;
+
+    z-index: 10;
+
     max-width: 90vw;
-    max-height: 78vh;
+    max-height: 76vh;
 
-    padding: 10px;
+    padding: 12px;
 
-    background: rgba(255, 255, 255, 0.5);
+    border-radius: 14px;
 
-    border-radius: 8px;
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    backdrop-filter:
+        blur(10px);
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
 
     box-shadow:
-        0 15px 40px rgba(120, 60, 80, 0.2);
+        0 20px 50px
+        rgba(
+            120,
+            55,
+            80,
+            0.2
+        );
 
     animation:
-        aparecer 0.7s ease;
-
-    overflow: auto;
+        aparecerCarta
+        0.8s ease;
 }
 
-#imagenCarta {
-    display: block;
+
+/* BRILLO DEL MARCO */
+
+.carta-brillo {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 14px;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(
+                255,
+                255,
+                255,
+                0.3
+            ),
+            transparent 40%,
+            rgba(
+                255,
+                255,
+                255,
+                0.2
+            )
+        );
+}
+
+
+/* ================================
+   IMAGEN
+================================ */
+
+.carta-contenedor {
+
+    position: relative;
 
     max-width: 100%;
     max-height: 72vh;
+
+    overflow: auto;
+
+    border-radius: 7px;
+
+    background: white;
+
+    box-shadow:
+        0 4px 15px
+        rgba(
+            100,
+            50,
+            70,
+            0.1
+        );
+}
+
+
+#imagenCarta {
+
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 70vh;
 
     width: auto;
     height: auto;
 }
 
-@keyframes aparecer {
+
+/* ================================
+   ANIMACIÓN CARTA
+================================ */
+
+@keyframes aparecerCarta {
+
     from {
+
         opacity: 0;
 
         transform:
-            translateY(20px)
-            scale(0.96);
+            translateY(25px)
+            scale(0.94);
     }
 
     to {
+
         opacity: 1;
 
         transform:
@@ -647,18 +1459,32 @@ body {
 }
 
 
-/* BOTÓN VOLVER */
+/* ================================
+   BOTÓN VOLVER
+================================ */
 
 #volver {
+
+    position: relative;
+
+    z-index: 20;
+
     margin-top: 18px;
 
     border: none;
 
-    padding: 12px 24px;
+    padding:
+        12px 27px;
 
-    border-radius: 22px;
+    border-radius: 24px;
 
-    background: rgba(255, 255, 255, 0.85);
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.88
+        );
 
     color: #9e5369;
 
@@ -667,106 +1493,212 @@ body {
     cursor: pointer;
 
     box-shadow:
-        0 5px 15px rgba(120, 60, 80, 0.12);
+        0 7px 18px
+        rgba(
+            120,
+            60,
+            80,
+            0.15
+        );
 
     transition:
-        transform 0.2s;
+        transform
+        0.2s;
 }
+
 
 #volver:hover {
-    transform: translateY(-2px);
+
+    transform:
+        translateY(-2px);
 }
+
 
 #volver:active {
-    transform: scale(0.95);
+
+    transform:
+        scale(0.95);
 }
 
 
-/* =========================
+/* ================================
+   ANIMACIÓN GENERAL
+================================ */
+
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(12px)
+            scale(0.96);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ================================
    CELULAR
-========================= */
+================================ */
 
 @media (max-width: 600px) {
 
+    .mensajeNavegador {
+
+        font-size: 22px;
+
+        padding:
+            22px 32px;
+    }
+
+
     .sobre {
+
         width: 220px;
         height: 150px;
     }
+
 
     .sobre-base {
+
         width: 220px;
         height: 150px;
     }
 
+
     .tapa {
-        border-left-width: 110px;
-        border-right-width: 110px;
-        border-top-width: 88px;
+
+        border-left-width:
+            110px;
+
+        border-right-width:
+            110px;
+
+        border-top-width:
+            88px;
     }
 
+
     .papel {
+
         width: 135px;
         height: 88px;
 
         left: 42px;
     }
 
+
     .doblez.izquierda {
-        border-bottom-width: 90px;
-        border-right-width: 110px;
+
+        border-bottom-width:
+            90px;
+
+        border-right-width:
+            110px;
     }
+
 
     .doblez.derecha {
-        border-bottom-width: 90px;
-        border-left-width: 110px;
+
+        border-bottom-width:
+            90px;
+
+        border-left-width:
+            110px;
     }
 
+
     .sello {
+
         top: 70px;
     }
 
 
-    /* CONTADOR */
-
     #contador {
+
         width: 90%;
 
         margin-top: 30px;
     }
 
+
     .contador-caja {
+
         width: 100%;
 
-        padding: 16px 10px;
+        padding:
+            16px 10px;
     }
 
+
     #tiempo {
+
         gap: 5px;
     }
 
+
     .numero span {
+
         font-size: 21px;
     }
 
+
     .numero small {
+
         font-size: 9px;
     }
 
+
     .separador {
+
         font-size: 18px;
 
         margin-bottom: 12px;
     }
 
 
-    /* CARTA */
+    #pantallaCarta {
+
+        padding:
+            18px;
+    }
+
+
+    .carta-marco {
+
+        max-width: 94vw;
+
+        max-height: 73vh;
+
+        padding: 8px;
+    }
+
 
     .carta-contenedor {
-        max-width: 94vw;
-        max-height: 75vh;
+
+        max-height: 69vh;
     }
 
+
     #imagenCarta {
-        max-height: 68vh;
+
+        max-height: 67vh;
     }
+
+
+    .estrella {
+
+        font-size: 18px;
+    }
+
 }
