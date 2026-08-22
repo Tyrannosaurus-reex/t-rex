@@ -1,7 +1,6 @@
 {
-    "name": "Cartita",
-    "short_name": "Cartita",
-    "description": "Una pequeña sorpresa",
+    "name": "t-rex",
+    "short_name": "t-rex",
     "start_url": "./index.html",
     "scope": "./",
     "display": "standalone",
