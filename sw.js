@@ -1,5 +1,5 @@
 const CACHE_NAME =
-    "trex-app-v2";
+    "trex-app-v3";
 
 
 const ARCHIVOS =
@@ -104,12 +104,13 @@ self.addEventListener(
 
 
         /*
-           CARTA.Png
-           
-           NUNCA se guarda en caché.
-           
-           Siempre se pide la versión
-           actual que esté en GitHub.
+           CARTA
+
+           La carta nunca se guarda
+           en la caché.
+
+           Siempre se busca la versión
+           actual de GitHub.
         */
 
         if (
@@ -147,10 +148,11 @@ self.addEventListener(
 
 
         /*
-           Los demás archivos:
-           
-           primero intenta la red.
-           
+           ARCHIVOS DE LA APP
+
+           Primero intenta conseguir
+           la versión nueva de Internet.
+
            Si no hay conexión,
            utiliza la versión guardada.
         */
@@ -158,7 +160,10 @@ self.addEventListener(
         event.respondWith(
 
             fetch(
-                event.request
+                event.request,
+                {
+                    cache: "no-cache"
+                }
             )
             .then(
                 respuesta => {

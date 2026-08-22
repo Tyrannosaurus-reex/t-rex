@@ -2,18 +2,50 @@
    FECHAS
 ===================================== */
 
-const FECHA_APERTURA =
-    "2026-08-22T11:11:00";
+/*
+   Veracruz, México utiliza UTC-6.
 
+   25 de agosto de 2026
+   10:00 a. m. en Veracruz
+*/
+
+const FECHA_APERTURA =
+    "2026-08-22T11:35:00-06:00";
+
+
+/*
+   Segundo contador:
+
+   15 de septiembre de 2026
+   10:00 a. m. en Veracruz
+*/
 
 const FECHA_SIGUIENTE =
-    "2026-09-15T10:00:00";
+    "2026-09-17T10:00:00-06:00";
 
 
 
 /* =====================================
    ELEMENTOS
 ===================================== */
+
+const pantallaCarga =
+    document.getElementById(
+        "pantallaCarga"
+    );
+
+
+const barraProgreso =
+    document.getElementById(
+        "barraProgreso"
+    );
+
+
+const porcentajeCarga =
+    document.getElementById(
+        "porcentajeCarga"
+    );
+
 
 const pantallaNavegador =
     document.getElementById(
@@ -291,6 +323,11 @@ function comprobarEstado() {
         Date.now();
 
 
+    /*
+       Si ya abrió la primera carta,
+       mostramos el segundo contador.
+    */
+
     if (cartaYaFueAbierta) {
 
         const siguiente =
@@ -319,6 +356,11 @@ function comprobarEstado() {
         }
 
 
+        /*
+           Cuando llega la segunda fecha,
+           vuelve a aparecer el sobre.
+        */
+
         zonaSobre.style.display =
             "flex";
 
@@ -340,6 +382,10 @@ function comprobarEstado() {
         return;
     }
 
+
+    /*
+       Primera fecha.
+    */
 
     const apertura =
         new Date(
@@ -391,15 +437,6 @@ function comprobarCarta() {
     }
 
 
-    /*
-       Si carta.png existe,
-       se muestra normalmente.
-
-       Si no existe,
-       aparece un mensaje en lugar
-       de romper la página.
-    */
-
     imagenCarta.onload =
         function() {
 
@@ -435,11 +472,8 @@ function comprobarCarta() {
 
 
     /*
-       Esto fuerza al navegador a pedir
-       la versión actual de la imagen.
-       
-       NO tienes que modificar este número
-       cuando cambies la carta.
+       Evita que el navegador conserve
+       una versión vieja de la carta.
     */
 
     imagenCarta.src =
@@ -529,12 +563,17 @@ volver.addEventListener(
 
 
 /* =====================================
-   INICIAR
+   INICIO REAL
 ===================================== */
 
-function iniciar() {
+function iniciarApp() {
 
     if (estaEnLaApp()) {
+
+        /*
+           Todo permanece oculto
+           mientras se prepara la app.
+        */
 
         pantallaNavegador.classList.add(
             "oculto"
@@ -573,15 +612,88 @@ function iniciar() {
 
     }
 
+}
 
-    document.body.classList.remove(
-        "cargando"
-    );
+
+
+/* =====================================
+   CARGA 0% → 100%
+===================================== */
+
+function iniciarCarga() {
+
+    let progreso = 0;
+
+
+    const intervalo =
+        setInterval(
+            function() {
+
+                progreso += 2;
+
+
+                if (progreso > 100) {
+                    progreso = 100;
+                }
+
+
+                if (barraProgreso) {
+
+                    barraProgreso.style.width =
+                        progreso + "%";
+
+                }
+
+
+                if (porcentajeCarga) {
+
+                    porcentajeCarga.textContent =
+                        progreso + "%";
+
+                }
+
+
+                if (progreso >= 100) {
+
+                    clearInterval(
+                        intervalo
+                    );
+
+
+                    setTimeout(
+                        function() {
+
+                            iniciarApp();
+
+
+                            document.body.classList.remove(
+                                "cargando"
+                            );
+
+
+                            pantallaCarga.classList.add(
+                                "oculto"
+                            );
+
+                        },
+                        300
+                    );
+
+                }
+
+            },
+            20
+        );
 
 }
 
 
-iniciar();
+
+/* =====================================
+   INICIAR
+===================================== */
+
+iniciarCarga();
 
 
 

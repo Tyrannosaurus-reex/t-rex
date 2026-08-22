@@ -10,7 +10,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-
     font-family: Arial, sans-serif;
 }
 
@@ -25,9 +24,165 @@ body {
 }
 
 
+/* ================================
+   CARGANDO
+================================ */
+
+#pantallaCarga {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2000;
+
+    background:
+        linear-gradient(
+            145deg,
+            #efb0c2,
+            #f7c6d5,
+            #e8a7bb
+        );
+
+    transition:
+        opacity 0.45s ease,
+        visibility 0.45s ease;
+}
+
+
+#pantallaCarga.oculto {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.carga-contenido {
+
+    width: 78%;
+
+    max-width: 320px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    color: #a25870;
+}
+
+
+/* RUEDITA */
+
+.ruedita {
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    border:
+        5px solid
+        rgba(255,255,255,0.4);
+
+    border-top-color: white;
+
+    animation:
+        girar
+        1s linear infinite;
+
+    margin-bottom: 20px;
+}
+
+
+@keyframes girar {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* TEXTO */
+
+.texto-cargando {
+
+    font-size: 18px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 16px;
+}
+
+
+/* BARRA */
+
+.barra-carga {
+
+    width: 100%;
+
+    height: 13px;
+
+    background:
+        rgba(255,255,255,0.4);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.7);
+
+    box-shadow:
+        0 5px 15px
+        rgba(120,60,80,0.12);
+}
+
+
+.barra-progreso {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #ffe7ee
+        );
+
+    transition:
+        width 0.08s linear;
+}
+
+
+.porcentaje-carga {
+
+    margin-top: 10px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
 body.cargando #pantallaNavegador,
 body.cargando #pantallaSobre,
 body.cargando #pantallaCarta {
+
     visibility: hidden;
 }
 
@@ -40,12 +195,14 @@ body.cargando #pantallaCarta {
 #pantallaNavegador {
 
     position: fixed;
+
     inset: 0;
 
     width: 100vw;
     height: 100vh;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -87,7 +244,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 4px 12px
-        rgba(160, 100, 120, 0.06);
+        rgba(160,100,120,0.06);
 }
 
 
@@ -134,9 +291,6 @@ body.cargando #pantallaCarta {
     transform: rotate(5deg);
 }
 
-
-
-/* NUBES OLA */
 
 .nube-nav-1 {
     left: -45px;
@@ -229,9 +383,11 @@ body.cargando #pantallaCarta {
 .mensajeNavegador {
 
     position: relative;
+
     z-index: 5;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
@@ -242,15 +398,15 @@ body.cargando #pantallaCarta {
     border-radius: 25px;
 
     background:
-        rgba(255, 255, 255, 0.32);
+        rgba(255,255,255,0.32);
 
     border:
         1px solid
-        rgba(255, 255, 255, 0.5);
+        rgba(255,255,255,0.5);
 
     box-shadow:
         0 12px 30px
-        rgba(120, 60, 80, 0.12);
+        rgba(120,60,80,0.12);
 
     color: #a25870;
 
@@ -292,7 +448,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 7px 18px
-        rgba(120, 60, 80, 0.15);
+        rgba(120,60,80,0.15);
 }
 
 
@@ -335,6 +491,7 @@ body.cargando #pantallaCarta {
 #zonaSobre {
 
     position: relative;
+
     z-index: 10;
 
     display: flex;
@@ -376,7 +533,6 @@ body.cargando #pantallaCarta {
     top: 5%;
     transform: scale(0.42);
 }
-
 
 
 .brillo1 {
@@ -436,7 +592,7 @@ body.cargando #pantallaCarta {
     filter:
         drop-shadow(
             0 20px 20px
-            rgba(130, 60, 80, 0.18)
+            rgba(130,60,80,0.18)
         );
 }
 
@@ -462,7 +618,7 @@ body.cargando #pantallaCarta {
     bottom: -18px;
 
     background:
-        rgba(120, 60, 80, 0.15);
+        rgba(120,60,80,0.15);
 
     border-radius: 50%;
 
@@ -490,7 +646,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 5px 12px
-        rgba(80, 40, 50, 0.13);
+        rgba(80,40,50,0.13);
 
     transition:
         transform
@@ -639,7 +795,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 4px 8px
-        rgba(120, 50, 70, 0.2);
+        rgba(120,50,70,0.2);
 
     transition:
         transform 0.7s,
@@ -721,20 +877,20 @@ body.cargando #pantallaCarta {
         18px 24px;
 
     background:
-        rgba(255, 255, 255, 0.55);
+        rgba(255,255,255,0.55);
 
     backdrop-filter:
         blur(12px);
 
     border:
         1px solid
-        rgba(255, 255, 255, 0.85);
+        rgba(255,255,255,0.85);
 
     border-radius: 24px;
 
     box-shadow:
         0 15px 40px
-        rgba(120, 60, 80, 0.14);
+        rgba(120,60,80,0.14);
 }
 
 
@@ -810,6 +966,7 @@ body.cargando #pantallaCarta {
     height: 100vh;
 
     position: fixed;
+
     inset: 0;
 
     z-index: 100;
@@ -862,31 +1019,35 @@ body.cargando #pantallaCarta {
     top: 13%;
 }
 
+
 .e2 {
     right: 12%;
     top: 20%;
 }
+
 
 .e3 {
     left: 14%;
     bottom: 20%;
 }
 
+
 .e4 {
     right: 17%;
     bottom: 14%;
 }
+
 
 .e5 {
     right: 7%;
     top: 52%;
 }
 
+
 .e6 {
     left: 27%;
     top: 8%;
 }
-
 
 
 .luz {
@@ -910,7 +1071,7 @@ body.cargando #pantallaCarta {
     left: -60px;
 
     background:
-        rgba(255, 255, 255, 0.3);
+        rgba(255,255,255,0.3);
 }
 
 
@@ -923,7 +1084,7 @@ body.cargando #pantallaCarta {
     top: 25%;
 
     background:
-        rgba(255, 255, 255, 0.2);
+        rgba(255,255,255,0.2);
 }
 
 
@@ -936,14 +1097,9 @@ body.cargando #pantallaCarta {
     left: 25%;
 
     background:
-        rgba(255, 255, 255, 0.18);
+        rgba(255,255,255,0.18);
 }
 
-
-
-/* ================================
-   MARCO DE LA CARTA
-================================ */
 
 .carta-marco {
 
@@ -959,18 +1115,18 @@ body.cargando #pantallaCarta {
     border-radius: 14px;
 
     background:
-        rgba(255, 255, 255, 0.55);
+        rgba(255,255,255,0.55);
 
     backdrop-filter:
         blur(10px);
 
     border:
         1px solid
-        rgba(255, 255, 255, 0.8);
+        rgba(255,255,255,0.8);
 
     box-shadow:
         0 20px 50px
-        rgba(120, 55, 80, 0.2);
+        rgba(120,55,80,0.2);
 }
 
 
@@ -1040,7 +1196,7 @@ body.cargando #pantallaCarta {
     border-radius: 24px;
 
     background:
-        rgba(255, 255, 255, 0.88);
+        rgba(255,255,255,0.88);
 
     color: #9e5369;
 
@@ -1050,7 +1206,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 7px 18px
-        rgba(120, 60, 80, 0.15);
+        rgba(120,60,80,0.15);
 }
 
 
@@ -1061,7 +1217,7 @@ body.cargando #pantallaCarta {
 
 
 /* ================================
-   ANIMACIONES
+   ANIMACIÓN
 ================================ */
 
 @keyframes aparecer {
@@ -1203,6 +1359,11 @@ body.cargando #pantallaCarta {
     #imagenCarta {
 
         max-height: 67vh;
+    }
+
+
+    .carga-contenido {
+        width: 80%;
     }
 
 }
