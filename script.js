@@ -2,26 +2,12 @@
    FECHAS
 ===================================== */
 
-/*
-   Veracruz, México utiliza UTC-6.
-
-   25 de agosto de 2026
-   10:00 a. m. en Veracruz
-*/
-
 const FECHA_APERTURA =
-    "2026-08-22T11:35:00-06:00";
+    "2026-08-22T11:55:00-06:00";
 
-
-/*
-   Segundo contador:
-
-   15 de septiembre de 2026
-   10:00 a. m. en Veracruz
-*/
 
 const FECHA_SIGUIENTE =
-    "2026-09-17T10:00:00-06:00";
+    "2026-09-15T10:00:00-06:00";
 
 
 
@@ -30,105 +16,60 @@ const FECHA_SIGUIENTE =
 ===================================== */
 
 const pantallaCarga =
-    document.getElementById(
-        "pantallaCarga"
-    );
+    document.getElementById("pantallaCarga");
 
-
-const barraProgreso =
-    document.getElementById(
-        "barraProgreso"
-    );
-
+const progresoCarga =
+    document.getElementById("progresoCarga");
 
 const porcentajeCarga =
-    document.getElementById(
-        "porcentajeCarga"
-    );
+    document.getElementById("porcentajeCarga");
 
 
 const pantallaNavegador =
-    document.getElementById(
-        "pantallaNavegador"
-    );
-
+    document.getElementById("pantallaNavegador");
 
 const pantallaSobre =
-    document.getElementById(
-        "pantallaSobre"
-    );
-
+    document.getElementById("pantallaSobre");
 
 const pantallaCarta =
-    document.getElementById(
-        "pantallaCarta"
-    );
+    document.getElementById("pantallaCarta");
 
 
 const sobre =
-    document.getElementById(
-        "sobre"
-    );
-
+    document.getElementById("sobre");
 
 const zonaSobre =
-    document.getElementById(
-        "zonaSobre"
-    );
-
+    document.getElementById("zonaSobre");
 
 const contador =
-    document.getElementById(
-        "contador"
-    );
-
+    document.getElementById("contador");
 
 const volver =
-    document.getElementById(
-        "volver"
-    );
+    document.getElementById("volver");
 
 
 const dias =
-    document.getElementById(
-        "dias"
-    );
-
+    document.getElementById("dias");
 
 const horas =
-    document.getElementById(
-        "horas"
-    );
-
+    document.getElementById("horas");
 
 const minutos =
-    document.getElementById(
-        "minutos"
-    );
-
+    document.getElementById("minutos");
 
 const segundos =
-    document.getElementById(
-        "segundos"
-    );
+    document.getElementById("segundos");
 
 
 const botonInstalar =
-    document.getElementById(
-        "botonInstalar"
-    );
+    document.getElementById("botonInstalar");
 
 
 const imagenCarta =
-    document.getElementById(
-        "imagenCarta"
-    );
-
+    document.getElementById("imagenCarta");
 
 const mensajeCartaError =
-    document.getElementById(
-        "mensajeCartaError"
-    );
+    document.getElementById("mensajeCartaError");
 
 
 
@@ -139,10 +80,39 @@ const mensajeCartaError =
 let cartaAbierta = false;
 
 
+/*
+   IMPORTANTE:
+
+   Esto solamente cambia a true
+   DESPUÉS de que el usuario abre
+   la primera carta y pulsa "Volver".
+*/
+
 let cartaYaFueAbierta =
     localStorage.getItem(
         "cartaYaFueAbierta"
     ) === "true";
+
+
+
+/* =====================================
+   DETECTAR APP
+===================================== */
+
+function estaEnLaApp() {
+
+    const standalone =
+        window.matchMedia(
+            "(display-mode: standalone)"
+        ).matches;
+
+
+    const ios =
+        window.navigator.standalone === true;
+
+
+    return standalone || ios;
+}
 
 
 
@@ -155,11 +125,12 @@ let eventoInstalacion = null;
 
 window.addEventListener(
     "beforeinstallprompt",
-    (evento) => {
+    evento => {
 
         evento.preventDefault();
 
         eventoInstalacion = evento;
+
 
         if (botonInstalar) {
 
@@ -187,8 +158,7 @@ if (botonInstalar) {
 
 
             const resultado =
-                await eventoInstalacion
-                    .userChoice;
+                await eventoInstalacion.userChoice;
 
 
             if (
@@ -212,27 +182,6 @@ if (botonInstalar) {
 
 
 /* =====================================
-   DETECTAR APP
-===================================== */
-
-function estaEnLaApp() {
-
-    const standalone =
-        window.matchMedia(
-            "(display-mode: standalone)"
-        ).matches;
-
-
-    const ios =
-        window.navigator.standalone === true;
-
-
-    return standalone || ios;
-}
-
-
-
-/* =====================================
    CONTADOR
 ===================================== */
 
@@ -251,9 +200,7 @@ function actualizarContador(fecha) {
 
 
     if (diferencia < 0) {
-
         diferencia = 0;
-
     }
 
 
@@ -288,33 +235,29 @@ function actualizarContador(fecha) {
 
 
     dias.textContent =
-        String(
-            diasRestantes
-        ).padStart(2, "0");
+        String(diasRestantes)
+            .padStart(2, "0");
 
 
     horas.textContent =
-        String(
-            horasRestantes
-        ).padStart(2, "0");
+        String(horasRestantes)
+            .padStart(2, "0");
 
 
     minutos.textContent =
-        String(
-            minutosRestantes
-        ).padStart(2, "0");
+        String(minutosRestantes)
+            .padStart(2, "0");
 
 
     segundos.textContent =
-        String(
-            segundosRestantes
-        ).padStart(2, "0");
+        String(segundosRestantes)
+            .padStart(2, "0");
 }
 
 
 
 /* =====================================
-   ESTADO DE LA PÁGINA
+   ESTADO PRINCIPAL
 ===================================== */
 
 function comprobarEstado() {
@@ -323,104 +266,101 @@ function comprobarEstado() {
         Date.now();
 
 
-    /*
-       Si ya abrió la primera carta,
-       mostramos el segundo contador.
-    */
-
-    if (cartaYaFueAbierta) {
-
-        const siguiente =
-            new Date(
-                FECHA_SIGUIENTE
-            ).getTime();
-
-
-        if (ahora < siguiente) {
-
-            zonaSobre.style.display =
-                "none";
-
-
-            contador.classList.remove(
-                "oculto"
-            );
-
-
-            actualizarContador(
-                FECHA_SIGUIENTE
-            );
-
-
-            return;
-        }
-
-
-        /*
-           Cuando llega la segunda fecha,
-           vuelve a aparecer el sobre.
-        */
-
-        zonaSobre.style.display =
-            "flex";
-
-
-        contador.classList.add(
-            "oculto"
-        );
-
-
-        cartaYaFueAbierta =
-            false;
-
-
-        localStorage.removeItem(
-            "cartaYaFueAbierta"
-        );
-
-
-        return;
-    }
-
-
-    /*
-       Primera fecha.
-    */
-
     const apertura =
         new Date(
             FECHA_APERTURA
         ).getTime();
 
 
-    if (ahora < apertura) {
-
-        zonaSobre.style.display =
-            "none";
-
-
-        contador.classList.remove(
-            "oculto"
-        );
+    const siguiente =
+        new Date(
+            FECHA_SIGUIENTE
+        ).getTime();
 
 
-        actualizarContador(
-            FECHA_APERTURA
-        );
 
-    }
+    /*
+       PRIMERA CARTA TODAVÍA NO ABIERTA
+    */
 
-    else {
+    if (!cartaYaFueAbierta) {
+
+        /*
+           Antes de la fecha:
+           PRIMER TEMPORIZADOR
+        */
+
+        if (ahora < apertura) {
+
+            zonaSobre.style.display =
+                "none";
+
+            contador.classList.remove(
+                "oculto"
+            );
+
+            actualizarContador(
+                FECHA_APERTURA
+            );
+
+            return;
+        }
+
+
+        /*
+           Ya llegó la fecha:
+           SOBRE
+        */
 
         zonaSobre.style.display =
             "flex";
-
 
         contador.classList.add(
             "oculto"
         );
 
+        return;
     }
+
+
+
+    /*
+       PRIMERA CARTA YA FUE ABIERTA
+    */
+
+    if (ahora < siguiente) {
+
+        /*
+           SEGUNDO TEMPORIZADOR
+        */
+
+        zonaSobre.style.display =
+            "none";
+
+        contador.classList.remove(
+            "oculto"
+        );
+
+        actualizarContador(
+            FECHA_SIGUIENTE
+        );
+
+        return;
+    }
+
+
+
+    /*
+       YA LLEGÓ LA SIGUIENTE FECHA
+       → SOBRE OTRA VEZ
+    */
+
+    zonaSobre.style.display =
+        "flex";
+
+    contador.classList.add(
+        "oculto"
+    );
 
 }
 
@@ -435,6 +375,29 @@ function comprobarCarta() {
     if (!imagenCarta) {
         return;
     }
+
+
+    imagenCarta.style.display =
+        "none";
+
+
+    if (mensajeCartaError) {
+
+        mensajeCartaError.style.display =
+            "none";
+
+    }
+
+
+    /*
+       Se agrega una marca de tiempo
+       para evitar que el navegador
+       use una versión vieja.
+    */
+
+    const rutaCarta =
+        "carta.png?v=" +
+        Date.now();
 
 
     imagenCarta.onload =
@@ -471,14 +434,8 @@ function comprobarCarta() {
         };
 
 
-    /*
-       Evita que el navegador conserve
-       una versión vieja de la carta.
-    */
-
     imagenCarta.src =
-        "carta.png?v=" +
-        Date.now();
+        rutaCarta;
 
 }
 
@@ -545,6 +502,12 @@ volver.addEventListener(
         cartaAbierta = false;
 
 
+        /*
+           AQUÍ es cuando realmente
+           marcamos que la primera carta
+           ya fue abierta.
+        */
+
         cartaYaFueAbierta =
             true;
 
@@ -563,17 +526,81 @@ volver.addEventListener(
 
 
 /* =====================================
-   INICIO REAL
+   CARGA 0% → 100%
 ===================================== */
 
-function iniciarApp() {
+function iniciarCarga() {
+
+    return new Promise(
+        resolve => {
+
+            let progreso = 0;
+
+
+            const intervalo =
+                setInterval(
+                    function() {
+
+                        progreso += 1;
+
+
+                        if (progreso > 100) {
+
+                            progreso = 100;
+
+                        }
+
+
+                        progresoCarga.style.width =
+                            progreso + "%";
+
+
+                        porcentajeCarga.textContent =
+                            progreso + "%";
+
+
+                        if (progreso >= 100) {
+
+                            clearInterval(
+                                intervalo
+                            );
+
+
+                            /*
+                               Pequeña pausa para
+                               que el 100% realmente
+                               se vea.
+                            */
+
+                            setTimeout(
+                                resolve,
+                                700
+                            );
+
+                        }
+
+                    },
+                    25
+                );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================
+   MOSTRAR PANTALLA CORRECTA
+===================================== */
+
+function mostrarPantallaCorrecta() {
+
+    pantallaCarga.style.display =
+        "none";
+
 
     if (estaEnLaApp()) {
-
-        /*
-           Todo permanece oculto
-           mientras se prepara la app.
-        */
 
         pantallaNavegador.classList.add(
             "oculto"
@@ -612,78 +639,10 @@ function iniciarApp() {
 
     }
 
-}
 
-
-
-/* =====================================
-   CARGA 0% → 100%
-===================================== */
-
-function iniciarCarga() {
-
-    let progreso = 0;
-
-
-    const intervalo =
-        setInterval(
-            function() {
-
-                progreso += 2;
-
-
-                if (progreso > 100) {
-                    progreso = 100;
-                }
-
-
-                if (barraProgreso) {
-
-                    barraProgreso.style.width =
-                        progreso + "%";
-
-                }
-
-
-                if (porcentajeCarga) {
-
-                    porcentajeCarga.textContent =
-                        progreso + "%";
-
-                }
-
-
-                if (progreso >= 100) {
-
-                    clearInterval(
-                        intervalo
-                    );
-
-
-                    setTimeout(
-                        function() {
-
-                            iniciarApp();
-
-
-                            document.body.classList.remove(
-                                "cargando"
-                            );
-
-
-                            pantallaCarga.classList.add(
-                                "oculto"
-                            );
-
-                        },
-                        300
-                    );
-
-                }
-
-            },
-            20
-        );
+    document.body.classList.remove(
+        "cargando"
+    );
 
 }
 
@@ -693,7 +652,27 @@ function iniciarCarga() {
    INICIAR
 ===================================== */
 
-iniciarCarga();
+async function iniciar() {
+
+    /*
+       La carga SIEMPRE ocurre primero.
+    */
+
+    await iniciarCarga();
+
+
+    /*
+       Después de llegar al 100%,
+       recién aquí se decide qué
+       pantalla corresponde.
+    */
+
+    mostrarPantallaCorrecta();
+
+}
+
+
+iniciar();
 
 
 
@@ -729,9 +708,7 @@ if (
         function() {
 
             navigator.serviceWorker
-                .register(
-                    "sw.js"
-                )
+                .register("sw.js")
                 .then(
                     registro => {
 

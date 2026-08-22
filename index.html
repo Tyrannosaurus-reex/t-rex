@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -15,58 +14,47 @@
         content="#e9aabd"
     >
 
-    <link
-        rel="manifest"
-        href="manifest.json"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
 
     <title>t-rex</title>
-
 </head>
-
 
 <body class="cargando">
 
-
     <!-- =========================
-         CARGANDO
+         PANTALLA DE CARGA
     ========================== -->
 
     <div id="pantallaCarga">
 
+        <div class="carga-nubes">
+            <div class="nube-carga nube-carga-1"></div>
+            <div class="nube-carga nube-carga-2"></div>
+            <div class="nube-carga nube-carga-3"></div>
+        </div>
+
         <div class="carga-contenido">
 
-            <div class="ruedita"></div>
+            <div class="ruedita">
+                <div class="rueda"></div>
+            </div>
 
             <div class="texto-cargando">
                 cargando...
             </div>
 
             <div class="barra-carga">
-
-                <div
-                    id="barraProgreso"
-                    class="barra-progreso"
-                ></div>
-
+                <div id="progresoCarga"></div>
             </div>
 
-            <div
-                id="porcentajeCarga"
-                class="porcentaje-carga"
-            >
+            <div id="porcentajeCarga">
                 0%
             </div>
 
         </div>
 
     </div>
-
 
 
     <!-- =========================
@@ -79,10 +67,6 @@
         <div class="nube-navegador nube-nav-2"></div>
         <div class="nube-navegador nube-nav-3"></div>
         <div class="nube-navegador nube-nav-4"></div>
-
-        <div class="brillito-nav bnav1">✦</div>
-        <div class="brillito-nav bnav2">✧</div>
-        <div class="brillito-nav bnav3">✦</div>
 
         <div class="mensajeNavegador">
 
@@ -97,7 +81,6 @@
         </div>
 
     </div>
-
 
 
     <!-- =========================
@@ -122,10 +105,7 @@
 
         <div id="zonaSobre">
 
-            <div
-                class="sobre"
-                id="sobre"
-            >
+            <div class="sobre" id="sobre">
 
                 <div class="sombra"></div>
 
@@ -147,7 +127,6 @@
             </div>
 
         </div>
-
 
 
         <!-- =========================
@@ -199,15 +178,11 @@
     </div>
 
 
-
     <!-- =========================
          PANTALLA DE LA CARTA
     ========================== -->
 
-    <div
-        id="pantallaCarta"
-        class="oculto"
-    >
+    <div id="pantallaCarta" class="oculto">
 
         <div class="decoracionCarta">
 
@@ -220,11 +195,9 @@
 
         </div>
 
-
         <div class="luz luz1"></div>
         <div class="luz luz2"></div>
         <div class="luz luz3"></div>
-
 
         <div class="carta-marco">
 
@@ -247,13 +220,11 @@
 
         </div>
 
-
         <button id="volver">
             Volver
         </button>
 
     </div>
-
 
 
     <script src="script.js"></script>

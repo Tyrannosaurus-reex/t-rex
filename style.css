@@ -1367,3 +1367,266 @@ body.cargando #pantallaCarta {
     }
 
 }
+
+/* =====================================
+   PANTALLA DE CARGA
+===================================== */
+
+#pantallaCarga {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #efb0c2,
+            #f5bdcd,
+            #e9a8bc
+        );
+
+    z-index: 9999;
+}
+
+
+.carga-contenido {
+
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: min(310px, 82vw);
+
+    padding: 30px 25px;
+
+    border-radius: 28px;
+
+    background:
+        rgba(255,255,255,0.25);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.45);
+
+    box-shadow:
+        0 15px 40px
+        rgba(120,60,80,0.13);
+
+    backdrop-filter: blur(8px);
+}
+
+
+.ruedita {
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+
+.rueda {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border:
+        4px solid
+        rgba(255,255,255,0.45);
+
+    border-top-color: white;
+
+    animation:
+        girarRueda
+        0.9s linear infinite;
+}
+
+
+.texto-cargando {
+
+    color: white;
+
+    font-size: 16px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 15px;
+}
+
+
+.barra-carga {
+
+    width: 100%;
+    height: 9px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,0.35);
+}
+
+
+#progresoCarga {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: white;
+
+    transition:
+        width 0.08s linear;
+}
+
+
+#porcentajeCarga {
+
+    margin-top: 9px;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* NUBES DE LA CARGA */
+
+.carga-nubes {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+.nube-carga {
+
+    position: absolute;
+
+    width: 150px;
+    height: 45px;
+
+    background: #fffafa;
+
+    opacity: 0.68;
+
+    border-radius: 50%;
+
+    filter: blur(0.4px);
+}
+
+
+.nube-carga::before,
+.nube-carga::after {
+
+    content: "";
+
+    position: absolute;
+
+    background: #fffafa;
+
+    border-radius: 50%;
+}
+
+
+.nube-carga::before {
+
+    width: 70px;
+    height: 58px;
+
+    left: 20px;
+    bottom: 10px;
+}
+
+
+.nube-carga::after {
+
+    width: 58px;
+    height: 48px;
+
+    right: 22px;
+    bottom: 8px;
+}
+
+
+.nube-carga-1 {
+
+    left: -45px;
+    top: 15%;
+
+    transform: scale(0.9);
+}
+
+
+.nube-carga-2 {
+
+    right: -50px;
+    top: 30%;
+
+    transform: scale(0.65);
+}
+
+
+.nube-carga-3 {
+
+    left: 20%;
+    bottom: 8%;
+
+    transform: scale(0.45);
+}
+
+
+@keyframes girarRueda {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Durante la carga no se muestra nada detrás */
+
+body.cargando #pantallaNavegador,
+body.cargando #pantallaSobre,
+body.cargando #pantallaCarta {
+
+    visibility: hidden;
+}
