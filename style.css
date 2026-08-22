@@ -1630,3 +1630,91 @@ body.cargando #pantallaCarta {
 
     visibility: hidden;
 }
+
+/* =====================================
+   REPRODUCTOR / CD
+===================================== */
+
+.reproductor-musica {
+
+    position: fixed;
+
+    top: 18px;
+    left: 18px;
+
+    width: 58px;
+    height: 58px;
+
+    z-index: 200;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(
+            0 6px 10px
+            rgba(100, 50, 70, 0.18)
+        );
+}
+
+
+.reproductor-musica.oculto {
+    display: none !important;
+}
+
+
+#imagenCD {
+
+    width: 58px;
+    height: 58px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    animation:
+        girarCD
+        4s linear infinite;
+}
+
+
+@keyframes girarCD {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =====================================
+   AJUSTE DEL CD EN CELULAR
+===================================== */
+
+@media (max-width: 600px) {
+
+    .reproductor-musica {
+
+        top: 15px;
+        left: 15px;
+
+        width: 58px;
+        height: 58px;
+    }
+
+
+    #imagenCD {
+
+        width: 58px;
+        height: 58px;
+    }
+
+}

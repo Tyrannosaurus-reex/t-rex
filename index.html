@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -14,13 +15,23 @@
         content="#e9aabd"
     >
 
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
     <title>t-rex</title>
+
 </head>
 
+
 <body class="cargando">
+
 
     <!-- =========================
          PANTALLA DE CARGA
@@ -29,10 +40,13 @@
     <div id="pantallaCarga">
 
         <div class="carga-nubes">
+
             <div class="nube-carga nube-carga-1"></div>
             <div class="nube-carga nube-carga-2"></div>
             <div class="nube-carga nube-carga-3"></div>
+
         </div>
+
 
         <div class="carga-contenido">
 
@@ -45,7 +59,9 @@
             </div>
 
             <div class="barra-carga">
+
                 <div id="progresoCarga"></div>
+
             </div>
 
             <div id="porcentajeCarga">
@@ -55,6 +71,7 @@
         </div>
 
     </div>
+
 
 
     <!-- =========================
@@ -68,11 +85,13 @@
         <div class="nube-navegador nube-nav-3"></div>
         <div class="nube-navegador nube-nav-4"></div>
 
+
         <div class="mensajeNavegador">
 
             <div class="texto-ola">
                 ola :3
             </div>
+
 
             <button id="botonInstalar">
                 Descargar
@@ -83,17 +102,56 @@
     </div>
 
 
+
     <!-- =========================
          PANTALLA DEL SOBRE
     ========================== -->
 
     <div id="pantallaSobre">
 
+        <!-- CD DE LA APP -->
+
+        <div
+            id="reproductorMusica"
+            class="reproductor-musica oculto"
+        >
+
+            <img
+                id="imagenCD"
+                src="cd1.png"
+                alt="CD"
+            >
+
+        </div>
+
+
+        <!-- MÚSICA 1 -->
+
+        <audio
+            id="musica1"
+            src="musica1.mp3"
+            loop
+            preload="auto"
+        ></audio>
+
+
+        <!-- MÚSICA 2 -->
+
+        <audio
+            id="musica2"
+            src="musica2.mp3"
+            loop
+            preload="auto"
+        ></audio>
+
+
+
         <div class="nube nube1"></div>
         <div class="nube nube2"></div>
         <div class="nube nube3"></div>
         <div class="nube nube4"></div>
         <div class="nube nube5"></div>
+
 
         <div class="brillo brillo1">✦</div>
         <div class="brillo brillo2">✧</div>
@@ -103,14 +161,20 @@
         <div class="brillo brillo6">✧</div>
 
 
+
         <div id="zonaSobre">
 
-            <div class="sobre" id="sobre">
+            <div
+                class="sobre"
+                id="sobre"
+            >
 
                 <div class="sombra"></div>
 
                 <div class="papel">
+
                     <div class="borde-papel"></div>
+
                 </div>
 
                 <div class="sobre-base"></div>
@@ -129,6 +193,7 @@
         </div>
 
 
+
         <!-- =========================
              CONTADOR
         ========================== -->
@@ -141,32 +206,73 @@
                     ✦
                 </div>
 
+
                 <div id="tiempo">
 
                     <div class="numero">
-                        <span id="dias">00</span>
-                        <small>días</small>
+
+                        <span id="dias">
+                            00
+                        </span>
+
+                        <small>
+                            días
+                        </small>
+
                     </div>
 
-                    <div class="separador">:</div>
 
-                    <div class="numero">
-                        <span id="horas">00</span>
-                        <small>horas</small>
+                    <div class="separador">
+                        :
                     </div>
 
-                    <div class="separador">:</div>
 
                     <div class="numero">
-                        <span id="minutos">00</span>
-                        <small>min</small>
+
+                        <span id="horas">
+                            00
+                        </span>
+
+                        <small>
+                            horas
+                        </small>
+
                     </div>
 
-                    <div class="separador">:</div>
+
+                    <div class="separador">
+                        :
+                    </div>
+
 
                     <div class="numero">
-                        <span id="segundos">00</span>
-                        <small>seg</small>
+
+                        <span id="minutos">
+                            00
+                        </span>
+
+                        <small>
+                            min
+                        </small>
+
+                    </div>
+
+
+                    <div class="separador">
+                        :
+                    </div>
+
+
+                    <div class="numero">
+
+                        <span id="segundos">
+                            00
+                        </span>
+
+                        <small>
+                            seg
+                        </small>
+
                     </div>
 
                 </div>
@@ -178,26 +284,49 @@
     </div>
 
 
+
     <!-- =========================
          PANTALLA DE LA CARTA
     ========================== -->
 
-    <div id="pantallaCarta" class="oculto">
+    <div
+        id="pantallaCarta"
+        class="oculto"
+    >
 
         <div class="decoracionCarta">
 
-            <span class="estrella e1">✦</span>
-            <span class="estrella e2">✧</span>
-            <span class="estrella e3">✦</span>
-            <span class="estrella e4">✧</span>
-            <span class="estrella e5">✦</span>
-            <span class="estrella e6">✧</span>
+            <span class="estrella e1">
+                ✦
+            </span>
+
+            <span class="estrella e2">
+                ✧
+            </span>
+
+            <span class="estrella e3">
+                ✦
+            </span>
+
+            <span class="estrella e4">
+                ✧
+            </span>
+
+            <span class="estrella e5">
+                ✦
+            </span>
+
+            <span class="estrella e6">
+                ✧
+            </span>
 
         </div>
+
 
         <div class="luz luz1"></div>
         <div class="luz luz2"></div>
         <div class="luz luz3"></div>
+
 
         <div class="carta-marco">
 
@@ -208,6 +337,7 @@
                     src="carta.png"
                     alt="Carta"
                 >
+
 
                 <div
                     id="mensajeCartaError"
@@ -220,11 +350,13 @@
 
         </div>
 
+
         <button id="volver">
             Volver
         </button>
 
     </div>
+
 
 
     <script src="script.js"></script>

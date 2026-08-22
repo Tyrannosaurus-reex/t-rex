@@ -3,11 +3,11 @@
 ===================================== */
 
 const FECHA_APERTURA =
-    "2026-08-22T11:55:00-06:00";
+    "2026-08-22T14:20:00-06:00";
 
 
 const FECHA_SIGUIENTE =
-    "2026-09-15T10:00:00-06:00";
+    "2026-09-17T10:00:00-06:00";
 
 
 
@@ -26,50 +26,115 @@ const porcentajeCarga =
 
 
 const pantallaNavegador =
-    document.getElementById("pantallaNavegador");
+    document.getElementById(
+        "pantallaNavegador"
+    );
+
 
 const pantallaSobre =
-    document.getElementById("pantallaSobre");
+    document.getElementById(
+        "pantallaSobre"
+    );
+
 
 const pantallaCarta =
-    document.getElementById("pantallaCarta");
+    document.getElementById(
+        "pantallaCarta"
+    );
 
 
 const sobre =
-    document.getElementById("sobre");
+    document.getElementById(
+        "sobre"
+    );
+
 
 const zonaSobre =
-    document.getElementById("zonaSobre");
+    document.getElementById(
+        "zonaSobre"
+    );
+
 
 const contador =
-    document.getElementById("contador");
+    document.getElementById(
+        "contador"
+    );
+
 
 const volver =
-    document.getElementById("volver");
+    document.getElementById(
+        "volver"
+    );
 
 
 const dias =
-    document.getElementById("dias");
+    document.getElementById(
+        "dias"
+    );
+
 
 const horas =
-    document.getElementById("horas");
+    document.getElementById(
+        "horas"
+    );
+
 
 const minutos =
-    document.getElementById("minutos");
+    document.getElementById(
+        "minutos"
+    );
+
 
 const segundos =
-    document.getElementById("segundos");
+    document.getElementById(
+        "segundos"
+    );
 
 
 const botonInstalar =
-    document.getElementById("botonInstalar");
+    document.getElementById(
+        "botonInstalar"
+    );
 
 
 const imagenCarta =
-    document.getElementById("imagenCarta");
+    document.getElementById(
+        "imagenCarta"
+    );
+
 
 const mensajeCartaError =
-    document.getElementById("mensajeCartaError");
+    document.getElementById(
+        "mensajeCartaError"
+    );
+
+
+/* =====================================
+   ELEMENTOS DE MÚSICA
+===================================== */
+
+const musica1 =
+    document.getElementById(
+        "musica1"
+    );
+
+
+const musica2 =
+    document.getElementById(
+        "musica2"
+    );
+
+
+const reproductorMusica =
+    document.getElementById(
+        "reproductorMusica"
+    );
+
+
+const imagenCD =
+    document.getElementById(
+        "imagenCD"
+    );
 
 
 
@@ -80,23 +145,18 @@ const mensajeCartaError =
 let cartaAbierta = false;
 
 
-/*
-   IMPORTANTE:
-
-   Esto solamente cambia a true
-   DESPUÉS de que el usuario abre
-   la primera carta y pulsa "Volver".
-*/
-
 let cartaYaFueAbierta =
     localStorage.getItem(
         "cartaYaFueAbierta"
     ) === "true";
 
 
+let eventoInstalacion = null;
+
+
 
 /* =====================================
-   DETECTAR APP
+   DETECTAR APP INSTALADA
 ===================================== */
 
 function estaEnLaApp() {
@@ -112,6 +172,144 @@ function estaEnLaApp() {
 
 
     return standalone || ios;
+
+}
+
+
+
+/* =====================================
+   MÚSICA
+===================================== */
+
+function detenerMusicas() {
+
+    if (musica1) {
+
+        musica1.pause();
+
+    }
+
+
+    if (musica2) {
+
+        musica2.pause();
+
+    }
+
+}
+
+
+function mostrarCD(numero) {
+
+    if (
+        !imagenCD ||
+        !reproductorMusica
+    ) {
+        return;
+    }
+
+
+    if (numero === 1) {
+
+        imagenCD.src =
+            "cd1.png";
+
+    }
+
+    else {
+
+        imagenCD.src =
+            "cd2.png";
+
+    }
+
+
+    reproductorMusica.classList.remove(
+        "oculto"
+    );
+
+}
+
+
+function reproducirMusica1() {
+
+    if (!estaEnLaApp()) {
+        return;
+    }
+
+
+    if (!musica1) {
+        return;
+    }
+
+
+    if (musica2) {
+
+        musica2.pause();
+        musica2.currentTime = 0;
+
+    }
+
+
+    musica1.volume = 0.75;
+
+
+    musica1.play()
+        .catch(
+            error => {
+
+                console.log(
+                    "La música necesita una interacción del usuario:",
+                    error
+                );
+
+            }
+        );
+
+
+    mostrarCD(1);
+
+}
+
+
+function reproducirMusica2() {
+
+    if (!estaEnLaApp()) {
+        return;
+    }
+
+
+    if (!musica2) {
+        return;
+    }
+
+
+    if (musica1) {
+
+        musica1.pause();
+        musica1.currentTime = 0;
+
+    }
+
+
+    musica2.volume = 0.75;
+
+
+    musica2.play()
+        .catch(
+            error => {
+
+                console.log(
+                    "La música necesita una interacción del usuario:",
+                    error
+                );
+
+            }
+        );
+
+
+    mostrarCD(2);
+
 }
 
 
@@ -120,16 +318,14 @@ function estaEnLaApp() {
    INSTALACIÓN
 ===================================== */
 
-let eventoInstalacion = null;
-
-
 window.addEventListener(
     "beforeinstallprompt",
     evento => {
 
         evento.preventDefault();
 
-        eventoInstalacion = evento;
+        eventoInstalacion =
+            evento;
 
 
         if (botonInstalar) {
@@ -172,7 +368,8 @@ if (botonInstalar) {
             }
 
 
-            eventoInstalacion = null;
+            eventoInstalacion =
+                null;
 
         }
     );
@@ -200,7 +397,9 @@ function actualizarContador(fecha) {
 
 
     if (diferencia < 0) {
+
         diferencia = 0;
+
     }
 
 
@@ -235,23 +434,40 @@ function actualizarContador(fecha) {
 
 
     dias.textContent =
-        String(diasRestantes)
-            .padStart(2, "0");
+        String(
+            diasRestantes
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     horas.textContent =
-        String(horasRestantes)
-            .padStart(2, "0");
+        String(
+            horasRestantes
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     minutos.textContent =
-        String(minutosRestantes)
-            .padStart(2, "0");
+        String(
+            minutosRestantes
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     segundos.textContent =
-        String(segundosRestantes)
-            .padStart(2, "0");
+        String(
+            segundosRestantes
+        ).padStart(
+            2,
+            "0"
+        );
+
 }
 
 
@@ -280,10 +496,11 @@ function comprobarEstado() {
 
 
     /*
-       PRIMERA CARTA TODAVÍA NO ABIERTA
+       PRIMERA CARTA
     */
 
     if (!cartaYaFueAbierta) {
+
 
         /*
            Antes de la fecha:
@@ -295,40 +512,63 @@ function comprobarEstado() {
             zonaSobre.style.display =
                 "none";
 
+
             contador.classList.remove(
                 "oculto"
             );
+
 
             actualizarContador(
                 FECHA_APERTURA
             );
 
+
+            if (estaEnLaApp()) {
+
+                reproducirMusica1();
+
+            }
+
+
             return;
+
         }
 
 
+
         /*
-           Ya llegó la fecha:
+           Llegó la fecha:
            SOBRE
         */
 
         zonaSobre.style.display =
             "flex";
 
+
         contador.classList.add(
             "oculto"
         );
 
+
+        if (estaEnLaApp()) {
+
+            reproducirMusica1();
+
+        }
+
+
         return;
+
     }
 
 
 
     /*
-       PRIMERA CARTA YA FUE ABIERTA
+       PRIMERA CARTA YA ABIERTA
     */
 
     if (ahora < siguiente) {
+
 
         /*
            SEGUNDO TEMPORIZADOR
@@ -337,30 +577,48 @@ function comprobarEstado() {
         zonaSobre.style.display =
             "none";
 
+
         contador.classList.remove(
             "oculto"
         );
+
 
         actualizarContador(
             FECHA_SIGUIENTE
         );
 
+
+        if (estaEnLaApp()) {
+
+            reproducirMusica1();
+
+        }
+
+
         return;
+
     }
 
 
 
     /*
-       YA LLEGÓ LA SIGUIENTE FECHA
-       → SOBRE OTRA VEZ
+       SIGUIENTE CARTA
     */
 
     zonaSobre.style.display =
         "flex";
 
+
     contador.classList.add(
         "oculto"
     );
+
+
+    if (estaEnLaApp()) {
+
+        reproducirMusica1();
+
+    }
 
 }
 
@@ -388,12 +646,6 @@ function comprobarCarta() {
 
     }
 
-
-    /*
-       Se agrega una marca de tiempo
-       para evitar que el navegador
-       use una versión vieja.
-    */
 
     const rutaCarta =
         "carta.png?v=" +
@@ -465,8 +717,16 @@ sobre.addEventListener(
         );
 
 
+        /*
+           Cambiar a la música 2
+           cuando se abre la carta.
+        */
+
         setTimeout(
             function() {
+
+                reproducirMusica2();
+
 
                 pantallaCarta.classList.remove(
                     "oculto"
@@ -502,12 +762,6 @@ volver.addEventListener(
         cartaAbierta = false;
 
 
-        /*
-           AQUÍ es cuando realmente
-           marcamos que la primera carta
-           ya fue abierta.
-        */
-
         cartaYaFueAbierta =
             true;
 
@@ -518,6 +772,14 @@ volver.addEventListener(
         );
 
 
+        /*
+           Regresa la música del
+           temporizador.
+        */
+
+        reproducirMusica1();
+
+
         comprobarEstado();
 
     }
@@ -526,7 +788,7 @@ volver.addEventListener(
 
 
 /* =====================================
-   CARGA 0% → 100%
+   CARGA
 ===================================== */
 
 function iniciarCarga() {
@@ -544,33 +806,44 @@ function iniciarCarga() {
                         progreso += 1;
 
 
-                        if (progreso > 100) {
+                        if (
+                            progreso > 100
+                        ) {
 
-                            progreso = 100;
+                            progreso =
+                                100;
 
                         }
 
 
-                        progresoCarga.style.width =
-                            progreso + "%";
+                        if (
+                            progresoCarga
+                        ) {
+
+                            progresoCarga.style.width =
+                                progreso + "%";
+
+                        }
 
 
-                        porcentajeCarga.textContent =
-                            progreso + "%";
+                        if (
+                            porcentajeCarga
+                        ) {
+
+                            porcentajeCarga.textContent =
+                                progreso + "%";
+
+                        }
 
 
-                        if (progreso >= 100) {
+                        if (
+                            progreso >= 100
+                        ) {
 
                             clearInterval(
                                 intervalo
                             );
 
-
-                            /*
-                               Pequeña pausa para
-                               que el 100% realmente
-                               se vea.
-                            */
 
                             setTimeout(
                                 resolve,
@@ -600,28 +873,17 @@ function mostrarPantallaCorrecta() {
         "none";
 
 
-    if (estaEnLaApp()) {
+    /*
+       SI NO ESTÁ INSTALADA:
 
-        pantallaNavegador.classList.add(
-            "oculto"
-        );
+       solo mostramos "ola".
 
+       NO música.
+       NO CD.
+       NO temporizadores.
+    */
 
-        pantallaSobre.classList.remove(
-            "oculto"
-        );
-
-
-        pantallaCarta.classList.add(
-            "oculto"
-        );
-
-
-        comprobarEstado();
-
-    }
-
-    else {
+    if (!estaEnLaApp()) {
 
         pantallaNavegador.classList.remove(
             "oculto"
@@ -637,7 +899,56 @@ function mostrarPantallaCorrecta() {
             "oculto"
         );
 
+
+        reproductorMusica.classList.add(
+            "oculto"
+        );
+
+
+        detenerMusicas();
+
+
+        document.body.classList.remove(
+            "cargando"
+        );
+
+
+        return;
+
     }
+
+
+
+    /*
+       SI ESTÁ INSTALADA:
+
+       mostramos la aplicación.
+    */
+
+    pantallaNavegador.classList.add(
+        "oculto"
+    );
+
+
+    pantallaSobre.classList.remove(
+        "oculto"
+    );
+
+
+    pantallaCarta.classList.add(
+        "oculto"
+    );
+
+
+    comprobarEstado();
+
+
+    /*
+       Música solamente dentro
+       de la aplicación.
+    */
+
+    reproducirMusica1();
 
 
     document.body.classList.remove(
@@ -654,18 +965,8 @@ function mostrarPantallaCorrecta() {
 
 async function iniciar() {
 
-    /*
-       La carga SIEMPRE ocurre primero.
-    */
-
     await iniciarCarga();
 
-
-    /*
-       Después de llegar al 100%,
-       recién aquí se decide qué
-       pantalla corresponde.
-    */
 
     mostrarPantallaCorrecta();
 
@@ -708,7 +1009,9 @@ if (
         function() {
 
             navigator.serviceWorker
-                .register("sw.js")
+                .register(
+                    "sw.js"
+                )
                 .then(
                     registro => {
 
