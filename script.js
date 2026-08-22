@@ -4,10 +4,9 @@
 
 
 /*
-   AQUÍ CAMBIAS LA FECHA
-   EN LA QUE SE ABRIRÁ LA CARTA.
+   FECHA PARA ABRIR LA PRIMERA CARTA
 
-   Formato:
+   FORMATO:
 
    AÑO-MES-DÍA HORA:MINUTOS
 
@@ -15,8 +14,6 @@
 
    25 de agosto de 2026
    a las 10:00 AM
-
-   sería:
 
    2026-08-25T10:00:00
 */
@@ -27,16 +24,15 @@ const FECHA_APERTURA =
 
 
 /*
-   AQUÍ PONES CUÁNDO APARECERÁ
-   EL SIGUIENTE CONTADOR DESPUÉS
-   DE QUE ELLA ABRA LA CARTA.
-
-   Puedes cambiarlo cuando quieras.
+   FECHA PARA QUE APAREZCA
+   EL SIGUIENTE CONTADOR.
 
    Ejemplo:
 
    15 de septiembre de 2026
    a las 10:00 AM
+
+   2026-09-15T10:00:00
 */
 
 const FECHA_SIGUIENTE =
@@ -60,10 +56,12 @@ function estaEnLaApp() {
         window.navigator.standalone === true;
 
 
-    return
+    return (
         modoStandalone ||
-        modoIOS;
+        modoIOS
+    );
 }
+
 
 
 /* =====================================
@@ -138,7 +136,7 @@ const segundos =
 
 
 /* =====================================
-   ESTADO
+   ESTADO DE LA CARTA
 ===================================== */
 
 let cartaAbierta = false;
@@ -190,15 +188,15 @@ function actualizarContador(fecha) {
 
     const horasRestantes =
         Math.floor(
-            (totalSegundos % 86400)
-            / 3600
+            (totalSegundos % 86400) /
+            3600
         );
 
 
     const minutosRestantes =
         Math.floor(
-            (totalSegundos % 3600)
-            / 60
+            (totalSegundos % 3600) /
+            60
         );
 
 
@@ -243,8 +241,8 @@ function comprobarEstado() {
 
 
 
-    /* ================================
-       DESPUÉS DE ABRIR LA CARTA
+    /* =================================
+       SI YA ABRIÓ LA CARTA
     ================================= */
 
     if (cartaYaFueAbierta) {
@@ -276,6 +274,11 @@ function comprobarEstado() {
         }
 
 
+        /*
+           Cuando llega la fecha
+           vuelve a aparecer el sobre.
+        */
+
         zonaSobre.style.display =
             "flex";
 
@@ -295,12 +298,13 @@ function comprobarEstado() {
 
 
         return;
+
     }
 
 
 
-    /* ================================
-       PRIMERA CARTA
+    /* =================================
+       PRIMER CONTADOR
     ================================= */
 
     const apertura =
@@ -337,6 +341,7 @@ function comprobarEstado() {
         );
 
     }
+
 }
 
 
@@ -366,11 +371,9 @@ sobre.addEventListener(
         setTimeout(
             function() {
 
-
                 pantallaCarta.classList.remove(
                     "oculto"
                 );
-
 
             },
             900
@@ -428,16 +431,10 @@ function iniciar() {
 
 
     /*
-       PRIMERO decidimos qué pantalla
-       debe existir.
-
-       Mientras tanto el body está
-       invisible gracias a .cargando.
+       SI ESTÁ INSTALADA COMO APP
     */
 
-
     if (estaEnLaApp()) {
-
 
         pantallaNavegador.classList.add(
             "oculto"
@@ -456,11 +453,14 @@ function iniciar() {
 
         comprobarEstado();
 
-
     }
 
-    else {
 
+    /*
+       SI LA ABRE DESDE GOOGLE/CHROME
+    */
+
+    else {
 
         pantallaNavegador.classList.remove(
             "oculto"
@@ -479,11 +479,9 @@ function iniciar() {
     }
 
 
-
     /*
-       AHORA sí mostramos la página.
-
-       Esto evita el parpadeo.
+       QUITAMOS LA PANTALLA DE CARGA
+       SOLO CUANDO YA SABEMOS QUÉ MOSTRAR.
     */
 
     document.body.classList.remove(
@@ -503,19 +501,17 @@ iniciar();
 
 
 /* =====================================
-   ACTUALIZAR CADA SEGUNDO
+   ACTUALIZAR CONTADOR
 ===================================== */
 
 setInterval(
     function() {
-
 
         if (estaEnLaApp()) {
 
             comprobarEstado();
 
         }
-
 
     },
     1000
@@ -528,20 +524,43 @@ setInterval(
 ===================================== */
 
 if (
-    "serviceWorker"
-    in navigator
+    "serviceWorker" in navigator
 ) {
-
 
     window.addEventListener(
         "load",
         function() {
 
+            navigator.serviceWorker
+                .register("sw.js")
+                .then(registro => {
 
-            navigator.serviceWorker.register(
-                "sw.js"
-            );
+                    /*
+                       Comprueba actualizaciones
+                       automáticamente.
+                    */
 
+                    registro.update();
+
+
+                    setInterval(
+                        () => {
+
+                            registro.update();
+
+                        },
+                        60000
+                    );
+
+                })
+                .catch(error => {
+
+                    console.log(
+                        "Error:",
+                        error
+                    );
+
+                });
 
         }
     );

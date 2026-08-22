@@ -1,17 +1,19 @@
 {
     "name": "Cartita",
     "short_name": "Cartita",
-    "start_url": "./",
+    "description": "Una pequeña sorpresa",
+    "start_url": "./index.html",
+    "scope": "./",
     "display": "standalone",
-    "background_color": "#f8c4d2",
-    "theme_color": "#f4b7c7",
     "orientation": "portrait",
-
+    "background_color": "#f5b8c8",
+    "theme_color": "#e9aabd",
     "icons": [
         {
             "src": "icono.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ]
 }
