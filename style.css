@@ -9,9 +9,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
     font-family: Arial, sans-serif;
 }
 
@@ -21,9 +19,10 @@ body {
 }
 
 
-/* ================================
-   CARGANDO
-================================ */
+.oculto {
+    display: none !important;
+}
+
 
 body.cargando #pantallaNavegador,
 body.cargando #pantallaSobre,
@@ -32,125 +31,218 @@ body.cargando #pantallaCarta {
 }
 
 
-/* ================================
-   OCULTO
-================================ */
-
-.oculto {
-    display: none !important;
-}
-
-
-/* ================================
-   PANTALLA NAVEGADOR
-================================ */
+/* =================================
+   PANTALLA "OLA"
+================================= */
 
 #pantallaNavegador {
 
     position: fixed;
-
     inset: 0;
 
     width: 100vw;
     height: 100vh;
 
     display: flex;
-
     justify-content: center;
     align-items: center;
 
     overflow: hidden;
 
+    /*
+       SOLO ROSA.
+       Sin el brillo blanco gigante.
+    */
+
     background:
-        radial-gradient(
-            circle at 25% 20%,
-            #fffaff 0%,
-            #ffeaf1 30%,
-            #f6c5d4 65%,
-            #e8a5b9 100%
+        linear-gradient(
+            145deg,
+            #efb0c2 0%,
+            #f5bdcd 45%,
+            #e9a8bc 100%
         );
 
     z-index: 999;
 }
 
 
-#pantallaNavegador::before {
+/* =================================
+   NUBES DE "OLA"
+================================= */
+
+.nube-navegador,
+.nube {
+
+    position: absolute;
+
+    width: 150px;
+    height: 43px;
+
+    background:
+        #fffafa;
+
+    border-radius:
+        45% 55% 48% 52%;
+
+    opacity: 0.72;
+
+    filter:
+        blur(0.5px);
+
+    box-shadow:
+        0 4px 12px
+        rgba(
+            160,
+            100,
+            120,
+            0.06
+        );
+}
+
+
+/*
+   Estas sombras internas hacen que la nube
+   no parezca simplemente un rectángulo
+   con tres círculos encima.
+*/
+
+.nube-navegador::before,
+.nube::before {
 
     content: "";
 
     position: absolute;
 
-    width: 330px;
-    height: 330px;
+    width: 75px;
+    height: 55px;
 
-    border-radius: 50%;
+    left: 20px;
+    bottom: 10px;
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.35
-        );
+    background: #fffafa;
 
-    filter: blur(45px);
+    border-radius:
+        55% 45% 50% 45%;
 
-    top: -130px;
-    right: -80px;
+    transform:
+        rotate(-4deg);
 }
 
 
-#pantallaNavegador::after {
+.nube-navegador::after,
+.nube::after {
 
     content: "";
 
     position: absolute;
 
-    width: 280px;
-    height: 280px;
+    width: 62px;
+    height: 49px;
 
-    border-radius: 50%;
+    right: 20px;
+    bottom: 8px;
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.25
-        );
+    background: #fffafa;
 
-    filter: blur(45px);
+    border-radius:
+        48% 55% 45% 52%;
 
-    bottom: -130px;
-    left: -80px;
+    transform:
+        rotate(5deg);
 }
 
 
-/* ================================
-   OLA
-================================ */
+/* =================================
+   NUBES DEL NAVEGADOR
+================================= */
+
+.nube-nav-1 {
+    left: -45px;
+    top: 16%;
+    transform: scale(0.9);
+}
+
+
+.nube-nav-2 {
+    right: -55px;
+    top: 30%;
+    transform: scale(0.65);
+}
+
+
+.nube-nav-3 {
+    left: 8%;
+    bottom: 13%;
+    transform: scale(0.55);
+}
+
+
+.nube-nav-4 {
+    right: 5%;
+    bottom: 7%;
+    transform: scale(0.45);
+}
+
+
+/* =================================
+   BRILLITOS DE "OLA"
+================================= */
+
+.brillito-nav {
+
+    position: absolute;
+
+    color: #fff;
+
+    font-size: 20px;
+
+    opacity: 0.7;
+
+    animation:
+        brilloSuave
+        3s ease-in-out infinite;
+}
+
+
+.bnav1 {
+    left: 16%;
+    top: 25%;
+}
+
+
+.bnav2 {
+    right: 17%;
+    top: 18%;
+}
+
+
+.bnav3 {
+    right: 24%;
+    bottom: 22%;
+}
+
+
+/* =================================
+   TEXTO OLA
+================================= */
 
 .mensajeNavegador {
 
     position: relative;
-
     z-index: 5;
 
     padding:
-        24px 36px;
+        20px 32px;
 
-    border-radius: 30px;
+    border-radius: 25px;
 
     background:
         rgba(
             255,
             255,
             255,
-            0.55
+            0.32
         );
-
-    backdrop-filter:
-        blur(15px);
 
     border:
         1px solid
@@ -158,156 +250,41 @@ body.cargando #pantallaCarta {
             255,
             255,
             255,
-            0.85
+            0.5
         );
 
     box-shadow:
-        0 15px 40px
+        0 12px 30px
         rgba(
-            130,
-            65,
-            85,
-            0.15
+            120,
+            60,
+            80,
+            0.12
         );
 
-    color: #a45b70;
+    color:
+        #a25870;
 
-    font-size: 25px;
+    font-size: 24px;
 
     letter-spacing: 1px;
 
     animation:
         aparecer
-        0.8s ease;
+        0.7s ease;
 }
 
 
-/* ================================
-   NUBES DEL NAVEGADOR
-================================ */
-
-.nubecita {
-
-    position: absolute;
-
-    width: 145px;
-    height: 40px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.55
-        );
-
-    border-radius:
-        50% 55% 45% 50%;
-
-    filter: blur(0.4px);
-}
-
-
-.nubecita::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 65px;
-    height: 52px;
-
-    left: 20px;
-    bottom: 10px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.55
-        );
-
-    border-radius:
-        60% 50% 45% 55%;
-}
-
-
-.nubecita::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 55px;
-    height: 45px;
-
-    right: 18px;
-    bottom: 8px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.55
-        );
-
-    border-radius:
-        50% 60% 45% 50%;
-}
-
-
-.nav-nube1 {
-    left: -30px;
-    top: 17%;
-}
-
-
-.nav-nube2 {
-    right: -35px;
-    bottom: 15%;
-
-    transform: scale(0.75);
-}
-
-
-.decoracion-navegador span {
-
-    position: absolute;
-
-    color: white;
-
-    font-size: 24px;
-
-    animation:
-        brillo
-        3s ease-in-out infinite;
-}
-
-
-.decoracion-navegador span:nth-of-type(1) {
-    left: 15%;
-    top: 22%;
-}
-
-
-.decoracion-navegador span:nth-of-type(2) {
-    right: 15%;
-    bottom: 23%;
-}
-
-
-/* ================================
-   PANTALLA SOBRE
-================================ */
+/* =================================
+   PANTALLA PRINCIPAL
+================================= */
 
 #pantallaSobre {
 
+    position: relative;
+
     width: 100vw;
     height: 100vh;
-
-    position: relative;
 
     display: flex;
 
@@ -328,144 +305,9 @@ body.cargando #pantallaCarta {
 }
 
 
-/* ================================
-   NUBES
-================================ */
-
-.nube {
-
-    position: absolute;
-
-    width: 150px;
-    height: 42px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.72
-        );
-
-    border-radius:
-        55% 45% 50% 45%;
-
-    opacity: 0.85;
-
-    z-index: 0;
-
-    filter: blur(0.4px);
-
-    animation:
-        nubeFlotando
-        8s ease-in-out infinite;
-}
-
-
-.nube::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 65px;
-    height: 58px;
-
-    left: 18px;
-    bottom: 12px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.72
-        );
-
-    border-radius:
-        58% 48% 50% 45%;
-
-    transform:
-        rotate(-4deg);
-}
-
-
-.nube::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 58px;
-    height: 52px;
-
-    right: 22px;
-    bottom: 10px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.72
-        );
-
-    border-radius:
-        50% 60% 45% 50%;
-
-    transform:
-        rotate(5deg);
-}
-
-
-.nube span {
-
-    position: absolute;
-
-    display: block;
-
-    width: 48px;
-    height: 43px;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.72
-        );
-
-    border-radius:
-        55% 50% 45% 55%;
-}
-
-
-.nube span:nth-child(1) {
-
-    left: 52px;
-    bottom: 18px;
-}
-
-
-.nube span:nth-child(2) {
-
-    left: 78px;
-    bottom: 10px;
-
-    transform:
-        scale(0.75);
-}
-
-
-.nube span:nth-child(3) {
-
-    left: 15px;
-    bottom: 4px;
-
-    transform:
-        scale(0.55);
-}
-
+/* =================================
+   NUBES PRINCIPALES
+================================= */
 
 .nube1 {
     left: -30px;
@@ -476,7 +318,6 @@ body.cargando #pantallaCarta {
 .nube2 {
     right: -35px;
     top: 25%;
-
     transform: scale(0.72);
 }
 
@@ -484,7 +325,6 @@ body.cargando #pantallaCarta {
 .nube3 {
     left: 4%;
     bottom: 10%;
-
     transform: scale(0.65);
 }
 
@@ -492,7 +332,6 @@ body.cargando #pantallaCarta {
 .nube4 {
     right: 3%;
     bottom: 8%;
-
     transform: scale(0.55);
 }
 
@@ -500,29 +339,13 @@ body.cargando #pantallaCarta {
 .nube5 {
     left: 38%;
     top: 5%;
-
     transform: scale(0.42);
 }
 
 
-@keyframes nubeFlotando {
-
-    0%,
-    100% {
-        margin-left: 0;
-        margin-top: 0;
-    }
-
-    50% {
-        margin-left: 12px;
-        margin-top: -5px;
-    }
-}
-
-
-/* ================================
+/* =================================
    BRILLOS
-================================ */
+================================= */
 
 .brillo {
 
@@ -535,7 +358,7 @@ body.cargando #pantallaCarta {
     z-index: 1;
 
     animation:
-        brillo
+        brilloSuave
         3s ease-in-out infinite;
 }
 
@@ -576,24 +399,24 @@ body.cargando #pantallaCarta {
 }
 
 
-@keyframes brillo {
+@keyframes brilloSuave {
 
     0%,
     100% {
-        opacity: 0.3;
+        opacity: 0.35;
         transform: scale(0.8);
     }
 
     50% {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1.15);
     }
 }
 
 
-/* ================================
+/* =================================
    SOBRE
-================================ */
+================================= */
 
 #zonaSobre {
 
@@ -705,7 +528,6 @@ body.cargando #pantallaCarta {
 .borde-papel {
 
     position: absolute;
-
     inset: 8px;
 
     border:
@@ -858,27 +680,6 @@ body.cargando #pantallaCarta {
 }
 
 
-.sello::before {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 5px;
-
-    border:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.5
-        );
-
-    border-radius: 50%;
-}
-
-
 .sello span {
     position: relative;
 }
@@ -932,9 +733,9 @@ body.cargando #pantallaCarta {
 }
 
 
-/* ================================
+/* =================================
    CONTADOR
-================================ */
+================================= */
 
 #contador {
 
@@ -1052,9 +853,9 @@ body.cargando #pantallaCarta {
 }
 
 
-/* ==================================================
-   PANTALLA DE LA CARTA
-================================================== */
+/* =================================
+   PANTALLA CARTA
+================================= */
 
 #pantallaCarta {
 
@@ -1078,45 +879,17 @@ body.cargando #pantallaCarta {
 
     overflow: hidden;
 
-    /*
-       FONDO BONITO
-    */
-
     background:
-
         radial-gradient(
             circle at 20% 20%,
             rgba(
                 255,
                 255,
                 255,
-                0.8
-            ) 0%,
-            transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 80% 15%,
-            rgba(
-                255,
-                255,
-                255,
-                0.6
-            ) 0%,
-            transparent 22%
-        ),
-
-        radial-gradient(
-            circle at 75% 80%,
-            rgba(
-                255,
-                255,
-                255,
                 0.45
-            ) 0%,
+            ),
             transparent 25%
         ),
-
         linear-gradient(
             135deg,
             #f7c3d1,
@@ -1125,10 +898,6 @@ body.cargando #pantallaCarta {
         );
 }
 
-
-/* ================================
-   LUCES
-================================ */
 
 .luz {
 
@@ -1155,7 +924,7 @@ body.cargando #pantallaCarta {
             255,
             255,
             255,
-            0.5
+            0.3
         );
 }
 
@@ -1173,7 +942,7 @@ body.cargando #pantallaCarta {
             255,
             255,
             255,
-            0.35
+            0.2
         );
 }
 
@@ -1191,19 +960,14 @@ body.cargando #pantallaCarta {
             255,
             255,
             255,
-            0.3
+            0.18
         );
 }
 
 
-/* ================================
-   DECORACIÓN
-================================ */
-
 .decoracionCarta {
 
     position: absolute;
-
     inset: 0;
 
     pointer-events: none;
@@ -1216,101 +980,42 @@ body.cargando #pantallaCarta {
 
     color: white;
 
-    text-shadow:
-        0 2px 10px
-        rgba(
-            180,
-            90,
-            120,
-            0.25
-        );
-
     animation:
-        estrellaBrilla
+        brilloSuave
         3s ease-in-out infinite;
 }
 
 
 .e1 {
-
     left: 8%;
     top: 13%;
-
-    font-size: 26px;
 }
-
 
 .e2 {
-
     right: 12%;
     top: 20%;
-
-    font-size: 20px;
 }
-
 
 .e3 {
-
     left: 14%;
     bottom: 20%;
-
-    font-size: 18px;
 }
-
 
 .e4 {
-
     right: 17%;
     bottom: 14%;
-
-    font-size: 27px;
 }
-
 
 .e5 {
-
     right: 7%;
     top: 52%;
-
-    font-size: 16px;
 }
-
 
 .e6 {
-
     left: 27%;
     top: 8%;
-
-    font-size: 15px;
 }
 
-
-@keyframes estrellaBrilla {
-
-    0%,
-    100% {
-
-        opacity: 0.35;
-
-        transform:
-            scale(0.8)
-            rotate(0deg);
-    }
-
-    50% {
-
-        opacity: 1;
-
-        transform:
-            scale(1.25)
-            rotate(12deg);
-    }
-}
-
-
-/* ================================
-   MARCO DE LA CARTA
-================================ */
 
 .carta-marco {
 
@@ -1360,45 +1065,7 @@ body.cargando #pantallaCarta {
 }
 
 
-/* BRILLO DEL MARCO */
-
-.carta-brillo {
-
-    position: absolute;
-
-    inset: 0;
-
-    border-radius: 14px;
-
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(
-                255,
-                255,
-                255,
-                0.3
-            ),
-            transparent 40%,
-            rgba(
-                255,
-                255,
-                255,
-                0.2
-            )
-        );
-}
-
-
-/* ================================
-   IMAGEN
-================================ */
-
 .carta-contenedor {
-
-    position: relative;
 
     max-width: 100%;
     max-height: 72vh;
@@ -1408,15 +1075,6 @@ body.cargando #pantallaCarta {
     border-radius: 7px;
 
     background: white;
-
-    box-shadow:
-        0 4px 15px
-        rgba(
-            100,
-            50,
-            70,
-            0.1
-        );
 }
 
 
@@ -1432,36 +1090,6 @@ body.cargando #pantallaCarta {
     height: auto;
 }
 
-
-/* ================================
-   ANIMACIÓN CARTA
-================================ */
-
-@keyframes aparecerCarta {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(0.94);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* ================================
-   BOTÓN VOLVER
-================================ */
 
 #volver {
 
@@ -1500,46 +1128,25 @@ body.cargando #pantallaCarta {
             80,
             0.15
         );
-
-    transition:
-        transform
-        0.2s;
-}
-
-
-#volver:hover {
-
-    transform:
-        translateY(-2px);
 }
 
 
 #volver:active {
-
-    transform:
-        scale(0.95);
+    transform: scale(0.95);
 }
 
-
-/* ================================
-   ANIMACIÓN GENERAL
-================================ */
 
 @keyframes aparecer {
 
     from {
-
         opacity: 0;
-
         transform:
             translateY(12px)
             scale(0.96);
     }
 
     to {
-
         opacity: 1;
-
         transform:
             translateY(0)
             scale(1);
@@ -1547,158 +1154,108 @@ body.cargando #pantallaCarta {
 }
 
 
-/* ================================
+@keyframes aparecerCarta {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px)
+            scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =================================
    CELULAR
-================================ */
+================================= */
 
 @media (max-width: 600px) {
 
-    .mensajeNavegador {
-
-        font-size: 22px;
-
-        padding:
-            22px 32px;
-    }
-
-
     .sobre {
-
         width: 220px;
         height: 150px;
     }
-
 
     .sobre-base {
-
         width: 220px;
         height: 150px;
     }
 
-
     .tapa {
-
-        border-left-width:
-            110px;
-
-        border-right-width:
-            110px;
-
-        border-top-width:
-            88px;
+        border-left-width: 110px;
+        border-right-width: 110px;
+        border-top-width: 88px;
     }
 
-
     .papel {
-
         width: 135px;
         height: 88px;
-
         left: 42px;
     }
 
-
     .doblez.izquierda {
-
-        border-bottom-width:
-            90px;
-
-        border-right-width:
-            110px;
+        border-bottom-width: 90px;
+        border-right-width: 110px;
     }
-
 
     .doblez.derecha {
-
-        border-bottom-width:
-            90px;
-
-        border-left-width:
-            110px;
+        border-bottom-width: 90px;
+        border-left-width: 110px;
     }
 
-
     .sello {
-
         top: 70px;
     }
 
-
     #contador {
-
         width: 90%;
-
         margin-top: 30px;
     }
 
-
     .contador-caja {
-
         width: 100%;
-
-        padding:
-            16px 10px;
+        padding: 16px 10px;
     }
 
-
     #tiempo {
-
         gap: 5px;
     }
 
-
     .numero span {
-
         font-size: 21px;
     }
 
-
     .numero small {
-
         font-size: 9px;
     }
 
-
     .separador {
-
         font-size: 18px;
-
         margin-bottom: 12px;
     }
 
-
     #pantallaCarta {
-
-        padding:
-            18px;
+        padding: 18px;
     }
 
-
     .carta-marco {
-
         max-width: 94vw;
-
         max-height: 73vh;
-
         padding: 8px;
     }
 
-
     .carta-contenedor {
-
         max-height: 69vh;
     }
 
-
     #imagenCarta {
-
         max-height: 67vh;
     }
-
-
-    .estrella {
-
-        font-size: 18px;
-    }
-
 }

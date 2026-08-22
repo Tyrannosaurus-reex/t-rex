@@ -15,7 +15,13 @@
         content="#e9aabd"
     >
 
-    <title>Carta</title>
+    <!-- IMPORTANTE: esto hace que Chrome reconozca la PWA -->
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <title>Cartita</title>
 
     <link
         rel="stylesheet"
@@ -28,23 +34,20 @@
 <body class="cargando">
 
 
-    <!-- ================================
+    <!-- =========================
          PANTALLA DEL NAVEGADOR
-    ================================= -->
+    ========================== -->
 
     <div id="pantallaNavegador">
 
-        <div class="decoracion-navegador">
+        <div class="nube-navegador nube-nav-1"></div>
+        <div class="nube-navegador nube-nav-2"></div>
+        <div class="nube-navegador nube-nav-3"></div>
+        <div class="nube-navegador nube-nav-4"></div>
 
-            <div class="nubecita nav-nube1"></div>
-
-            <div class="nubecita nav-nube2"></div>
-
-            <span>✦</span>
-            <span>✧</span>
-
-        </div>
-
+        <div class="brillito-nav bnav1">✦</div>
+        <div class="brillito-nav bnav2">✧</div>
+        <div class="brillito-nav bnav3">✦</div>
 
         <div class="mensajeNavegador">
             ola :3
@@ -53,48 +56,19 @@
     </div>
 
 
-
-    <!-- ================================
+    <!-- =========================
          PANTALLA PRINCIPAL
-    ================================= -->
+    ========================== -->
 
     <div id="pantallaSobre">
 
 
-        <!-- NUBES -->
+        <div class="nube nube1"></div>
+        <div class="nube nube2"></div>
+        <div class="nube nube3"></div>
+        <div class="nube nube4"></div>
+        <div class="nube nube5"></div>
 
-        <div class="nube nube1">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="nube nube2">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="nube nube3">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="nube nube4">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="nube nube5">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-
-        <!-- BRILLITOS -->
 
         <div class="brillo brillo1">✦</div>
         <div class="brillo brillo2">✧</div>
@@ -103,9 +77,6 @@
         <div class="brillo brillo5">✦</div>
         <div class="brillo brillo6">✧</div>
 
-
-
-        <!-- SOBRE -->
 
         <div id="zonaSobre">
 
@@ -116,24 +87,16 @@
 
                 <div class="sombra"></div>
 
-
                 <div class="papel">
-
                     <div class="borde-papel"></div>
-
                 </div>
-
 
                 <div class="sobre-base"></div>
 
-
                 <div class="doblez izquierda"></div>
-
                 <div class="doblez derecha"></div>
 
-
                 <div class="tapa"></div>
-
 
                 <div class="sello">
                     <span>♡</span>
@@ -144,9 +107,6 @@
         </div>
 
 
-
-        <!-- CONTADOR -->
-
         <div id="contador">
 
             <div class="contador-caja">
@@ -155,73 +115,32 @@
                     ✦
                 </div>
 
-
                 <div id="tiempo">
 
                     <div class="numero">
-
-                        <span id="dias">
-                            00
-                        </span>
-
-                        <small>
-                            días
-                        </small>
-
+                        <span id="dias">00</span>
+                        <small>días</small>
                     </div>
 
-
-                    <div class="separador">
-                        :
-                    </div>
-
+                    <div class="separador">:</div>
 
                     <div class="numero">
-
-                        <span id="horas">
-                            00
-                        </span>
-
-                        <small>
-                            horas
-                        </small>
-
+                        <span id="horas">00</span>
+                        <small>horas</small>
                     </div>
 
-
-                    <div class="separador">
-                        :
-                    </div>
-
+                    <div class="separador">:</div>
 
                     <div class="numero">
-
-                        <span id="minutos">
-                            00
-                        </span>
-
-                        <small>
-                            min
-                        </small>
-
+                        <span id="minutos">00</span>
+                        <small>min</small>
                     </div>
 
-
-                    <div class="separador">
-                        :
-                    </div>
-
+                    <div class="separador">:</div>
 
                     <div class="numero">
-
-                        <span id="segundos">
-                            00
-                        </span>
-
-                        <small>
-                            seg
-                        </small>
-
+                        <span id="segundos">00</span>
+                        <small>seg</small>
                     </div>
 
                 </div>
@@ -230,62 +149,35 @@
 
         </div>
 
-
     </div>
 
 
-
-    <!-- ================================
+    <!-- =========================
          PANTALLA DE LA CARTA
-    ================================= -->
+    ========================== -->
 
     <div id="pantallaCarta">
 
-
-        <!-- DECORACIÓN -->
-
         <div class="decoracionCarta">
 
-            <span class="estrella e1">
-                ✦
-            </span>
-
-            <span class="estrella e2">
-                ✧
-            </span>
-
-            <span class="estrella e3">
-                ✦
-            </span>
-
-            <span class="estrella e4">
-                ✧
-            </span>
-
-            <span class="estrella e5">
-                ✦
-            </span>
-
-            <span class="estrella e6">
-                ✧
-            </span>
+            <span class="estrella e1">✦</span>
+            <span class="estrella e2">✧</span>
+            <span class="estrella e3">✦</span>
+            <span class="estrella e4">✧</span>
+            <span class="estrella e5">✦</span>
+            <span class="estrella e6">✧</span>
 
         </div>
 
-
-        <!-- LUCES DEL FONDO -->
 
         <div class="luz luz1"></div>
         <div class="luz luz2"></div>
         <div class="luz luz3"></div>
 
 
-        <!-- CARTA -->
-
         <div class="carta-marco">
 
             <div class="carta-brillo"></div>
-
 
             <div class="carta-contenedor">
 
@@ -300,15 +192,11 @@
         </div>
 
 
-        <!-- VOLVER -->
-
         <button id="volver">
             Volver
         </button>
 
-
     </div>
-
 
 
     <script src="script.js"></script>
