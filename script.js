@@ -3,12 +3,10 @@
 ===================================== */
 
 const FECHA_APERTURA =
-    "2026-08-25T10:00:00-06:00";
-
+    "2026-08-25T15:30:00-06:00";
 
 const FECHA_SIGUIENTE =
     "2026-09-17T10:00:00-06:00";
-
 
 
 /* =====================================
@@ -18,86 +16,65 @@ const FECHA_SIGUIENTE =
 const pantallaNavegador =
     document.getElementById("pantallaNavegador");
 
-
 const pantallaCarga =
     document.getElementById("pantallaCarga");
-
 
 const pantallaSobre =
     document.getElementById("pantallaSobre");
 
-
 const pantallaCarta =
     document.getElementById("pantallaCarta");
-
 
 const sobre =
     document.getElementById("sobre");
 
-
 const zonaSobre =
     document.getElementById("zonaSobre");
-
 
 const contador =
     document.getElementById("contador");
 
-
 const volver =
     document.getElementById("volver");
-
 
 const dias =
     document.getElementById("dias");
 
-
 const horas =
     document.getElementById("horas");
-
 
 const minutos =
     document.getElementById("minutos");
 
-
 const segundos =
     document.getElementById("segundos");
-
 
 const botonInstalar =
     document.getElementById("botonInstalar");
 
-
 const imagenCarta =
     document.getElementById("imagenCarta");
-
 
 const mensajeCartaError =
     document.getElementById("mensajeCartaError");
 
-
 const barraProgreso =
     document.getElementById("barraProgreso");
-
 
 const porcentajeCarga =
     document.getElementById("porcentajeCarga");
 
-
 const musicaTemporizador =
     document.getElementById("musicaTemporizador");
-
 
 const musicaCarta =
     document.getElementById("musicaCarta");
 
-
 const cdMusica =
     document.getElementById("cdMusica");
 
-
 const cdCarta =
     document.getElementById("cdCarta");
-
 
 
 /* =====================================
@@ -106,22 +83,14 @@ const cdCarta =
 
 let cartaAbierta = false;
 
-
 let cartaYaFueAbierta =
-    localStorage.getItem(
-        "cartaYaFueAbierta"
-    ) === "true";
-
+    localStorage.getItem("cartaYaFueAbierta") === "true";
 
 let eventoInstalacion = null;
 
 
-let comprobandoCarta = false;
-
-
-
 /* =====================================
-   DETECTAR APP INSTALADA
+   DETECTAR APP
 ===================================== */
 
 function estaEnLaApp() {
@@ -131,19 +100,188 @@ function estaEnLaApp() {
             "(display-mode: standalone)"
         ).matches;
 
-
     const ios =
         window.navigator.standalone === true;
 
-
     return standalone || ios;
-
 }
 
 
+/* =====================================
+   APP EN PRIMER PLANO
+===================================== */
+
+function appEstaActiva() {
+
+    return (
+        estaEnLaApp() &&
+        document.visibilityState === "visible" &&
+        document.hasFocus()
+    );
+}
+
 
 /* =====================================
-   EXISTE CARTA
+   DETENER MÚSICA
+===================================== */
+
+function detenerMusica() {
+
+    if (musicaTemporizador) {
+
+        musicaTemporizador.pause();
+        musicaTemporizador.currentTime = 0;
+
+    }
+
+    if (musicaCarta) {
+
+        musicaCarta.pause();
+        musicaCarta.currentTime = 0;
+
+    }
+}
+
+
+/* =====================================
+   REPRODUCIR MÚSICA DEL TEMPORIZADOR
+===================================== */
+
+function reproducirMusicaTemporizador() {
+
+    if (!appEstaActiva()) {
+        detenerMusica();
+        return;
+    }
+
+    if (!musicaTemporizador) {
+        return;
+    }
+
+    if (musicaCarta) {
+        musicaCarta.pause();
+        musicaCarta.currentTime = 0;
+    }
+
+    musicaTemporizador
+        .play()
+        .catch(() => {});
+}
+
+
+/* =====================================
+   REPRODUCIR MÚSICA DE LA CARTA
+===================================== */
+
+function reproducirMusicaCarta() {
+
+    if (!appEstaActiva()) {
+        detenerMusica();
+        return;
+    }
+
+    if (!musicaCarta) {
+        return;
+    }
+
+    if (musicaTemporizador) {
+        musicaTemporizador.pause();
+        musicaTemporizador.currentTime = 0;
+    }
+
+    musicaCarta.currentTime = 0;
+
+    musicaCarta
+        .play()
+        .catch(() => {});
+}
+
+
+/* =====================================
+   CONTROLAR MÚSICA AL SALIR DE LA APP
+===================================== */
+
+/*
+   Si se cambia de pestaña,
+   se minimiza la ventana,
+   se bloquea el celular,
+   se sale de la app
+   o deja de estar visible,
+   la música se detiene.
+*/
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.visibilityState !== "visible"
+        ) {
+
+            detenerMusica();
+
+        }
+
+    }
+);
+
+
+/*
+   También se detiene cuando
+   la ventana pierde el foco.
+*/
+
+window.addEventListener(
+    "blur",
+    function() {
+
+        detenerMusica();
+
+    }
+);
+
+
+/*
+   Cuando vuelve a tener foco,
+   NO empieza automáticamente.
+
+   Solo vuelve a reproducirse
+   después de una interacción.
+*/
+
+
+/* =====================================
+   DESBLOQUEAR AUDIO CON TOQUE
+===================================== */
+
+document.addEventListener(
+    "pointerdown",
+    function() {
+
+        if (!appEstaActiva()) {
+            return;
+        }
+
+        if (
+            pantallaCarta &&
+            !pantallaCarta.classList.contains("oculto")
+        ) {
+
+            reproducirMusicaCarta();
+
+        }
+        else {
+
+            reproducirMusicaTemporizador();
+
+        }
+
+    }
+);
+
+
+/* =====================================
+   COMPROBAR SI EXISTE CARTA
 ===================================== */
 
 function existeCarta() {
@@ -154,14 +292,12 @@ function existeCarta() {
             const imagen =
                 new Image();
 
-
             imagen.onload =
                 function() {
 
                     resolve(true);
 
                 };
-
 
             imagen.onerror =
                 function() {
@@ -170,16 +306,13 @@ function existeCarta() {
 
                 };
 
-
             imagen.src =
-                "carta.png?ver=" +
+                "carta.png?v=" +
                 Date.now();
 
         }
     );
-
 }
-
 
 
 /* =====================================
@@ -195,7 +328,6 @@ window.addEventListener(
         eventoInstalacion =
             evento;
 
-
         if (
             !estaEnLaApp() &&
             botonInstalar
@@ -210,7 +342,6 @@ window.addEventListener(
 );
 
 
-
 if (botonInstalar) {
 
     botonInstalar.addEventListener(
@@ -221,18 +352,13 @@ if (botonInstalar) {
                 return;
             }
 
-
             eventoInstalacion.prompt();
 
-
             const resultado =
-                await eventoInstalacion
-                    .userChoice;
-
+                await eventoInstalacion.userChoice;
 
             if (
-                resultado.outcome ===
-                "accepted"
+                resultado.outcome === "accepted"
             ) {
 
                 botonInstalar.style.display =
@@ -240,138 +366,12 @@ if (botonInstalar) {
 
             }
 
-
             eventoInstalacion = null;
 
         }
     );
 
 }
-
-
-
-/* =====================================
-   MÚSICA
-===================================== */
-
-function detenerMusica() {
-
-    if (musicaTemporizador) {
-
-        musicaTemporizador.pause();
-
-        musicaTemporizador.currentTime = 0;
-
-    }
-
-
-    if (musicaCarta) {
-
-        musicaCarta.pause();
-
-        musicaCarta.currentTime = 0;
-
-    }
-
-}
-
-
-
-function reproducirMusicaTemporizador() {
-
-    if (!estaEnLaApp()) {
-        return;
-    }
-
-
-    if (!musicaTemporizador) {
-        return;
-    }
-
-
-    if (musicaCarta) {
-        musicaCarta.pause();
-    }
-
-
-    musicaTemporizador
-        .play()
-        .catch(() => {
-
-            /*
-               El navegador puede bloquear
-               el autoplay.
-
-               Se vuelve a intentar cuando
-               haya una interacción.
-            */
-
-        });
-
-}
-
-
-
-function reproducirMusicaCarta() {
-
-    if (!estaEnLaApp()) {
-        return;
-    }
-
-
-    if (!musicaCarta) {
-        return;
-    }
-
-
-    if (musicaTemporizador) {
-        musicaTemporizador.pause();
-    }
-
-
-    musicaCarta
-        .play()
-        .catch(() => {
-
-        });
-
-}
-
-
-
-/* =====================================
-   ACTIVAR AUDIO AL TOCAR
-===================================== */
-
-document.addEventListener(
-    "pointerdown",
-    function() {
-
-        if (!estaEnLaApp()) {
-            return;
-        }
-
-
-        if (
-            pantallaCarta &&
-            !pantallaCarta.classList.contains(
-                "oculto"
-            )
-        ) {
-
-            reproducirMusicaCarta();
-
-        }
-
-        else {
-
-            reproducirMusicaTemporizador();
-
-        }
-
-    }
-);
-
 
 
 /* =====================================
@@ -383,150 +383,51 @@ function actualizarContador(fecha) {
     const ahora =
         Date.now();
 
-
     const destino =
         new Date(fecha).getTime();
-
 
     let diferencia =
         destino - ahora;
 
-
     if (diferencia < 0) {
-
         diferencia = 0;
-
     }
-
 
     const totalSegundos =
         Math.floor(
             diferencia / 1000
         );
 
-
     const diasRestantes =
         Math.floor(
             totalSegundos / 86400
         );
 
-
     const horasRestantes =
         Math.floor(
-            (totalSegundos % 86400) /
-            3600
+            (totalSegundos % 86400) / 3600
         );
-
 
     const minutosRestantes =
         Math.floor(
-            (totalSegundos % 3600) /
-            60
+            (totalSegundos % 3600) / 60
         );
-
 
     const segundosRestantes =
         totalSegundos % 60;
 
-
     dias.textContent =
-        String(
-            diasRestantes
-        ).padStart(2, "0");
-
+        String(diasRestantes).padStart(2, "0");
 
     horas.textContent =
-        String(
-            horasRestantes
-        ).padStart(2, "0");
-
+        String(horasRestantes).padStart(2, "0");
 
     minutos.textContent =
-        String(
-            minutosRestantes
-        ).padStart(2, "0");
-
+        String(minutosRestantes).padStart(2, "0");
 
     segundos.textContent =
-        String(
-            segundosRestantes
-        ).padStart(2, "0");
-
+        String(segundosRestantes).padStart(2, "0");
 }
-
-
-
-/* =====================================
-   MOSTRAR PRIMER TEMPORIZADOR
-===================================== */
-
-function mostrarPrimerTemporizador() {
-
-    zonaSobre.style.display =
-        "none";
-
-
-    contador.classList.remove(
-        "oculto"
-    );
-
-
-    actualizarContador(
-        FECHA_APERTURA
-    );
-
-
-    reproducirMusicaTemporizador();
-
-}
-
-
-
-/* =====================================
-   MOSTRAR SEGUNDO TEMPORIZADOR
-===================================== */
-
-function mostrarSegundoTemporizador() {
-
-    zonaSobre.style.display =
-        "none";
-
-
-    contador.classList.remove(
-        "oculto"
-    );
-
-
-    actualizarContador(
-        FECHA_SIGUIENTE
-    );
-
-
-    reproducirMusicaTemporizador();
-
-}
-
-
-
-/* =====================================
-   MOSTRAR SOBRE
-===================================== */
-
-function mostrarSobre() {
-
-    zonaSobre.style.display =
-        "flex";
-
-
-    contador.classList.add(
-        "oculto"
-    );
-
-
-    reproducirMusicaTemporizador();
-
-}
-
 
 
 /* =====================================
@@ -536,208 +437,112 @@ function mostrarSobre() {
 async function comprobarEstado() {
 
     if (!estaEnLaApp()) {
+        detenerMusica();
         return;
     }
-
-
-    if (cartaAbierta) {
-        return;
-    }
-
 
     const ahora =
         Date.now();
 
-
     const apertura =
-        new Date(
-            FECHA_APERTURA
-        ).getTime();
-
+        new Date(FECHA_APERTURA).getTime();
 
     const siguiente =
-        new Date(
+        new Date(FECHA_SIGUIENTE).getTime();
+
+
+    /* ================================
+       SEGUNDA FECHA
+    ================================= */
+
+    if (
+        cartaYaFueAbierta &&
+        ahora >= siguiente
+    ) {
+
+        zonaSobre.style.display =
+            "flex";
+
+        contador.classList.add(
+            "oculto"
+        );
+
+        if (appEstaActiva()) {
+            reproducirMusicaTemporizador();
+        }
+
+        return;
+    }
+
+
+    /* ================================
+       ESPERANDO SEGUNDA CARTA
+    ================================= */
+
+    if (
+        cartaYaFueAbierta &&
+        ahora < siguiente
+    ) {
+
+        zonaSobre.style.display =
+            "none";
+
+        contador.classList.remove(
+            "oculto"
+        );
+
+        actualizarContador(
             FECHA_SIGUIENTE
-        ).getTime();
+        );
+
+        if (appEstaActiva()) {
+            reproducirMusicaTemporizador();
+        }
+
+        return;
+    }
 
 
-
-    /* =================================
-       ANTES DE LA PRIMERA FECHA
-
-       SIEMPRE PRIMER TEMPORIZADOR.
-
-       Aunque localStorage diga que
-       alguna vez se abrió una carta.
+    /* ================================
+       PRIMER TEMPORIZADOR
     ================================= */
 
     if (ahora < apertura) {
 
-        cartaYaFueAbierta = false;
+        zonaSobre.style.display =
+            "none";
 
-        localStorage.removeItem(
-            "cartaYaFueAbierta"
+        contador.classList.remove(
+            "oculto"
         );
 
+        actualizarContador(
+            FECHA_APERTURA
+        );
 
-        mostrarPrimerTemporizador();
+        if (appEstaActiva()) {
+            reproducirMusicaTemporizador();
+        }
 
         return;
-
     }
 
 
-
-    /* =================================
-       DESPUÉS DE LA PRIMERA FECHA
-       
-       PERO ANTES DE LA SEGUNDA.
-
-       Aquí necesitamos comprobar
-       que carta.png realmente exista.
+    /* ================================
+       YA LLEGÓ LA PRIMERA FECHA
     ================================= */
 
-    if (ahora < siguiente) {
+    zonaSobre.style.display =
+        "flex";
 
-        if (!cartaYaFueAbierta) {
+    contador.classList.add(
+        "oculto"
+    );
 
-            if (!comprobandoCarta) {
-
-                comprobandoCarta = true;
-
-
-                const hayCarta =
-                    await existeCarta();
-
-
-                comprobandoCarta = false;
-
-
-                if (hayCarta) {
-
-                    mostrarSobre();
-
-                }
-
-                else {
-
-                    /*
-                       NO HAY CARTA.
-
-                       No mostramos el sobre.
-                       Nos quedamos en el
-                       primer temporizador.
-                    */
-
-                    mostrarPrimerTemporizador();
-
-                }
-
-            }
-
-            return;
-
-        }
-
-
-
-        /*
-           Ya abrió la primera carta.
-           Ahora corresponde el segundo
-           temporizador.
-        */
-
-        mostrarSegundoTemporizador();
-
-        return;
-
+    if (appEstaActiva()) {
+        reproducirMusicaTemporizador();
     }
-
-
-
-    /* =================================
-       YA LLEGÓ LA SEGUNDA FECHA
-       
-       Si ya había abierto la primera,
-       comprobamos nuevamente la carta.
-    ================================= */
-
-    if (cartaYaFueAbierta) {
-
-        if (!comprobandoCarta) {
-
-            comprobandoCarta = true;
-
-
-            const hayCarta =
-                await existeCarta();
-
-
-            comprobandoCarta = false;
-
-
-            if (hayCarta) {
-
-                mostrarSobre();
-
-            }
-
-            else {
-
-                /*
-                   Si todavía no existe
-                   la carta nueva, mantenemos
-                   el segundo temporizador
-                   en 0.
-                */
-
-                mostrarSegundoTemporizador();
-
-            }
-
-        }
-
-        return;
-
-    }
-
-
-
-    /*
-       Si por alguna razón llegó
-       la segunda fecha sin que
-       se haya registrado la primera,
-       comprobamos la carta.
-    */
-
-    if (!comprobandoCarta) {
-
-        comprobandoCarta = true;
-
-
-        const hayCarta =
-            await existeCarta();
-
-
-        comprobandoCarta = false;
-
-
-        if (hayCarta) {
-
-            mostrarSobre();
-
-        }
-
-        else {
-
-            mostrarPrimerTemporizador();
-
-        }
-
-    }
-
 }
-
 
 
 /* =====================================
@@ -750,10 +555,8 @@ function mostrarCarta() {
         return;
     }
 
-
     imagenCarta.style.display =
         "block";
-
 
     if (mensajeCartaError) {
 
@@ -762,30 +565,11 @@ function mostrarCarta() {
 
     }
 
-
-    imagenCarta.onload =
-        function() {
-
-            imagenCarta.style.display =
-                "block";
-
-
-            if (mensajeCartaError) {
-
-                mensajeCartaError.style.display =
-                    "none";
-
-            }
-
-        };
-
-
     imagenCarta.onerror =
         function() {
 
             imagenCarta.style.display =
                 "none";
-
 
             if (mensajeCartaError) {
 
@@ -796,13 +580,25 @@ function mostrarCarta() {
 
         };
 
+    imagenCarta.onload =
+        function() {
+
+            imagenCarta.style.display =
+                "block";
+
+            if (mensajeCartaError) {
+
+                mensajeCartaError.style.display =
+                    "none";
+
+            }
+
+        };
 
     imagenCarta.src =
-        "carta.png?ver=" +
+        "carta.png?v=" +
         Date.now();
-
 }
-
 
 
 /* =====================================
@@ -819,66 +615,58 @@ if (sobre) {
                 return;
             }
 
-
-            /*
-               Comprobamos carta.png
-               ANTES de abrir el sobre.
-            */
-
             const hayCarta =
                 await existeCarta();
-
 
             if (!hayCarta) {
 
                 cartaAbierta = false;
 
-
                 sobre.classList.remove(
                     "abriendo"
                 );
-
 
                 pantallaCarta.classList.add(
                     "oculto"
                 );
 
+                zonaSobre.style.display =
+                    "none";
 
-                /*
-                   Si no hay carta,
-                   volvemos al primer
-                   temporizador.
-                */
+                contador.classList.remove(
+                    "oculto"
+                );
 
-                mostrarPrimerTemporizador();
+                actualizarContador(
+                    FECHA_APERTURA
+                );
+
+                reproducirMusicaTemporizador();
 
                 return;
-
             }
-
 
 
             cartaAbierta = true;
 
-
             detenerMusica();
-
 
             sobre.classList.add(
                 "abriendo"
             );
 
-
             mostrarCarta();
-
 
             setTimeout(
                 function() {
 
+                    if (!appEstaActiva()) {
+                        return;
+                    }
+
                     pantallaCarta.classList.remove(
                         "oculto"
                     );
-
 
                     reproducirMusicaCarta();
 
@@ -892,9 +680,8 @@ if (sobre) {
 }
 
 
-
 /* =====================================
-   VOLVER DE LA CARTA
+   VOLVER
 ===================================== */
 
 if (volver) {
@@ -907,33 +694,20 @@ if (volver) {
                 "oculto"
             );
 
-
             sobre.classList.remove(
                 "abriendo"
             );
 
-
             cartaAbierta = false;
 
-
-            /*
-               Ya se abrió la primera carta.
-               Por eso ahora comienza
-               el segundo temporizador.
-            */
-
-            cartaYaFueAbierta =
-                true;
-
+            cartaYaFueAbierta = true;
 
             localStorage.setItem(
                 "cartaYaFueAbierta",
                 "true"
             );
 
-
             detenerMusica();
-
 
             comprobarEstado();
 
@@ -941,7 +715,6 @@ if (volver) {
     );
 
 }
-
 
 
 /* =====================================
@@ -954,16 +727,13 @@ function iniciarCargaApp() {
         "oculto"
     );
 
-
     pantallaSobre.classList.add(
         "oculto"
     );
 
-
     pantallaCarta.classList.add(
         "oculto"
     );
-
 
     pantallaCarga.classList.remove(
         "oculto"
@@ -972,47 +742,27 @@ function iniciarCargaApp() {
 
     let progreso = 0;
 
-
-    barraProgreso.style.width =
-        "0%";
-
-
-    porcentajeCarga.textContent =
-        "0%";
-
-
-    /*
-       Carga visual de 0 a 100.
-    */
-
     const intervalo =
         setInterval(
             function() {
 
                 progreso += 1;
 
-
                 if (progreso > 100) {
-
                     progreso = 100;
-
                 }
-
 
                 barraProgreso.style.width =
                     progreso + "%";
 
-
                 porcentajeCarga.textContent =
                     progreso + "%";
-
 
                 if (progreso >= 100) {
 
                     clearInterval(
                         intervalo
                     );
-
 
                     setTimeout(
                         function() {
@@ -1021,26 +771,21 @@ function iniciarCargaApp() {
                                 "oculto"
                             );
 
-
                             pantallaSobre.classList.remove(
                                 "oculto"
                             );
-
 
                             comprobarEstado();
 
                         },
                         250
                     );
-
                 }
 
             },
             25
         );
-
 }
-
 
 
 /* =====================================
@@ -1050,66 +795,49 @@ function iniciarCargaApp() {
 function iniciar() {
 
     /*
-       NAVEGADOR
-
-       Solo:
-       ola :3
-       Descargar
-
-       Nada de carga.
-       Nada de música.
-       Nada de CD.
-       Nada de temporizador.
+       NAVEGADOR:
+       Solo muestra "ola"
+       y el botón de descargar.
     */
 
     if (!estaEnLaApp()) {
+
+        detenerMusica();
 
         pantallaNavegador.classList.remove(
             "oculto"
         );
 
-
         pantallaCarga.classList.add(
             "oculto"
         );
-
 
         pantallaSobre.classList.add(
             "oculto"
         );
 
-
         pantallaCarta.classList.add(
             "oculto"
         );
 
-
-        detenerMusica();
-
         return;
-
     }
 
 
-
     /*
-       APP INSTALADA
-
-       Empieza 0% → 100%.
+       APP:
+       Primero aparece la carga.
     */
 
     pantallaNavegador.classList.add(
         "oculto"
     );
 
-
     iniciarCargaApp();
-
 }
 
 
 iniciar();
-
 
 
 /* =====================================
@@ -1119,8 +847,12 @@ iniciar();
 setInterval(
     function() {
 
+        if (!estaEnLaApp()) {
+            detenerMusica();
+            return;
+        }
+
         if (
-            estaEnLaApp() &&
             pantallaCarta.classList.contains(
                 "oculto"
             )
@@ -1135,28 +867,22 @@ setInterval(
 );
 
 
-
 /* =====================================
    SERVICE WORKER
 ===================================== */
 
-if (
-    "serviceWorker" in navigator
-) {
+if ("serviceWorker" in navigator) {
 
     window.addEventListener(
         "load",
         function() {
 
             navigator.serviceWorker
-                .register(
-                    "sw.js"
-                )
+                .register("sw.js")
                 .then(
                     registro => {
 
                         registro.update();
-
 
                         setInterval(
                             function() {
@@ -1182,5 +908,4 @@ if (
 
         }
     );
-
 }
