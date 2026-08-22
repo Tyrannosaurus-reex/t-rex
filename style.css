@@ -10,6 +10,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+
     font-family: Arial, sans-serif;
 }
 
@@ -24,178 +25,14 @@ body {
 }
 
 
-/* ================================
-   CARGANDO
-================================ */
 
-#pantallaCarga {
-
-    position: fixed;
-
-    inset: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    z-index: 2000;
-
-    background:
-        linear-gradient(
-            145deg,
-            #efb0c2,
-            #f7c6d5,
-            #e8a7bb
-        );
-
-    transition:
-        opacity 0.45s ease,
-        visibility 0.45s ease;
-}
-
-
-#pantallaCarga.oculto {
-    opacity: 0;
-    visibility: hidden;
-}
-
-
-.carga-contenido {
-
-    width: 78%;
-
-    max-width: 320px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    color: #a25870;
-}
-
-
-/* RUEDITA */
-
-.ruedita {
-
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-
-    border:
-        5px solid
-        rgba(255,255,255,0.4);
-
-    border-top-color: white;
-
-    animation:
-        girar
-        1s linear infinite;
-
-    margin-bottom: 20px;
-}
-
-
-@keyframes girar {
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* TEXTO */
-
-.texto-cargando {
-
-    font-size: 18px;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 16px;
-}
-
-
-/* BARRA */
-
-.barra-carga {
-
-    width: 100%;
-
-    height: 13px;
-
-    background:
-        rgba(255,255,255,0.4);
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.7);
-
-    box-shadow:
-        0 5px 15px
-        rgba(120,60,80,0.12);
-}
-
-
-.barra-progreso {
-
-    width: 0%;
-
-    height: 100%;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #ffe7ee
-        );
-
-    transition:
-        width 0.08s linear;
-}
-
-
-.porcentaje-carga {
-
-    margin-top: 10px;
-
-    font-size: 14px;
-
-    font-weight: bold;
-}
-
-
-body.cargando #pantallaNavegador,
-body.cargando #pantallaSobre,
-body.cargando #pantallaCarta {
-
-    visibility: hidden;
-}
-
-
-
-/* ================================
-   PANTALLA OLA
-================================ */
+/* =====================================
+   PANTALLA GOOGLE
+===================================== */
 
 #pantallaNavegador {
 
     position: fixed;
-
     inset: 0;
 
     width: 100vw;
@@ -220,10 +57,83 @@ body.cargando #pantallaCarta {
 }
 
 
+.mensajeNavegador {
 
-/* ================================
+    position: relative;
+
+    z-index: 5;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 22px 30px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255, 255, 255, 0.32);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.5);
+
+    box-shadow:
+        0 12px 30px
+        rgba(120, 60, 80, 0.12);
+
+    color: #a25870;
+}
+
+
+.texto-ola {
+
+    font-size: 24px;
+
+    letter-spacing: 1px;
+}
+
+
+#botonInstalar {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding: 11px 27px;
+
+    border: none;
+
+    border-radius: 22px;
+
+    background: white;
+
+    color: #a25870;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(120, 60, 80, 0.15);
+}
+
+
+#botonInstalar:active {
+    transform: scale(0.94);
+}
+
+
+
+/* =====================================
    NUBES
-================================ */
+===================================== */
 
 .nube-navegador,
 .nube {
@@ -244,7 +154,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 4px 12px
-        rgba(160,100,120,0.06);
+        rgba(160, 100, 120, 0.06);
 }
 
 
@@ -265,8 +175,6 @@ body.cargando #pantallaCarta {
 
     border-radius:
         55% 45% 50% 45%;
-
-    transform: rotate(-4deg);
 }
 
 
@@ -287,15 +195,12 @@ body.cargando #pantallaCarta {
 
     border-radius:
         48% 55% 45% 52%;
-
-    transform: rotate(5deg);
 }
 
 
 .nube-nav-1 {
     left: -45px;
     top: 16%;
-    transform: scale(0.9);
 }
 
 
@@ -321,9 +226,9 @@ body.cargando #pantallaCarta {
 
 
 
-/* ================================
+/* =====================================
    BRILLOS
-================================ */
+===================================== */
 
 .brillito-nav,
 .brillo {
@@ -376,91 +281,165 @@ body.cargando #pantallaCarta {
 
 
 
-/* ================================
-   OLA
-================================ */
+/* =====================================
+   PANTALLA CARGANDO
+===================================== */
 
-.mensajeNavegador {
+#pantallaCarga {
 
-    position: relative;
+    position: fixed;
 
-    z-index: 5;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 1000;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #ffeaf1,
+            #f8c7d5 50%,
+            #e9aabd
+        );
+}
+
+
+.carga-contenido {
+
+    width: 280px;
 
     display: flex;
 
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
-    padding: 22px 30px;
+    padding: 30px;
 
-    border-radius: 25px;
+    border-radius: 30px;
 
     background:
-        rgba(255,255,255,0.32);
+        rgba(255, 255, 255, 0.34);
 
     border:
         1px solid
-        rgba(255,255,255,0.5);
+        rgba(255, 255, 255, 0.65);
+
+    backdrop-filter:
+        blur(12px);
 
     box-shadow:
-        0 12px 30px
-        rgba(120,60,80,0.12);
+        0 20px 50px
+        rgba(120, 60, 80, 0.14);
+}
+
+
+.ruedita {
+
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+
+    border:
+        5px solid
+        rgba(255, 255, 255, 0.45);
+
+    border-top-color:
+        #c87389;
+
+    animation:
+        girar
+        0.9s linear infinite;
+
+    margin-bottom: 18px;
+}
+
+
+@keyframes girar {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.texto-cargando {
 
     color: #a25870;
 
-    animation:
-        aparecer
-        0.7s ease;
+    font-size: 16px;
+
+    margin-bottom: 14px;
 }
 
 
-.texto-ola {
+.barra-carga {
 
-    font-size: 24px;
+    width: 100%;
+    height: 11px;
 
-    letter-spacing: 1px;
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255, 255, 255, 0.5);
+
+    box-shadow:
+        inset 0 2px 5px
+        rgba(120, 60, 80, 0.08);
 }
 
 
-#botonInstalar {
+.barra-progreso {
 
-    display: none;
+    width: 0%;
 
-    margin-top: 15px;
+    height: 100%;
 
-    padding: 11px 27px;
+    border-radius: 20px;
 
-    border: none;
+    background:
+        linear-gradient(
+            90deg,
+            #d98c9e,
+            #c87389,
+            #e19aaa
+        );
 
-    border-radius: 22px;
+    transition:
+        width 0.08s linear;
+}
 
-    background: white;
+
+.porcentaje-carga {
+
+    margin-top: 10px;
 
     color: #a25870;
 
     font-size: 14px;
 
     font-weight: bold;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 7px 18px
-        rgba(120,60,80,0.15);
-}
-
-
-#botonInstalar:active {
-    transform: scale(0.94);
 }
 
 
 
-/* ================================
+/* =====================================
    SOBRE
-================================ */
+===================================== */
 
 #pantallaSobre {
 
@@ -572,9 +551,66 @@ body.cargando #pantallaCarta {
 
 
 
-/* ================================
+/* =====================================
+   CD MÚSICA
+===================================== */
+
+.musica-contenedor {
+
+    position: fixed;
+
+    top: 20px;
+    left: 20px;
+
+    width: 64px;
+    height: 64px;
+
+    z-index: 50;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.cd-musica {
+
+    width: 62px;
+    height: 62px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    animation:
+        girarCD
+        3s linear infinite;
+
+    filter:
+        drop-shadow(
+            0 6px 8px
+            rgba(100, 50, 70, 0.2)
+        );
+}
+
+
+@keyframes girarCD {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+/* =====================================
    SOBRE
-================================ */
+===================================== */
 
 .sobre {
 
@@ -592,7 +628,7 @@ body.cargando #pantallaCarta {
     filter:
         drop-shadow(
             0 20px 20px
-            rgba(130,60,80,0.18)
+            rgba(130, 60, 80, 0.18)
         );
 }
 
@@ -618,7 +654,7 @@ body.cargando #pantallaCarta {
     bottom: -18px;
 
     background:
-        rgba(120,60,80,0.15);
+        rgba(120, 60, 80, 0.15);
 
     border-radius: 50%;
 
@@ -646,7 +682,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 5px 12px
-        rgba(80,40,50,0.13);
+        rgba(80, 40, 50, 0.13);
 
     transition:
         transform
@@ -795,7 +831,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 4px 8px
-        rgba(120,50,70,0.2);
+        rgba(120, 50, 70, 0.2);
 
     transition:
         transform 0.7s,
@@ -850,9 +886,9 @@ body.cargando #pantallaCarta {
 
 
 
-/* ================================
+/* =====================================
    CONTADOR
-================================ */
+===================================== */
 
 #contador {
 
@@ -877,20 +913,20 @@ body.cargando #pantallaCarta {
         18px 24px;
 
     background:
-        rgba(255,255,255,0.55);
+        rgba(255, 255, 255, 0.55);
 
     backdrop-filter:
         blur(12px);
 
     border:
         1px solid
-        rgba(255,255,255,0.85);
+        rgba(255, 255, 255, 0.85);
 
     border-radius: 24px;
 
     box-shadow:
         0 15px 40px
-        rgba(120,60,80,0.14);
+        rgba(120, 60, 80, 0.14);
 }
 
 
@@ -956,9 +992,9 @@ body.cargando #pantallaCarta {
 
 
 
-/* ================================
+/* =====================================
    CARTA
-================================ */
+===================================== */
 
 #pantallaCarta {
 
@@ -1019,30 +1055,25 @@ body.cargando #pantallaCarta {
     top: 13%;
 }
 
-
 .e2 {
     right: 12%;
     top: 20%;
 }
-
 
 .e3 {
     left: 14%;
     bottom: 20%;
 }
 
-
 .e4 {
     right: 17%;
     bottom: 14%;
 }
 
-
 .e5 {
     right: 7%;
     top: 52%;
 }
-
 
 .e6 {
     left: 27%;
@@ -1071,7 +1102,7 @@ body.cargando #pantallaCarta {
     left: -60px;
 
     background:
-        rgba(255,255,255,0.3);
+        rgba(255, 255, 255, 0.3);
 }
 
 
@@ -1084,7 +1115,7 @@ body.cargando #pantallaCarta {
     top: 25%;
 
     background:
-        rgba(255,255,255,0.2);
+        rgba(255, 255, 255, 0.2);
 }
 
 
@@ -1097,9 +1128,42 @@ body.cargando #pantallaCarta {
     left: 25%;
 
     background:
-        rgba(255,255,255,0.18);
+        rgba(255, 255, 255, 0.18);
 }
 
+
+.cd-carta {
+
+    position: absolute;
+
+    top: 20px;
+    left: 20px;
+
+    width: 62px;
+    height: 62px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    z-index: 20;
+
+    animation:
+        girarCD
+        3s linear infinite;
+
+    filter:
+        drop-shadow(
+            0 6px 8px
+            rgba(100, 50, 70, 0.2)
+        );
+}
+
+
+
+/* =====================================
+   MARCO CARTA
+===================================== */
 
 .carta-marco {
 
@@ -1115,18 +1179,18 @@ body.cargando #pantallaCarta {
     border-radius: 14px;
 
     background:
-        rgba(255,255,255,0.55);
+        rgba(255, 255, 255, 0.55);
 
     backdrop-filter:
         blur(10px);
 
     border:
         1px solid
-        rgba(255,255,255,0.8);
+        rgba(255, 255, 255, 0.8);
 
     box-shadow:
         0 20px 50px
-        rgba(120,55,80,0.2);
+        rgba(120, 55, 80, 0.2);
 }
 
 
@@ -1175,11 +1239,6 @@ body.cargando #pantallaCarta {
 }
 
 
-
-/* ================================
-   VOLVER
-================================ */
-
 #volver {
 
     position: relative;
@@ -1196,7 +1255,7 @@ body.cargando #pantallaCarta {
     border-radius: 24px;
 
     background:
-        rgba(255,255,255,0.88);
+        rgba(255, 255, 255, 0.88);
 
     color: #9e5369;
 
@@ -1206,7 +1265,7 @@ body.cargando #pantallaCarta {
 
     box-shadow:
         0 7px 18px
-        rgba(120,60,80,0.15);
+        rgba(120, 60, 80, 0.15);
 }
 
 
@@ -1216,32 +1275,9 @@ body.cargando #pantallaCarta {
 
 
 
-/* ================================
-   ANIMACIÓN
-================================ */
-
-@keyframes aparecer {
-
-    from {
-        opacity: 0;
-        transform:
-            translateY(12px)
-            scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-
-/* ================================
+/* =====================================
    CELULAR
-================================ */
+===================================== */
 
 @media (max-width: 600px) {
 
@@ -1335,6 +1371,21 @@ body.cargando #pantallaCarta {
     }
 
 
+    .musica-contenedor,
+    .cd-carta {
+
+        width: 54px;
+        height: 54px;
+    }
+
+
+    .cd-musica {
+
+        width: 54px;
+        height: 54px;
+    }
+
+
     #pantallaCarta {
 
         padding: 18px;
@@ -1359,580 +1410,6 @@ body.cargando #pantallaCarta {
     #imagenCarta {
 
         max-height: 67vh;
-    }
-
-
-    .carga-contenido {
-        width: 80%;
-    }
-
-}
-
-/* =====================================
-   PANTALLA DE CARGA
-===================================== */
-
-#pantallaCarga {
-
-    position: fixed;
-
-    inset: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            #efb0c2,
-            #f5bdcd,
-            #e9a8bc
-        );
-
-    z-index: 9999;
-}
-
-
-.carga-contenido {
-
-    position: relative;
-
-    z-index: 10;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: min(310px, 82vw);
-
-    padding: 30px 25px;
-
-    border-radius: 28px;
-
-    background:
-        rgba(255,255,255,0.25);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.45);
-
-    box-shadow:
-        0 15px 40px
-        rgba(120,60,80,0.13);
-
-    backdrop-filter: blur(8px);
-}
-
-
-.ruedita {
-
-    width: 58px;
-    height: 58px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    margin-bottom: 15px;
-}
-
-
-.rueda {
-
-    width: 42px;
-    height: 42px;
-
-    border-radius: 50%;
-
-    border:
-        4px solid
-        rgba(255,255,255,0.45);
-
-    border-top-color: white;
-
-    animation:
-        girarRueda
-        0.9s linear infinite;
-}
-
-
-.texto-cargando {
-
-    color: white;
-
-    font-size: 16px;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 15px;
-}
-
-
-.barra-carga {
-
-    width: 100%;
-    height: 9px;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    background:
-        rgba(255,255,255,0.35);
-}
-
-
-#progresoCarga {
-
-    width: 0%;
-
-    height: 100%;
-
-    border-radius: 20px;
-
-    background: white;
-
-    transition:
-        width 0.08s linear;
-}
-
-
-#porcentajeCarga {
-
-    margin-top: 9px;
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: bold;
-}
-
-
-/* NUBES DE LA CARGA */
-
-.carga-nubes {
-
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-}
-
-
-.nube-carga {
-
-    position: absolute;
-
-    width: 150px;
-    height: 45px;
-
-    background: #fffafa;
-
-    opacity: 0.68;
-
-    border-radius: 50%;
-
-    filter: blur(0.4px);
-}
-
-
-.nube-carga::before,
-.nube-carga::after {
-
-    content: "";
-
-    position: absolute;
-
-    background: #fffafa;
-
-    border-radius: 50%;
-}
-
-
-.nube-carga::before {
-
-    width: 70px;
-    height: 58px;
-
-    left: 20px;
-    bottom: 10px;
-}
-
-
-.nube-carga::after {
-
-    width: 58px;
-    height: 48px;
-
-    right: 22px;
-    bottom: 8px;
-}
-
-
-.nube-carga-1 {
-
-    left: -45px;
-    top: 15%;
-
-    transform: scale(0.9);
-}
-
-
-.nube-carga-2 {
-
-    right: -50px;
-    top: 30%;
-
-    transform: scale(0.65);
-}
-
-
-.nube-carga-3 {
-
-    left: 20%;
-    bottom: 8%;
-
-    transform: scale(0.45);
-}
-
-
-@keyframes girarRueda {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-/* Durante la carga no se muestra nada detrás */
-
-body.cargando #pantallaNavegador,
-body.cargando #pantallaSobre,
-body.cargando #pantallaCarta {
-
-    visibility: hidden;
-}
-
-/* =====================================
-   REPRODUCTOR / CD
-===================================== */
-
-.reproductor-musica {
-
-    position: fixed;
-
-    top: 18px;
-    left: 18px;
-
-    width: 58px;
-    height: 58px;
-
-    z-index: 200;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    pointer-events: none;
-
-    filter:
-        drop-shadow(
-            0 6px 10px
-            rgba(100, 50, 70, 0.18)
-        );
-}
-
-
-.reproductor-musica.oculto {
-    display: none !important;
-}
-
-
-#imagenCD {
-
-    width: 58px;
-    height: 58px;
-
-    object-fit: contain;
-
-    border-radius: 50%;
-
-    animation:
-        girarCD
-        4s linear infinite;
-}
-
-
-@keyframes girarCD {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* =====================================
-   AJUSTE DEL CD EN CELULAR
-===================================== */
-
-@media (max-width: 600px) {
-
-    .reproductor-musica {
-
-        top: 15px;
-        left: 15px;
-
-        width: 58px;
-        height: 58px;
-    }
-
-
-    #imagenCD {
-
-        width: 58px;
-        height: 58px;
-    }
-
-}
-
-/* =====================================
-   PANTALLA DE CARGA
-===================================== */
-
-#pantallaCarga {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 9999;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #efb0c2,
-            #f5bdcd,
-            #e9a8bc
-        );
-}
-
-
-.carga-contenido {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 13px;
-
-    color: #a25870;
-}
-
-
-.ruedita {
-
-    width: 52px;
-    height: 52px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-}
-
-
-.rueda {
-
-    width: 42px;
-    height: 42px;
-
-    border: 4px solid
-        rgba(255,255,255,0.45);
-
-    border-top-color: white;
-
-    border-radius: 50%;
-
-    animation:
-        girar
-        0.8s linear infinite;
-}
-
-
-.texto-cargando {
-
-    font-size: 16px;
-
-    letter-spacing: 1px;
-}
-
-
-.barra-carga {
-
-    width: 190px;
-    height: 8px;
-
-    overflow: hidden;
-
-    border-radius: 10px;
-
-    background:
-        rgba(255,255,255,0.4);
-}
-
-
-#progresoCarga {
-
-    width: 0%;
-
-    height: 100%;
-
-    border-radius: 10px;
-
-    background: white;
-
-    transition:
-        width 0.03s linear;
-}
-
-
-#porcentajeCarga {
-
-    font-size: 13px;
-
-    font-weight: bold;
-}
-
-
-@keyframes girar {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-
-/* =====================================
-   CD
-===================================== */
-
-.reproductor-musica {
-
-    position: fixed;
-
-    top: 17px;
-    left: 17px;
-
-    width: 60px;
-    height: 60px;
-
-    z-index: 500;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    pointer-events: none;
-
-    filter:
-        drop-shadow(
-            0 5px 9px
-            rgba(100,50,70,0.2)
-        );
-}
-
-
-.reproductor-musica.oculto {
-
-    display: none !important;
-
-}
-
-
-#imagenCD {
-
-    width: 60px;
-    height: 60px;
-
-    object-fit: contain;
-
-    border-radius: 50%;
-
-    animation:
-        girarCD
-        4s linear infinite;
-}
-
-
-@keyframes girarCD {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .reproductor-musica {
-
-        top: 15px;
-        left: 15px;
-
-        width: 58px;
-        height: 58px;
-
-    }
-
-
-    #imagenCD {
-
-        width: 58px;
-        height: 58px;
-
     }
 
 }

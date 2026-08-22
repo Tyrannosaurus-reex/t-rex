@@ -29,42 +29,13 @@
 
 </head>
 
-<body class="cargando">
 
-    <!-- =========================
-         PANTALLA DE CARGA
-    ========================== -->
+<body>
 
-    <div id="pantallaCarga">
-
-        <div class="carga-contenido">
-
-            <div class="ruedita">
-                <div class="rueda"></div>
-            </div>
-
-            <div class="texto-cargando">
-                cargando...
-            </div>
-
-            <div class="barra-carga">
-
-                <div id="progresoCarga"></div>
-
-            </div>
-
-            <div id="porcentajeCarga">
-                0%
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         PANTALLA GOOGLE
-    ========================== -->
+    <!-- =========================================
+         PANTALLA DE GOOGLE
+         SOLO APARECE EN EL NAVEGADOR
+    ========================================== -->
 
     <div id="pantallaNavegador">
 
@@ -72,6 +43,10 @@
         <div class="nube-navegador nube-nav-2"></div>
         <div class="nube-navegador nube-nav-3"></div>
         <div class="nube-navegador nube-nav-4"></div>
+
+        <div class="brillito-nav bnav1">✦</div>
+        <div class="brillito-nav bnav2">✧</div>
+        <div class="brillito-nav bnav3">✦</div>
 
         <div class="mensajeNavegador">
 
@@ -88,58 +63,61 @@
     </div>
 
 
-    <!-- =========================
-         PANTALLA DE LA APP
-    ========================== -->
 
-    <div id="pantallaSobre">
+    <!-- =========================================
+         CARGANDO
+         SOLO SE MUESTRA EN LA APP
+    ========================================== -->
 
-        <!-- MÚSICA 1 -->
+    <div
+        id="pantallaCarga"
+        class="oculto"
+    >
 
-        <audio
-            id="musica1"
-            src="musica1.mp3"
-            loop
-            preload="auto"
-        ></audio>
+        <div class="carga-contenido">
 
+            <div class="ruedita"></div>
 
-        <!-- MÚSICA 2 -->
+            <div class="texto-cargando">
+                cargando...
+            </div>
 
-        <audio
-            id="musica2"
-            src="musica2.mp3"
-            loop
-            preload="auto"
-        ></audio>
+            <div class="barra-carga">
 
+                <div
+                    id="barraProgreso"
+                    class="barra-progreso"
+                ></div>
 
-        <!-- CD -->
+            </div>
 
-        <div
-            id="reproductorMusica"
-            class="reproductor-musica oculto"
-        >
-
-            <img
-                id="imagenCD"
-                src="cd1.png"
-                alt="CD"
+            <div
+                id="porcentajeCarga"
+                class="porcentaje-carga"
             >
+                0%
+            </div>
 
         </div>
 
+    </div>
 
-        <!-- NUBES -->
+
+
+    <!-- =========================================
+         PANTALLA DEL SOBRE
+    ========================================== -->
+
+    <div
+        id="pantallaSobre"
+        class="oculto"
+    >
 
         <div class="nube nube1"></div>
         <div class="nube nube2"></div>
         <div class="nube nube3"></div>
         <div class="nube nube4"></div>
         <div class="nube nube5"></div>
-
-
-        <!-- BRILLOS -->
 
         <div class="brillo brillo1">✦</div>
         <div class="brillo brillo2">✧</div>
@@ -149,7 +127,42 @@
         <div class="brillo brillo6">✧</div>
 
 
-        <!-- SOBRE -->
+
+        <!-- =====================================
+             MÚSICA
+        ====================================== -->
+
+        <div
+            id="musicaContenedor"
+            class="musica-contenedor"
+        >
+
+            <img
+                id="cdMusica"
+                class="cd-musica"
+                src="cd1.png"
+                alt="CD"
+            >
+
+        </div>
+
+
+        <audio
+            id="musicaTemporizador"
+            src="musica1.mp3"
+            loop
+            preload="auto"
+        ></audio>
+
+
+        <audio
+            id="musicaCarta"
+            src="musica2.mp3"
+            loop
+            preload="auto"
+        ></audio>
+
+
 
         <div id="zonaSobre">
 
@@ -174,7 +187,9 @@
                 <div class="tapa"></div>
 
                 <div class="sello">
+
                     <span>♡</span>
+
                 </div>
 
             </div>
@@ -182,7 +197,10 @@
         </div>
 
 
-        <!-- CONTADOR -->
+
+        <!-- =====================================
+             CONTADOR
+        ====================================== -->
 
         <div id="contador">
 
@@ -196,7 +214,9 @@
 
                     <div class="numero">
 
-                        <span id="dias">00</span>
+                        <span id="dias">
+                            00
+                        </span>
 
                         <small>
                             días
@@ -204,13 +224,17 @@
 
                     </div>
 
+
                     <div class="separador">
                         :
                     </div>
 
+
                     <div class="numero">
 
-                        <span id="horas">00</span>
+                        <span id="horas">
+                            00
+                        </span>
 
                         <small>
                             horas
@@ -218,13 +242,17 @@
 
                     </div>
 
+
                     <div class="separador">
                         :
                     </div>
 
+
                     <div class="numero">
 
-                        <span id="minutos">00</span>
+                        <span id="minutos">
+                            00
+                        </span>
 
                         <small>
                             min
@@ -232,13 +260,17 @@
 
                     </div>
 
+
                     <div class="separador">
                         :
                     </div>
 
+
                     <div class="numero">
 
-                        <span id="segundos">00</span>
+                        <span id="segundos">
+                            00
+                        </span>
 
                         <small>
                             seg
@@ -255,9 +287,10 @@
     </div>
 
 
-    <!-- =========================
-         CARTA
-    ========================== -->
+
+    <!-- =========================================
+         PANTALLA DE LA CARTA
+    ========================================== -->
 
     <div
         id="pantallaCarta"
@@ -279,6 +312,18 @@
         <div class="luz luz1"></div>
         <div class="luz luz2"></div>
         <div class="luz luz3"></div>
+
+
+
+        <!-- CD DE LA CARTA -->
+
+        <img
+            id="cdCarta"
+            class="cd-carta"
+            src="cd2.png"
+            alt="CD"
+        >
+
 
 
         <div class="carta-marco">
@@ -303,11 +348,13 @@
         </div>
 
 
+
         <button id="volver">
             Volver
         </button>
 
     </div>
+
 
 
     <script src="script.js"></script>
