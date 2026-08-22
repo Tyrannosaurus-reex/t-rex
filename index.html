@@ -20,12 +20,12 @@
         href="manifest.json"
     >
 
-    <title>t-rex</title>
-
     <link
         rel="stylesheet"
         href="style.css"
     >
+
+    <title>t-rex</title>
 
 </head>
 
@@ -34,7 +34,7 @@
 
 
     <!-- =========================
-         PANTALLA DEL NAVEGADOR
+         PANTALLA "OLA"
     ========================== -->
 
     <div id="pantallaNavegador">
@@ -63,8 +63,9 @@
     </div>
 
 
+
     <!-- =========================
-         PANTALLA PRINCIPAL
+         PANTALLA DEL SOBRE
     ========================== -->
 
     <div id="pantallaSobre">
@@ -112,7 +113,10 @@
         </div>
 
 
-        <!-- CONTADOR -->
+
+        <!-- =========================
+             CONTADOR
+        ========================== -->
 
         <div id="contador">
 
@@ -159,6 +163,7 @@
     </div>
 
 
+
     <!-- =========================
          PANTALLA DE LA CARTA
     ========================== -->
@@ -187,15 +192,27 @@
 
         <div class="carta-marco">
 
-            <div class="carta-brillo"></div>
-
             <div class="carta-contenedor">
+
+                <!--
+                    IMPORTANTE:
+                    Esta será SIEMPRE la carta.
+                    Solo tienes que reemplazar
+                    carta.png cuando tengas otra.
+                -->
 
                 <img
                     id="imagenCarta"
                     src="carta.png"
                     alt="Carta"
                 >
+
+                <div
+                    id="mensajeCartaError"
+                    class="mensajeCartaError"
+                >
+                    Todavía no hay una carta disponible.
+                </div>
 
             </div>
 
@@ -207,6 +224,7 @@
         </button>
 
     </div>
+
 
 
     <script src="script.js"></script>

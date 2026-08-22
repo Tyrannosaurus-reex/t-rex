@@ -1,140 +1,208 @@
-const CACHE_NAME = "cartita-app";
-
-const ARCHIVOS = [
-    "./",
-    "./index.html",
-    "./style.css",
-    "./script.js",
-    "./manifest.json",
-    "./icono.png"
-];
+const CACHE_NAME =
+    "trex-app-v2";
 
 
-/* INSTALACIÓN */
-
-self.addEventListener("install", event => {
-
-    self.skipWaiting();
-
-    event.waitUntil(
-
-        caches.open(CACHE_NAME).then(cache => {
-
-            return cache.addAll(ARCHIVOS);
-
-        })
-
-    );
-
-});
+const ARCHIVOS =
+    [
+        "./",
+        "./index.html",
+        "./style.css",
+        "./script.js",
+        "./manifest.json",
+        "./icono.png"
+    ];
 
 
-/* ACTIVACIÓN */
 
-self.addEventListener("activate", event => {
+/* =====================================
+   INSTALACIÓN
+===================================== */
 
-    event.waitUntil(
+self.addEventListener(
+    "install",
+    event => {
 
-        caches.keys().then(nombres => {
+        event.waitUntil(
 
-            return Promise.all(
+            caches.open(
+                CACHE_NAME
+            ).then(
+                cache => {
 
-                nombres
-                    .filter(nombre => nombre !== CACHE_NAME)
-                    .map(nombre => caches.delete(nombre))
+                    return cache.addAll(
+                        ARCHIVOS
+                    );
 
-            );
-
-        }).then(() => {
-
-            return self.clients.claim();
-
-        })
-
-    );
-
-});
-
-
-/* PETICIONES */
-
-self.addEventListener("fetch", event => {
-
-    const url = new URL(event.request.url);
-
-
-    /*
-       carta.png NO se guarda en caché.
-
-       Así, cuando tú reemplaces la carta
-       por una nueva, la app buscará
-       directamente la versión actual.
-    */
-
-    if (
-        url.pathname.endsWith("/carta.png")
-    ) {
-
-        event.respondWith(
-
-            fetch(event.request, {
-                cache: "no-store"
-            })
+                }
+            )
 
         );
 
-        return;
+
+        self.skipWaiting();
 
     }
+);
 
 
-    /*
-       Los archivos principales se comprueban
-       primero en internet.
 
-       Si internet no está disponible,
-       utiliza la versión guardada.
-    */
+/* =====================================
+   ACTIVACIÓN
+===================================== */
 
-    event.respondWith(
+self.addEventListener(
+    "activate",
+    event => {
 
-        fetch(event.request, {
-            cache: "no-store"
-        })
-        .then(respuesta => {
+        event.waitUntil(
 
-            if (
-                respuesta &&
-                respuesta.status === 200 &&
-                event.request.method === "GET"
-            ) {
+            caches.keys().then(
+                nombres => {
 
-                const copia =
-                    respuesta.clone();
+                    return Promise.all(
 
-                caches.open(CACHE_NAME)
-                    .then(cache => {
+                        nombres
+                            .filter(
+                                nombre =>
+                                    nombre !==
+                                    CACHE_NAME
+                            )
+                            .map(
+                                nombre =>
+                                    caches.delete(
+                                        nombre
+                                    )
+                            )
 
-                        cache.put(
-                            event.request,
-                            copia
-                        );
+                    );
 
-                    });
+                }
+            )
 
-            }
+        );
 
-            return respuesta;
 
-        })
-        .catch(() => {
+        self.clients.claim();
 
-            return caches.match(
-                event.request
+    }
+);
+
+
+
+/* =====================================
+   PETICIONES
+===================================== */
+
+self.addEventListener(
+    "fetch",
+    event => {
+
+        const url =
+            new URL(
+                event.request.url
             );
 
-        })
 
-    );
+        /*
+           CARTA.Png
+           
+           NUNCA se guarda en caché.
+           
+           Siempre se pide la versión
+           actual que esté en GitHub.
+        */
 
-});
+        if (
+            url.pathname.endsWith(
+                "/carta.png"
+            )
+        ) {
+
+            event.respondWith(
+
+                fetch(
+                    event.request,
+                    {
+                        cache: "no-store"
+                    }
+                ).catch(
+                    () => {
+
+                        return new Response(
+                            "",
+                            {
+                                status: 404
+                            }
+                        );
+
+                    }
+                )
+
+            );
+
+            return;
+
+        }
+
+
+
+        /*
+           Los demás archivos:
+           
+           primero intenta la red.
+           
+           Si no hay conexión,
+           utiliza la versión guardada.
+        */
+
+        event.respondWith(
+
+            fetch(
+                event.request
+            )
+            .then(
+                respuesta => {
+
+                    if (
+                        respuesta &&
+                        respuesta.status === 200
+                    ) {
+
+                        const copia =
+                            respuesta.clone();
+
+
+                        caches.open(
+                            CACHE_NAME
+                        ).then(
+                            cache => {
+
+                                cache.put(
+                                    event.request,
+                                    copia
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    return respuesta;
+
+                }
+            )
+            .catch(
+                () => {
+
+                    return caches.match(
+                        event.request
+                    );
+
+                }
+            )
+
+        );
+
+    }
+);

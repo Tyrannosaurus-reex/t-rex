@@ -3,30 +3,11 @@
 ===================================== */
 
 const FECHA_APERTURA =
-    "2026-08-22T07:40:00";
+    "2026-08-25T10:00:00";
 
 
 const FECHA_SIGUIENTE =
     "2026-09-15T10:00:00";
-
-
-
-/* =====================================
-   DETECTAR APP
-===================================== */
-
-function estaEnLaApp() {
-
-    const standalone =
-        window.matchMedia(
-            "(display-mode: standalone)"
-        ).matches;
-
-    const ios =
-        window.navigator.standalone === true;
-
-    return standalone || ios;
-}
 
 
 
@@ -106,6 +87,18 @@ const botonInstalar =
     );
 
 
+const imagenCarta =
+    document.getElementById(
+        "imagenCarta"
+    );
+
+
+const mensajeCartaError =
+    document.getElementById(
+        "mensajeCartaError"
+    );
+
+
 
 /* =====================================
    ESTADO
@@ -122,7 +115,7 @@ let cartaYaFueAbierta =
 
 
 /* =====================================
-   INSTALACIÓN DE LA APP
+   INSTALACIÓN
 ===================================== */
 
 let eventoInstalacion = null;
@@ -136,11 +129,6 @@ window.addEventListener(
 
         eventoInstalacion = evento;
 
-        /*
-           El botón aparece solamente
-           cuando Chrome permite instalar.
-        */
-
         if (botonInstalar) {
 
             botonInstalar.style.display =
@@ -152,7 +140,6 @@ window.addEventListener(
 );
 
 
-
 if (botonInstalar) {
 
     botonInstalar.addEventListener(
@@ -160,9 +147,7 @@ if (botonInstalar) {
         async () => {
 
             if (!eventoInstalacion) {
-
                 return;
-
             }
 
 
@@ -190,6 +175,27 @@ if (botonInstalar) {
         }
     );
 
+}
+
+
+
+/* =====================================
+   DETECTAR APP
+===================================== */
+
+function estaEnLaApp() {
+
+    const standalone =
+        window.matchMedia(
+            "(display-mode: standalone)"
+        ).matches;
+
+
+    const ios =
+        window.navigator.standalone === true;
+
+
+    return standalone || ios;
 }
 
 
@@ -276,7 +282,7 @@ function actualizarContador(fecha) {
 
 
 /* =====================================
-   COMPROBAR ESTADO
+   ESTADO DE LA PÁGINA
 ===================================== */
 
 function comprobarEstado() {
@@ -310,7 +316,6 @@ function comprobarEstado() {
 
 
             return;
-
         }
 
 
@@ -333,7 +338,6 @@ function comprobarEstado() {
 
 
         return;
-
     }
 
 
@@ -377,6 +381,76 @@ function comprobarEstado() {
 
 
 /* =====================================
+   COMPROBAR CARTA
+===================================== */
+
+function comprobarCarta() {
+
+    if (!imagenCarta) {
+        return;
+    }
+
+
+    /*
+       Si carta.png existe,
+       se muestra normalmente.
+
+       Si no existe,
+       aparece un mensaje en lugar
+       de romper la página.
+    */
+
+    imagenCarta.onload =
+        function() {
+
+            imagenCarta.style.display =
+                "block";
+
+
+            if (mensajeCartaError) {
+
+                mensajeCartaError.style.display =
+                    "none";
+
+            }
+
+        };
+
+
+    imagenCarta.onerror =
+        function() {
+
+            imagenCarta.style.display =
+                "none";
+
+
+            if (mensajeCartaError) {
+
+                mensajeCartaError.style.display =
+                    "block";
+
+            }
+
+        };
+
+
+    /*
+       Esto fuerza al navegador a pedir
+       la versión actual de la imagen.
+       
+       NO tienes que modificar este número
+       cuando cambies la carta.
+    */
+
+    imagenCarta.src =
+        "carta.png?v=" +
+        Date.now();
+
+}
+
+
+
+/* =====================================
    ABRIR SOBRE
 ===================================== */
 
@@ -390,6 +464,9 @@ sobre.addEventListener(
 
 
         cartaAbierta = true;
+
+
+        comprobarCarta();
 
 
         sobre.classList.add(
