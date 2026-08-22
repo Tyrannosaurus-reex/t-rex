@@ -1,5 +1,5 @@
 const CACHE_NAME =
-    "trex-app-v3";
+    "trex-app-v4";
 
 
 const ARCHIVOS =
@@ -103,14 +103,11 @@ self.addEventListener(
             );
 
 
+
         /*
            CARTA
 
-           La carta nunca se guarda
-           en la caché.
-
-           Siempre se busca la versión
-           actual de GitHub.
+           Nunca se guarda en caché.
         */
 
         if (
@@ -148,13 +145,60 @@ self.addEventListener(
 
 
         /*
+           MÚSICA Y CD
+
+           Siempre se buscan en red
+           para evitar versiones viejas.
+        */
+
+        if (
+            url.pathname.endsWith(
+                "/musica1.mp3"
+            ) ||
+            url.pathname.endsWith(
+                "/musica2.mp3"
+            ) ||
+            url.pathname.endsWith(
+                "/cd1.png"
+            ) ||
+            url.pathname.endsWith(
+                "/cd2.png"
+            )
+        ) {
+
+            event.respondWith(
+
+                fetch(
+                    event.request,
+                    {
+                        cache: "no-store"
+                    }
+                ).catch(
+                    () => {
+
+                        return caches.match(
+                            event.request
+                        );
+
+                    }
+                )
+
+            );
+
+            return;
+
+        }
+
+
+
+        /*
            ARCHIVOS DE LA APP
 
            Primero intenta conseguir
-           la versión nueva de Internet.
+           la versión actual.
 
-           Si no hay conexión,
-           utiliza la versión guardada.
+           Si no hay Internet,
+           utiliza la caché.
         */
 
         event.respondWith(

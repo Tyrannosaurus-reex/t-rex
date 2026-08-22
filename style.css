@@ -4,42 +4,35 @@
     box-sizing: border-box;
 }
 
-
 html,
 body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-
     font-family: Arial, sans-serif;
 }
-
 
 body {
     background: #f5b8c8;
 }
-
 
 .oculto {
     display: none !important;
 }
 
 
-
 /* =====================================
-   PANTALLA GOOGLE
+   PANTALLA GOOGLE / NAVEGADOR
+   SOLO APARECE EN GOOGLE
 ===================================== */
 
 #pantallaNavegador {
-
     position: fixed;
     inset: 0;
-
     width: 100vw;
     height: 100vh;
 
     display: flex;
-
     justify-content: center;
     align-items: center;
 
@@ -56,17 +49,12 @@ body {
     z-index: 999;
 }
 
-
 .mensajeNavegador {
-
     position: relative;
-
     z-index: 5;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
 
@@ -88,17 +76,12 @@ body {
     color: #a25870;
 }
 
-
 .texto-ola {
-
     font-size: 24px;
-
     letter-spacing: 1px;
 }
 
-
 #botonInstalar {
-
     display: none;
 
     margin-top: 15px;
@@ -106,15 +89,12 @@ body {
     padding: 11px 27px;
 
     border: none;
-
     border-radius: 22px;
 
     background: white;
-
     color: #a25870;
 
     font-size: 14px;
-
     font-weight: bold;
 
     cursor: pointer;
@@ -124,11 +104,9 @@ body {
         rgba(120, 60, 80, 0.15);
 }
 
-
 #botonInstalar:active {
     transform: scale(0.94);
 }
-
 
 
 /* =====================================
@@ -137,7 +115,6 @@ body {
 
 .nube-navegador,
 .nube {
-
     position: absolute;
 
     width: 150px;
@@ -157,10 +134,8 @@ body {
         rgba(160, 100, 120, 0.06);
 }
 
-
 .nube-navegador::before,
 .nube::before {
-
     content: "";
 
     position: absolute;
@@ -177,10 +152,8 @@ body {
         55% 45% 50% 45%;
 }
 
-
 .nube-navegador::after,
 .nube::after {
-
     content: "";
 
     position: absolute;
@@ -198,11 +171,12 @@ body {
 }
 
 
+/* NUBES DEL NAVEGADOR */
+
 .nube-nav-1 {
     left: -45px;
     top: 16%;
 }
-
 
 .nube-nav-2 {
     right: -55px;
@@ -210,13 +184,11 @@ body {
     transform: scale(0.65);
 }
 
-
 .nube-nav-3 {
     left: 8%;
     bottom: 13%;
     transform: scale(0.55);
 }
-
 
 .nube-nav-4 {
     right: 5%;
@@ -225,14 +197,12 @@ body {
 }
 
 
-
 /* =====================================
    BRILLOS
 ===================================== */
 
 .brillito-nav,
 .brillo {
-
     position: absolute;
 
     color: white;
@@ -246,24 +216,20 @@ body {
         3s ease-in-out infinite;
 }
 
-
 .bnav1 {
     left: 16%;
     top: 25%;
 }
-
 
 .bnav2 {
     right: 17%;
     top: 18%;
 }
 
-
 .bnav3 {
     right: 24%;
     bottom: 22%;
 }
-
 
 @keyframes brilloSuave {
 
@@ -280,15 +246,13 @@ body {
 }
 
 
-
 /* =====================================
    PANTALLA CARGANDO
+   SOLO SE MUESTRA EN LA APP
 ===================================== */
 
 #pantallaCarga {
-
     position: fixed;
-
     inset: 0;
 
     width: 100vw;
@@ -312,9 +276,7 @@ body {
         );
 }
 
-
 .carga-contenido {
-
     width: 280px;
 
     display: flex;
@@ -322,7 +284,6 @@ body {
     flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 30px;
@@ -344,9 +305,7 @@ body {
         rgba(120, 60, 80, 0.14);
 }
 
-
 .ruedita {
-
     width: 54px;
     height: 54px;
 
@@ -366,17 +325,13 @@ body {
     margin-bottom: 18px;
 }
 
-
 @keyframes girar {
-
     to {
         transform: rotate(360deg);
     }
 }
 
-
 .texto-cargando {
-
     color: #a25870;
 
     font-size: 16px;
@@ -384,9 +339,7 @@ body {
     margin-bottom: 14px;
 }
 
-
 .barra-carga {
-
     width: 100%;
     height: 11px;
 
@@ -402,11 +355,8 @@ body {
         rgba(120, 60, 80, 0.08);
 }
 
-
 .barra-progreso {
-
     width: 0%;
-
     height: 100%;
 
     border-radius: 20px;
@@ -423,26 +373,21 @@ body {
         width 0.08s linear;
 }
 
-
 .porcentaje-carga {
-
     margin-top: 10px;
 
     color: #a25870;
 
     font-size: 14px;
-
     font-weight: bold;
 }
 
 
-
 /* =====================================
-   SOBRE
+   PANTALLA DEL SOBRE
 ===================================== */
 
 #pantallaSobre {
-
     position: relative;
 
     width: 100vw;
@@ -466,9 +411,7 @@ body {
         );
 }
 
-
 #zonaSobre {
-
     position: relative;
 
     z-index: 10;
@@ -480,11 +423,12 @@ body {
 }
 
 
+/* NUBES DEL SOBRE */
+
 .nube1 {
     left: -30px;
     top: 12%;
 }
-
 
 .nube2 {
     right: -35px;
@@ -492,20 +436,17 @@ body {
     transform: scale(0.72);
 }
 
-
 .nube3 {
     left: 4%;
     bottom: 10%;
     transform: scale(0.65);
 }
 
-
 .nube4 {
     right: 3%;
     bottom: 8%;
     transform: scale(0.55);
 }
-
 
 .nube5 {
     left: 38%;
@@ -514,35 +455,32 @@ body {
 }
 
 
+/* BRILLOS DEL SOBRE */
+
 .brillo1 {
     left: 12%;
     top: 30%;
 }
-
 
 .brillo2 {
     left: 25%;
     top: 17%;
 }
 
-
 .brillo3 {
     right: 15%;
     top: 35%;
 }
-
 
 .brillo4 {
     right: 25%;
     bottom: 20%;
 }
 
-
 .brillo5 {
     left: 17%;
     bottom: 30%;
 }
-
 
 .brillo6 {
     right: 8%;
@@ -550,20 +488,18 @@ body {
 }
 
 
-
 /* =====================================
-   CD MÚSICA
+   CD DE LA MÚSICA DEL TEMPORIZADOR
 ===================================== */
 
 .musica-contenedor {
-
     position: fixed;
 
     top: 20px;
     left: 20px;
 
-    width: 64px;
-    height: 64px;
+    width: 70px;
+    height: 70px;
 
     z-index: 50;
 
@@ -571,13 +507,13 @@ body {
 
     justify-content: center;
     align-items: center;
+
+    pointer-events: none;
 }
 
-
 .cd-musica {
-
-    width: 62px;
-    height: 62px;
+    width: 64px;
+    height: 64px;
 
     object-fit: contain;
 
@@ -594,7 +530,6 @@ body {
         );
 }
 
-
 @keyframes girarCD {
 
     from {
@@ -607,13 +542,11 @@ body {
 }
 
 
-
 /* =====================================
    SOBRE
 ===================================== */
 
 .sobre {
-
     width: 270px;
     height: 185px;
 
@@ -632,19 +565,15 @@ body {
         );
 }
 
-
 .sobre:hover {
     transform: scale(1.05);
 }
-
 
 .sobre:active {
     transform: scale(0.97);
 }
 
-
 .sombra {
-
     position: absolute;
 
     width: 230px;
@@ -663,9 +592,7 @@ body {
     z-index: -1;
 }
 
-
 .papel {
-
     position: absolute;
 
     width: 160px;
@@ -689,9 +616,7 @@ body {
         0.9s ease;
 }
 
-
 .borde-papel {
-
     position: absolute;
 
     inset: 8px;
@@ -701,9 +626,7 @@ body {
         #f0d9df;
 }
 
-
 .sobre-base {
-
     position: absolute;
 
     width: 270px;
@@ -723,9 +646,7 @@ body {
     z-index: 3;
 }
 
-
 .doblez {
-
     position: absolute;
 
     bottom: 0;
@@ -736,9 +657,7 @@ body {
     z-index: 5;
 }
 
-
 .doblez.izquierda {
-
     left: 0;
 
     border-bottom:
@@ -750,9 +669,7 @@ body {
         transparent;
 }
 
-
 .doblez.derecha {
-
     right: 0;
 
     border-bottom:
@@ -764,9 +681,7 @@ body {
         transparent;
 }
 
-
 .tapa {
-
     position: absolute;
 
     top: 0;
@@ -797,9 +712,7 @@ body {
         0.9s ease;
 }
 
-
 .sello {
-
     position: absolute;
 
     width: 43px;
@@ -838,39 +751,31 @@ body {
         opacity 0.5s;
 }
 
-
 .sobre.abriendo {
     animation: none;
 }
 
-
 .sobre.abriendo .tapa {
-
     transform:
         rotateX(180deg);
 
     z-index: 1;
 }
 
-
 .sobre.abriendo .papel {
-
     transform:
         translateY(-45px);
 
     z-index: 8;
 }
 
-
 .sobre.abriendo .sello {
-
     transform:
         translateX(-50%)
         scale(0.5);
 
     opacity: 0;
 }
-
 
 @keyframes flotar {
 
@@ -885,13 +790,11 @@ body {
 }
 
 
-
 /* =====================================
    CONTADOR
 ===================================== */
 
 #contador {
-
     position: relative;
 
     width: 100%;
@@ -906,9 +809,7 @@ body {
     z-index: 20;
 }
 
-
 .contador-caja {
-
     padding:
         18px 24px;
 
@@ -929,9 +830,7 @@ body {
         rgba(120, 60, 80, 0.14);
 }
 
-
 .mini-sello {
-
     text-align: center;
 
     margin-bottom: 10px;
@@ -941,9 +840,7 @@ body {
     font-size: 20px;
 }
 
-
 #tiempo {
-
     display: flex;
 
     justify-content: center;
@@ -952,9 +849,7 @@ body {
     gap: 8px;
 }
 
-
 .numero {
-
     display: flex;
 
     flex-direction: column;
@@ -964,25 +859,18 @@ body {
     color: #9e5369;
 }
 
-
 .numero span {
-
     font-size: 26px;
-
     font-weight: bold;
 }
 
-
 .numero small {
-
     font-size: 10px;
 
     margin-top: 3px;
 }
 
-
 .separador {
-
     font-size: 22px;
 
     margin-bottom: 13px;
@@ -991,18 +879,15 @@ body {
 }
 
 
-
 /* =====================================
-   CARTA
+   PANTALLA DE LA CARTA
 ===================================== */
 
 #pantallaCarta {
-
     width: 100vw;
     height: 100vh;
 
     position: fixed;
-
     inset: 0;
 
     z-index: 100;
@@ -1027,9 +912,7 @@ body {
         );
 }
 
-
 .decoracionCarta {
-
     position: absolute;
 
     inset: 0;
@@ -1037,9 +920,7 @@ body {
     pointer-events: none;
 }
 
-
 .estrella {
-
     position: absolute;
 
     color: white;
@@ -1048,7 +929,6 @@ body {
         brilloSuave
         3s ease-in-out infinite;
 }
-
 
 .e1 {
     left: 8%;
@@ -1081,8 +961,11 @@ body {
 }
 
 
-.luz {
+/* =====================================
+   LUCES DE LA CARTA
+===================================== */
 
+.luz {
     position: absolute;
 
     border-radius: 50%;
@@ -1092,9 +975,7 @@ body {
     pointer-events: none;
 }
 
-
 .luz1 {
-
     width: 220px;
     height: 220px;
 
@@ -1105,9 +986,7 @@ body {
         rgba(255, 255, 255, 0.3);
 }
 
-
 .luz2 {
-
     width: 250px;
     height: 250px;
 
@@ -1118,9 +997,7 @@ body {
         rgba(255, 255, 255, 0.2);
 }
 
-
 .luz3 {
-
     width: 230px;
     height: 230px;
 
@@ -1132,15 +1009,18 @@ body {
 }
 
 
-.cd-carta {
+/* =====================================
+   CD DE LA CARTA
+===================================== */
 
+.cd-carta {
     position: absolute;
 
     top: 20px;
     left: 20px;
 
-    width: 62px;
-    height: 62px;
+    width: 64px;
+    height: 64px;
 
     object-fit: contain;
 
@@ -1157,16 +1037,16 @@ body {
             0 6px 8px
             rgba(100, 50, 70, 0.2)
         );
+
+    pointer-events: none;
 }
 
 
-
 /* =====================================
-   MARCO CARTA
+   MARCO DE LA CARTA
 ===================================== */
 
 .carta-marco {
-
     position: relative;
 
     z-index: 10;
@@ -1193,9 +1073,7 @@ body {
         rgba(120, 55, 80, 0.2);
 }
 
-
 .carta-contenedor {
-
     max-width: 100%;
     max-height: 72vh;
 
@@ -1211,22 +1089,17 @@ body {
     align-items: center;
 }
 
-
 #imagenCarta {
-
     display: block;
 
     max-width: 100%;
-
     max-height: 70vh;
 
     width: auto;
     height: auto;
 }
 
-
 .mensajeCartaError {
-
     display: none;
 
     padding: 30px;
@@ -1239,8 +1112,11 @@ body {
 }
 
 
-#volver {
+/* =====================================
+   BOTÓN VOLVER
+===================================== */
 
+#volver {
     position: relative;
 
     z-index: 20;
@@ -1268,11 +1144,9 @@ body {
         rgba(120, 60, 80, 0.15);
 }
 
-
 #volver:active {
     transform: scale(0.95);
 }
-
 
 
 /* =====================================
@@ -1282,134 +1156,123 @@ body {
 @media (max-width: 600px) {
 
     .sobre {
-
         width: 220px;
         height: 150px;
     }
-
 
     .sobre-base {
-
         width: 220px;
         height: 150px;
     }
 
-
     .tapa {
-
         border-left-width: 110px;
         border-right-width: 110px;
         border-top-width: 88px;
     }
 
-
     .papel {
-
         width: 135px;
         height: 88px;
 
         left: 42px;
     }
 
-
     .doblez.izquierda {
-
         border-bottom-width: 90px;
         border-right-width: 110px;
     }
 
-
     .doblez.derecha {
-
         border-bottom-width: 90px;
         border-left-width: 110px;
     }
-
 
     .sello {
         top: 70px;
     }
 
-
     #contador {
-
         width: 90%;
 
         margin-top: 30px;
     }
 
-
     .contador-caja {
-
         width: 100%;
 
         padding:
             16px 10px;
     }
 
-
     #tiempo {
         gap: 5px;
     }
-
 
     .numero span {
         font-size: 21px;
     }
 
-
     .numero small {
         font-size: 9px;
     }
 
-
     .separador {
-
         font-size: 18px;
 
         margin-bottom: 12px;
     }
 
+    .musica-contenedor {
+        width: 58px;
+        height: 58px;
 
-    .musica-contenedor,
-    .cd-carta {
-
-        width: 54px;
-        height: 54px;
+        top: 16px;
+        left: 16px;
     }
-
 
     .cd-musica {
-
         width: 54px;
         height: 54px;
     }
 
+    .cd-carta {
+        width: 54px;
+        height: 54px;
+
+        top: 16px;
+        left: 16px;
+    }
 
     #pantallaCarta {
-
         padding: 18px;
     }
 
-
     .carta-marco {
-
         max-width: 94vw;
         max-height: 73vh;
 
         padding: 8px;
     }
 
-
     .carta-contenedor {
-
         max-height: 69vh;
     }
 
-
     #imagenCarta {
-
         max-height: 67vh;
     }
 
+}
+
+
+/* =====================================
+   EVITAR QUE LOS CDS INTERFIERAN
+   CON LOS BOTONES O EL SOBRE
+===================================== */
+
+.cd-musica,
+.cd-carta {
+    user-select: none;
+    -webkit-user-drag: none;
 }

@@ -1,23 +1,10 @@
-javascript
 /* =====================================
    FECHAS
 ===================================== */
 
-/*
-   PRIMERA CARTA
-   25 de agosto de 2026
-   10:00 AM México UTC-6
-*/
-
 const FECHA_APERTURA =
-    "2026-08-22T14:50:00-06:00";
+    "2026-08-25T10:00:00-06:00";
 
-
-/*
-   SEGUNDA CARTA
-   17 de septiembre de 2026
-   10:00 AM México UTC-6
-*/
 
 const FECHA_SIGUIENTE =
     "2026-09-17T10:00:00-06:00";
@@ -29,129 +16,87 @@ const FECHA_SIGUIENTE =
 ===================================== */
 
 const pantallaNavegador =
-    document.getElementById(
-        "pantallaNavegador"
-    );
+    document.getElementById("pantallaNavegador");
 
 
 const pantallaCarga =
-    document.getElementById(
-        "pantallaCarga"
-    );
+    document.getElementById("pantallaCarga");
 
 
 const pantallaSobre =
-    document.getElementById(
-        "pantallaSobre"
-    );
+    document.getElementById("pantallaSobre");
 
 
 const pantallaCarta =
-    document.getElementById(
-        "pantallaCarta"
-    );
+    document.getElementById("pantallaCarta");
 
 
 const sobre =
-    document.getElementById(
-        "sobre"
-    );
+    document.getElementById("sobre");
 
 
 const zonaSobre =
-    document.getElementById(
-        "zonaSobre"
-    );
+    document.getElementById("zonaSobre");
 
 
 const contador =
-    document.getElementById(
-        "contador"
-    );
+    document.getElementById("contador");
 
 
 const volver =
-    document.getElementById(
-        "volver"
-    );
+    document.getElementById("volver");
 
 
 const dias =
-    document.getElementById(
-        "dias"
-    );
+    document.getElementById("dias");
 
 
 const horas =
-    document.getElementById(
-        "horas"
-    );
+    document.getElementById("horas");
 
 
 const minutos =
-    document.getElementById(
-        "minutos"
-    );
+    document.getElementById("minutos");
 
 
 const segundos =
-    document.getElementById(
-        "segundos"
-    );
+    document.getElementById("segundos");
 
 
 const botonInstalar =
-    document.getElementById(
-        "botonInstalar"
-    );
+    document.getElementById("botonInstalar");
 
 
 const imagenCarta =
-    document.getElementById(
-        "imagenCarta"
-    );
+    document.getElementById("imagenCarta");
 
 
 const mensajeCartaError =
-    document.getElementById(
-        "mensajeCartaError"
-    );
+    document.getElementById("mensajeCartaError");
 
 
 const barraProgreso =
-    document.getElementById(
-        "barraProgreso"
-    );
+    document.getElementById("barraProgreso");
 
 
 const porcentajeCarga =
-    document.getElementById(
-        "porcentajeCarga"
-    );
+    document.getElementById("porcentajeCarga");
 
 
 const musicaTemporizador =
-    document.getElementById(
-        "musicaTemporizador"
-    );
+    document.getElementById("musicaTemporizador");
 
 
 const musicaCarta =
-    document.getElementById(
-        "musicaCarta"
-    );
+    document.getElementById("musicaCarta");
 
 
 const cdMusica =
-    document.getElementById(
-        "cdMusica"
-    );
+    document.getElementById("cdMusica");
 
 
 const cdCarta =
-    document.getElementById(
-        "cdCarta"
-    );
+    document.getElementById("cdCarta");
 
 
 
@@ -171,9 +116,12 @@ let cartaYaFueAbierta =
 let eventoInstalacion = null;
 
 
+let comprobandoCarta = false;
+
+
 
 /* =====================================
-   DETECTAR APP
+   DETECTAR APP INSTALADA
 ===================================== */
 
 function estaEnLaApp() {
@@ -195,7 +143,7 @@ function estaEnLaApp() {
 
 
 /* =====================================
-   COMPROBAR SI EXISTE CARTA
+   EXISTE CARTA
 ===================================== */
 
 function existeCarta() {
@@ -224,7 +172,7 @@ function existeCarta() {
 
 
             imagen.src =
-                "carta.png?v=" +
+                "carta.png?ver=" +
                 Date.now();
 
         }
@@ -247,12 +195,6 @@ window.addEventListener(
         eventoInstalacion =
             evento;
 
-
-        /*
-           IMPORTANTE:
-           Esto solamente ocurre
-           en la página de Google.
-        */
 
         if (
             !estaEnLaApp() &&
@@ -347,24 +289,24 @@ function reproducirMusicaTemporizador() {
     }
 
 
-    musicaCarta.pause();
+    if (musicaCarta) {
+        musicaCarta.pause();
+    }
 
 
-    musicaTemporizador.play()
-        .catch(
-            () => {
+    musicaTemporizador
+        .play()
+        .catch(() => {
 
-                /*
-                   Algunos navegadores bloquean
-                   el autoplay hasta que el usuario
-                   toca la pantalla.
+            /*
+               El navegador puede bloquear
+               el autoplay.
 
-                   Por eso también se intenta
-                   desbloquear abajo.
-                */
+               Se vuelve a intentar cuando
+               haya una interacción.
+            */
 
-            }
-        );
+        });
 
 }
 
@@ -382,25 +324,23 @@ function reproducirMusicaCarta() {
     }
 
 
-    musicaTemporizador.pause();
+    if (musicaTemporizador) {
+        musicaTemporizador.pause();
+    }
 
 
-    musicaCarta.currentTime = 0;
+    musicaCarta
+        .play()
+        .catch(() => {
 
-
-    musicaCarta.play()
-        .catch(
-            () => {
-
-            }
-        );
+        });
 
 }
 
 
 
 /* =====================================
-   DESBLOQUEAR AUDIO
+   ACTIVAR AUDIO AL TOCAR
 ===================================== */
 
 document.addEventListener(
@@ -429,9 +369,6 @@ document.addEventListener(
 
         }
 
-    },
-    {
-        once: true
     }
 );
 
@@ -495,37 +432,98 @@ function actualizarContador(fecha) {
     dias.textContent =
         String(
             diasRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     horas.textContent =
         String(
             horasRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     minutos.textContent =
         String(
             minutosRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     segundos.textContent =
         String(
             segundosRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
+
+}
+
+
+
+/* =====================================
+   MOSTRAR PRIMER TEMPORIZADOR
+===================================== */
+
+function mostrarPrimerTemporizador() {
+
+    zonaSobre.style.display =
+        "none";
+
+
+    contador.classList.remove(
+        "oculto"
+    );
+
+
+    actualizarContador(
+        FECHA_APERTURA
+    );
+
+
+    reproducirMusicaTemporizador();
+
+}
+
+
+
+/* =====================================
+   MOSTRAR SEGUNDO TEMPORIZADOR
+===================================== */
+
+function mostrarSegundoTemporizador() {
+
+    zonaSobre.style.display =
+        "none";
+
+
+    contador.classList.remove(
+        "oculto"
+    );
+
+
+    actualizarContador(
+        FECHA_SIGUIENTE
+    );
+
+
+    reproducirMusicaTemporizador();
+
+}
+
+
+
+/* =====================================
+   MOSTRAR SOBRE
+===================================== */
+
+function mostrarSobre() {
+
+    zonaSobre.style.display =
+        "flex";
+
+
+    contador.classList.add(
+        "oculto"
+    );
+
+
+    reproducirMusicaTemporizador();
 
 }
 
@@ -536,6 +534,16 @@ function actualizarContador(fecha) {
 ===================================== */
 
 async function comprobarEstado() {
+
+    if (!estaEnLaApp()) {
+        return;
+    }
+
+
+    if (cartaAbierta) {
+        return;
+    }
+
 
     const ahora =
         Date.now();
@@ -554,91 +562,140 @@ async function comprobarEstado() {
 
 
 
-    /*
-       SI LA CARTA YA FUE ABIERTA
-       Y YA LLEGÓ LA SEGUNDA FECHA
-    */
+    /* =================================
+       ANTES DE LA PRIMERA FECHA
 
-    if (
-        cartaYaFueAbierta &&
-        ahora >= siguiente
-    ) {
+       SIEMPRE PRIMER TEMPORIZADOR.
 
-        zonaSobre.style.display =
-            "flex";
-
-
-        contador.classList.add(
-            "oculto"
-        );
-
-
-        reproducirMusicaTemporizador();
-
-        return;
-
-    }
-
-
-
-    /*
-       SI LA CARTA YA FUE ABIERTA
-       PERO TODAVÍA NO LLEGA
-       LA SEGUNDA FECHA
-    */
-
-    if (
-        cartaYaFueAbierta &&
-        ahora < siguiente
-    ) {
-
-        zonaSobre.style.display =
-            "none";
-
-
-        contador.classList.remove(
-            "oculto"
-        );
-
-
-        actualizarContador(
-            FECHA_SIGUIENTE
-        );
-
-
-        reproducirMusicaTemporizador();
-
-        return;
-
-    }
-
-
-
-    /*
-       PRIMER TEMPORIZADOR
-
-       Esto evita que entre directamente
-       al segundo temporizador solamente
-       por haber quedado guardado un dato.
-    */
+       Aunque localStorage diga que
+       alguna vez se abrió una carta.
+    ================================= */
 
     if (ahora < apertura) {
 
-        zonaSobre.style.display =
-            "none";
+        cartaYaFueAbierta = false;
 
-
-        contador.classList.remove(
-            "oculto"
+        localStorage.removeItem(
+            "cartaYaFueAbierta"
         );
 
 
-        actualizarContador(
-            FECHA_APERTURA
-        );
+        mostrarPrimerTemporizador();
+
+        return;
+
+    }
 
 
-        reproducirMusicaTemporizador();
+
+    /* =================================
+       DESPUÉS DE LA PRIMERA FECHA
+       
+       PERO ANTES DE LA SEGUNDA.
+
+       Aquí necesitamos comprobar
+       que carta.png realmente exista.
+    ================================= */
+
+    if (ahora < siguiente) {
+
+        if (!cartaYaFueAbierta) {
+
+            if (!comprobandoCarta) {
+
+                comprobandoCarta = true;
+
+
+                const hayCarta =
+                    await existeCarta();
+
+
+                comprobandoCarta = false;
+
+
+                if (hayCarta) {
+
+                    mostrarSobre();
+
+                }
+
+                else {
+
+                    /*
+                       NO HAY CARTA.
+
+                       No mostramos el sobre.
+                       Nos quedamos en el
+                       primer temporizador.
+                    */
+
+                    mostrarPrimerTemporizador();
+
+                }
+
+            }
+
+            return;
+
+        }
+
+
+
+        /*
+           Ya abrió la primera carta.
+           Ahora corresponde el segundo
+           temporizador.
+        */
+
+        mostrarSegundoTemporizador();
+
+        return;
+
+    }
+
+
+
+    /* =================================
+       YA LLEGÓ LA SEGUNDA FECHA
+       
+       Si ya había abierto la primera,
+       comprobamos nuevamente la carta.
+    ================================= */
+
+    if (cartaYaFueAbierta) {
+
+        if (!comprobandoCarta) {
+
+            comprobandoCarta = true;
+
+
+            const hayCarta =
+                await existeCarta();
+
+
+            comprobandoCarta = false;
+
+
+            if (hayCarta) {
+
+                mostrarSobre();
+
+            }
+
+            else {
+
+                /*
+                   Si todavía no existe
+                   la carta nueva, mantenemos
+                   el segundo temporizador
+                   en 0.
+                */
+
+                mostrarSegundoTemporizador();
+
+            }
+
+        }
 
         return;
 
@@ -647,26 +704,44 @@ async function comprobarEstado() {
 
 
     /*
-       YA LLEGÓ LA PRIMERA FECHA
+       Si por alguna razón llegó
+       la segunda fecha sin que
+       se haya registrado la primera,
+       comprobamos la carta.
     */
 
-    zonaSobre.style.display =
-        "flex";
+    if (!comprobandoCarta) {
+
+        comprobandoCarta = true;
 
 
-    contador.classList.add(
-        "oculto"
-    );
+        const hayCarta =
+            await existeCarta();
 
 
-    reproducirMusicaTemporizador();
+        comprobandoCarta = false;
+
+
+        if (hayCarta) {
+
+            mostrarSobre();
+
+        }
+
+        else {
+
+            mostrarPrimerTemporizador();
+
+        }
+
+    }
 
 }
 
 
 
 /* =====================================
-   COMPROBAR CARTA
+   MOSTRAR CARTA
 ===================================== */
 
 function mostrarCarta() {
@@ -688,23 +763,6 @@ function mostrarCarta() {
     }
 
 
-    imagenCarta.onerror =
-        function() {
-
-            imagenCarta.style.display =
-                "none";
-
-
-            if (mensajeCartaError) {
-
-                mensajeCartaError.style.display =
-                    "block";
-
-            }
-
-        };
-
-
     imagenCarta.onload =
         function() {
 
@@ -722,8 +780,25 @@ function mostrarCarta() {
         };
 
 
+    imagenCarta.onerror =
+        function() {
+
+            imagenCarta.style.display =
+                "none";
+
+
+            if (mensajeCartaError) {
+
+                mensajeCartaError.style.display =
+                    "block";
+
+            }
+
+        };
+
+
     imagenCarta.src =
-        "carta.png?v=" +
+        "carta.png?ver=" +
         Date.now();
 
 }
@@ -746,9 +821,8 @@ if (sobre) {
 
 
             /*
-               No se abre la pantalla de carta
-               hasta comprobar que realmente
-               existe carta.png.
+               Comprobamos carta.png
+               ANTES de abrir el sobre.
             */
 
             const hayCarta =
@@ -756,13 +830,6 @@ if (sobre) {
 
 
             if (!hayCarta) {
-
-                /*
-                   Si no hay carta,
-                   NO muestra una pantalla vacía.
-
-                   Regresa al primer temporizador.
-                */
 
                 cartaAbierta = false;
 
@@ -777,19 +844,13 @@ if (sobre) {
                 );
 
 
-                zonaSobre.style.display =
-                    "none";
+                /*
+                   Si no hay carta,
+                   volvemos al primer
+                   temporizador.
+                */
 
-
-                contador.classList.remove(
-                    "oculto"
-                );
-
-
-                actualizarContador(
-                    FECHA_APERTURA
-                );
-
+                mostrarPrimerTemporizador();
 
                 return;
 
@@ -833,7 +894,7 @@ if (sobre) {
 
 
 /* =====================================
-   VOLVER
+   VOLVER DE LA CARTA
 ===================================== */
 
 if (volver) {
@@ -854,6 +915,12 @@ if (volver) {
 
             cartaAbierta = false;
 
+
+            /*
+               Ya se abrió la primera carta.
+               Por eso ahora comienza
+               el segundo temporizador.
+            */
 
             cartaYaFueAbierta =
                 true;
@@ -903,9 +970,20 @@ function iniciarCargaApp() {
     );
 
 
-
     let progreso = 0;
 
+
+    barraProgreso.style.width =
+        "0%";
+
+
+    porcentajeCarga.textContent =
+        "0%";
+
+
+    /*
+       Carga visual de 0 a 100.
+    */
 
     const intervalo =
         setInterval(
@@ -972,13 +1050,16 @@ function iniciarCargaApp() {
 function iniciar() {
 
     /*
-       NAVEGADOR:
+       NAVEGADOR
 
-       Solo muestra "ola".
+       Solo:
+       ola :3
+       Descargar
 
-       NO carga la pantalla de carga.
-       NO muestra música.
-       NO muestra el temporizador.
+       Nada de carga.
+       Nada de música.
+       Nada de CD.
+       Nada de temporizador.
     */
 
     if (!estaEnLaApp()) {
@@ -1003,6 +1084,8 @@ function iniciar() {
         );
 
 
+        detenerMusica();
+
         return;
 
     }
@@ -1010,9 +1093,9 @@ function iniciar() {
 
 
     /*
-       APP:
+       APP INSTALADA
 
-       Primero carga 0% → 100%.
+       Empieza 0% → 100%.
     */
 
     pantallaNavegador.classList.add(
