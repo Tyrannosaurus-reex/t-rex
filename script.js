@@ -4,7 +4,7 @@ javascript
 ===================================== */
 
 const FECHA_APERTURA =
-    "2026-08-25T10:00:00-06:00";
+    "2026-08-22T14:40:00-06:00";
 
 
 const FECHA_SIGUIENTE =
