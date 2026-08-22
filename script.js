@@ -1,9 +1,10 @@
+javascript
 /* =====================================
    FECHAS
 ===================================== */
 
 const FECHA_APERTURA =
-    "2026-08-22T14:20:00-06:00";
+    "2026-08-25T10:00:00-06:00";
 
 
 const FECHA_SIGUIENTE =
@@ -26,81 +27,55 @@ const porcentajeCarga =
 
 
 const pantallaNavegador =
-    document.getElementById(
-        "pantallaNavegador"
-    );
+    document.getElementById("pantallaNavegador");
 
 
 const pantallaSobre =
-    document.getElementById(
-        "pantallaSobre"
-    );
+    document.getElementById("pantallaSobre");
 
 
 const pantallaCarta =
-    document.getElementById(
-        "pantallaCarta"
-    );
+    document.getElementById("pantallaCarta");
 
 
 const sobre =
-    document.getElementById(
-        "sobre"
-    );
+    document.getElementById("sobre");
 
 
 const zonaSobre =
-    document.getElementById(
-        "zonaSobre"
-    );
+    document.getElementById("zonaSobre");
 
 
 const contador =
-    document.getElementById(
-        "contador"
-    );
+    document.getElementById("contador");
 
 
 const volver =
-    document.getElementById(
-        "volver"
-    );
+    document.getElementById("volver");
 
 
 const dias =
-    document.getElementById(
-        "dias"
-    );
+    document.getElementById("dias");
 
 
 const horas =
-    document.getElementById(
-        "horas"
-    );
+    document.getElementById("horas");
 
 
 const minutos =
-    document.getElementById(
-        "minutos"
-    );
+    document.getElementById("minutos");
 
 
 const segundos =
-    document.getElementById(
-        "segundos"
-    );
+    document.getElementById("segundos");
 
 
 const botonInstalar =
-    document.getElementById(
-        "botonInstalar"
-    );
+    document.getElementById("botonInstalar");
 
 
 const imagenCarta =
-    document.getElementById(
-        "imagenCarta"
-    );
+    document.getElementById("imagenCarta");
 
 
 const mensajeCartaError =
@@ -109,20 +84,12 @@ const mensajeCartaError =
     );
 
 
-/* =====================================
-   ELEMENTOS DE MÚSICA
-===================================== */
-
 const musica1 =
-    document.getElementById(
-        "musica1"
-    );
+    document.getElementById("musica1");
 
 
 const musica2 =
-    document.getElementById(
-        "musica2"
-    );
+    document.getElementById("musica2");
 
 
 const reproductorMusica =
@@ -132,9 +99,7 @@ const reproductorMusica =
 
 
 const imagenCD =
-    document.getElementById(
-        "imagenCD"
-    );
+    document.getElementById("imagenCD");
 
 
 
@@ -156,12 +121,12 @@ let eventoInstalacion = null;
 
 
 /* =====================================
-   DETECTAR APP INSTALADA
+   DETECTAR APP
 ===================================== */
 
 function estaEnLaApp() {
 
-    const standalone =
+    const android =
         window.matchMedia(
             "(display-mode: standalone)"
         ).matches;
@@ -171,7 +136,7 @@ function estaEnLaApp() {
         window.navigator.standalone === true;
 
 
-    return standalone || ios;
+    return android || ios;
 
 }
 
@@ -181,7 +146,7 @@ function estaEnLaApp() {
    MÚSICA
 ===================================== */
 
-function detenerMusicas() {
+function detenerMusica() {
 
     if (musica1) {
 
@@ -201,11 +166,16 @@ function detenerMusicas() {
 
 function mostrarCD(numero) {
 
-    if (
-        !imagenCD ||
-        !reproductorMusica
-    ) {
+    if (!estaEnLaApp()) {
         return;
+    }
+
+
+    if (!imagenCD ||
+        !reproductorMusica) {
+
+        return;
+
     }
 
 
@@ -231,86 +201,107 @@ function mostrarCD(numero) {
 }
 
 
-function reproducirMusica1() {
+function musicaTemporizador() {
 
     if (!estaEnLaApp()) {
         return;
     }
 
 
-    if (!musica1) {
-        return;
-    }
+    mostrarCD(1);
 
 
     if (musica2) {
 
         musica2.pause();
+
         musica2.currentTime = 0;
 
     }
 
 
-    musica1.volume = 0.75;
+    if (musica1) {
 
+        musica1.volume = 0.75;
 
-    musica1.play()
-        .catch(
-            error => {
+        musica1.play()
+            .catch(
+                () => {}
+            );
 
-                console.log(
-                    "La música necesita una interacción del usuario:",
-                    error
-                );
-
-            }
-        );
-
-
-    mostrarCD(1);
+    }
 
 }
 
 
-function reproducirMusica2() {
+function musicaCarta() {
 
     if (!estaEnLaApp()) {
         return;
     }
 
 
-    if (!musica2) {
-        return;
-    }
+    mostrarCD(2);
 
 
     if (musica1) {
 
         musica1.pause();
+
         musica1.currentTime = 0;
 
     }
 
 
-    musica2.volume = 0.75;
+    if (musica2) {
 
+        musica2.volume = 0.75;
 
-    musica2.play()
-        .catch(
-            error => {
+        musica2.play()
+            .catch(
+                () => {}
+            );
 
-                console.log(
-                    "La música necesita una interacción del usuario:",
-                    error
-                );
-
-            }
-        );
-
-
-    mostrarCD(2);
+    }
 
 }
+
+
+
+/* =====================================
+   ACTIVAR MÚSICA CON LA PRIMERA
+   INTERACCIÓN DENTRO DE LA APP
+===================================== */
+
+function activarMusicaApp() {
+
+    if (!estaEnLaApp()) {
+        return;
+    }
+
+
+    if (cartaAbierta) {
+
+        musicaCarta();
+
+    }
+
+    else {
+
+        musicaTemporizador();
+
+    }
+
+}
+
+
+document.addEventListener(
+    "click",
+    activarMusicaApp,
+    {
+        once: true
+    }
+);
 
 
 
@@ -354,7 +345,8 @@ if (botonInstalar) {
 
 
             const resultado =
-                await eventoInstalacion.userChoice;
+                await eventoInstalacion
+                    .userChoice;
 
 
             if (
@@ -368,8 +360,7 @@ if (botonInstalar) {
             }
 
 
-            eventoInstalacion =
-                null;
+            eventoInstalacion = null;
 
         }
     );
@@ -436,44 +427,32 @@ function actualizarContador(fecha) {
     dias.textContent =
         String(
             diasRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     horas.textContent =
         String(
             horasRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     minutos.textContent =
         String(
             minutosRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 
     segundos.textContent =
         String(
             segundosRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        ).padStart(2, "0");
 
 }
 
 
 
 /* =====================================
-   ESTADO PRINCIPAL
+   ESTADO DE LA APP
 ===================================== */
 
 function comprobarEstado() {
@@ -495,17 +474,14 @@ function comprobarEstado() {
 
 
 
-    /*
+    /* =================================
        PRIMERA CARTA
-    */
+    ================================= */
 
     if (!cartaYaFueAbierta) {
 
 
-        /*
-           Antes de la fecha:
-           PRIMER TEMPORIZADOR
-        */
+        /* ANTES DEL 25 DE AGOSTO */
 
         if (ahora < apertura) {
 
@@ -523,11 +499,7 @@ function comprobarEstado() {
             );
 
 
-            if (estaEnLaApp()) {
-
-                reproducirMusica1();
-
-            }
+            mostrarCD(1);
 
 
             return;
@@ -535,11 +507,7 @@ function comprobarEstado() {
         }
 
 
-
-        /*
-           Llegó la fecha:
-           SOBRE
-        */
+        /* DESPUÉS DEL 25 DE AGOSTO */
 
         zonaSobre.style.display =
             "flex";
@@ -550,11 +518,7 @@ function comprobarEstado() {
         );
 
 
-        if (estaEnLaApp()) {
-
-            reproducirMusica1();
-
-        }
+        mostrarCD(1);
 
 
         return;
@@ -563,16 +527,11 @@ function comprobarEstado() {
 
 
 
-    /*
-       PRIMERA CARTA YA ABIERTA
-    */
+    /* =================================
+       SEGUNDO TEMPORIZADOR
+    ================================= */
 
     if (ahora < siguiente) {
-
-
-        /*
-           SEGUNDO TEMPORIZADOR
-        */
 
         zonaSobre.style.display =
             "none";
@@ -588,11 +547,7 @@ function comprobarEstado() {
         );
 
 
-        if (estaEnLaApp()) {
-
-            reproducirMusica1();
-
-        }
+        mostrarCD(1);
 
 
         return;
@@ -601,9 +556,9 @@ function comprobarEstado() {
 
 
 
-    /*
-       SIGUIENTE CARTA
-    */
+    /* =================================
+       SEGUNDO SOBRE
+    ================================= */
 
     zonaSobre.style.display =
         "flex";
@@ -614,11 +569,7 @@ function comprobarEstado() {
     );
 
 
-    if (estaEnLaApp()) {
-
-        reproducirMusica1();
-
-    }
+    mostrarCD(1);
 
 }
 
@@ -630,26 +581,12 @@ function comprobarEstado() {
 
 function comprobarCarta() {
 
-    if (!imagenCarta) {
-        return;
-    }
-
-
     imagenCarta.style.display =
         "none";
 
 
-    if (mensajeCartaError) {
-
-        mensajeCartaError.style.display =
-            "none";
-
-    }
-
-
-    const rutaCarta =
-        "carta.png?v=" +
-        Date.now();
+    mensajeCartaError.style.display =
+        "none";
 
 
     imagenCarta.onload =
@@ -658,13 +595,8 @@ function comprobarCarta() {
             imagenCarta.style.display =
                 "block";
 
-
-            if (mensajeCartaError) {
-
-                mensajeCartaError.style.display =
-                    "none";
-
-            }
+            mensajeCartaError.style.display =
+                "none";
 
         };
 
@@ -675,19 +607,15 @@ function comprobarCarta() {
             imagenCarta.style.display =
                 "none";
 
-
-            if (mensajeCartaError) {
-
-                mensajeCartaError.style.display =
-                    "block";
-
-            }
+            mensajeCartaError.style.display =
+                "block";
 
         };
 
 
     imagenCarta.src =
-        rutaCarta;
+        "carta.png?v=" +
+        Date.now();
 
 }
 
@@ -701,11 +629,6 @@ sobre.addEventListener(
     "click",
     function() {
 
-        if (cartaAbierta) {
-            return;
-        }
-
-
         cartaAbierta = true;
 
 
@@ -717,16 +640,11 @@ sobre.addEventListener(
         );
 
 
-        /*
-           Cambiar a la música 2
-           cuando se abre la carta.
-        */
+        musicaCarta();
+
 
         setTimeout(
             function() {
-
-                reproducirMusica2();
-
 
                 pantallaCarta.classList.remove(
                     "oculto"
@@ -772,12 +690,7 @@ volver.addEventListener(
         );
 
 
-        /*
-           Regresa la música del
-           temporizador.
-        */
-
-        reproducirMusica1();
+        musicaTemporizador();
 
 
         comprobarEstado();
@@ -788,10 +701,10 @@ volver.addEventListener(
 
 
 /* =====================================
-   CARGA
+   CARGA 0% → 100%
 ===================================== */
 
-function iniciarCarga() {
+function cargarApp() {
 
     return new Promise(
         resolve => {
@@ -803,41 +716,28 @@ function iniciarCarga() {
                 setInterval(
                     function() {
 
-                        progreso += 1;
+                        progreso++;
 
 
                         if (
                             progreso > 100
                         ) {
 
-                            progreso =
-                                100;
+                            progreso = 100;
 
                         }
 
 
-                        if (
-                            progresoCarga
-                        ) {
+                        progresoCarga.style.width =
+                            progreso + "%";
 
-                            progresoCarga.style.width =
-                                progreso + "%";
 
-                        }
+                        porcentajeCarga.textContent =
+                            progreso + "%";
 
 
                         if (
-                            porcentajeCarga
-                        ) {
-
-                            porcentajeCarga.textContent =
-                                progreso + "%";
-
-                        }
-
-
-                        if (
-                            progreso >= 100
+                            progreso === 100
                         ) {
 
                             clearInterval(
@@ -847,13 +747,13 @@ function iniciarCarga() {
 
                             setTimeout(
                                 resolve,
-                                700
+                                500
                             );
 
                         }
 
                     },
-                    25
+                    20
                 );
 
         }
@@ -864,23 +764,24 @@ function iniciarCarga() {
 
 
 /* =====================================
-   MOSTRAR PANTALLA CORRECTA
+   INICIAR
 ===================================== */
 
-function mostrarPantallaCorrecta() {
+async function iniciar() {
+
+    await cargarApp();
+
 
     pantallaCarga.style.display =
         "none";
 
 
     /*
-       SI NO ESTÁ INSTALADA:
-
-       solo mostramos "ola".
-
-       NO música.
-       NO CD.
-       NO temporizadores.
+       GOOGLE:
+       solo "ola".
+       Nada de música.
+       Nada de CD.
+       Nada del temporizador.
     */
 
     if (!estaEnLaApp()) {
@@ -905,7 +806,7 @@ function mostrarPantallaCorrecta() {
         );
 
 
-        detenerMusicas();
+        detenerMusica();
 
 
         document.body.classList.remove(
@@ -920,9 +821,8 @@ function mostrarPantallaCorrecta() {
 
 
     /*
-       SI ESTÁ INSTALADA:
-
-       mostramos la aplicación.
+       APP:
+       entra al sistema normal.
     */
 
     pantallaNavegador.classList.add(
@@ -943,32 +843,9 @@ function mostrarPantallaCorrecta() {
     comprobarEstado();
 
 
-    /*
-       Música solamente dentro
-       de la aplicación.
-    */
-
-    reproducirMusica1();
-
-
     document.body.classList.remove(
         "cargando"
     );
-
-}
-
-
-
-/* =====================================
-   INICIAR
-===================================== */
-
-async function iniciar() {
-
-    await iniciarCarga();
-
-
-    mostrarPantallaCorrecta();
 
 }
 
@@ -978,7 +855,7 @@ iniciar();
 
 
 /* =====================================
-   ACTUALIZAR CONTADOR
+   ACTUALIZAR CADA SEGUNDO
 ===================================== */
 
 setInterval(
@@ -1009,9 +886,7 @@ if (
         function() {
 
             navigator.serviceWorker
-                .register(
-                    "sw.js"
-                )
+                .register("sw.js")
                 .then(
                     registro => {
 

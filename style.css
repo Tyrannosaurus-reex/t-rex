@@ -1718,3 +1718,221 @@ body.cargando #pantallaCarta {
     }
 
 }
+
+/* =====================================
+   PANTALLA DE CARGA
+===================================== */
+
+#pantallaCarga {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #efb0c2,
+            #f5bdcd,
+            #e9a8bc
+        );
+}
+
+
+.carga-contenido {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 13px;
+
+    color: #a25870;
+}
+
+
+.ruedita {
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.rueda {
+
+    width: 42px;
+    height: 42px;
+
+    border: 4px solid
+        rgba(255,255,255,0.45);
+
+    border-top-color: white;
+
+    border-radius: 50%;
+
+    animation:
+        girar
+        0.8s linear infinite;
+}
+
+
+.texto-cargando {
+
+    font-size: 16px;
+
+    letter-spacing: 1px;
+}
+
+
+.barra-carga {
+
+    width: 190px;
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.4);
+}
+
+
+#progresoCarga {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: white;
+
+    transition:
+        width 0.03s linear;
+}
+
+
+#porcentajeCarga {
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+@keyframes girar {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+
+/* =====================================
+   CD
+===================================== */
+
+.reproductor-musica {
+
+    position: fixed;
+
+    top: 17px;
+    left: 17px;
+
+    width: 60px;
+    height: 60px;
+
+    z-index: 500;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(
+            0 5px 9px
+            rgba(100,50,70,0.2)
+        );
+}
+
+
+.reproductor-musica.oculto {
+
+    display: none !important;
+
+}
+
+
+#imagenCD {
+
+    width: 60px;
+    height: 60px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    animation:
+        girarCD
+        4s linear infinite;
+}
+
+
+@keyframes girarCD {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .reproductor-musica {
+
+        top: 15px;
+        left: 15px;
+
+        width: 58px;
+        height: 58px;
+
+    }
+
+
+    #imagenCD {
+
+        width: 58px;
+        height: 58px;
+
+    }
+
+}
