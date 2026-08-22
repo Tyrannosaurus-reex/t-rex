@@ -2,64 +2,30 @@
    FECHAS
 ===================================== */
 
-
-/*
-   FECHA PARA ABRIR LA PRIMERA CARTA
-
-   FORMATO:
-
-   AÑO-MES-DÍA HORA:MINUTOS
-
-   Ejemplo:
-
-   25 de agosto de 2026
-   a las 10:00 AM
-
-   2026-08-25T10:00:00
-*/
-
 const FECHA_APERTURA =
     "2026-08-25T10:00:00";
 
 
-
-/*
-   FECHA PARA QUE APAREZCA
-   EL SIGUIENTE CONTADOR.
-
-   Ejemplo:
-
-   15 de septiembre de 2026
-   a las 10:00 AM
-
-   2026-09-15T10:00:00
-*/
-
 const FECHA_SIGUIENTE =
-    "2026-09-17T10:00:00";
+    "2026-09-15T10:00:00";
 
 
 
 /* =====================================
-   DETECTAR SI ESTÁ EN LA APP
+   DETECTAR APP
 ===================================== */
 
 function estaEnLaApp() {
 
-    const modoStandalone =
+    const standalone =
         window.matchMedia(
             "(display-mode: standalone)"
         ).matches;
 
-
-    const modoIOS =
+    const ios =
         window.navigator.standalone === true;
 
-
-    return (
-        modoStandalone ||
-        modoIOS
-    );
+    return standalone || ios;
 }
 
 
@@ -134,9 +100,15 @@ const segundos =
     );
 
 
+const botonInstalar =
+    document.getElementById(
+        "botonInstalar"
+    );
+
+
 
 /* =====================================
-   ESTADO DE LA CARTA
+   ESTADO
 ===================================== */
 
 let cartaAbierta = false;
@@ -146,6 +118,79 @@ let cartaYaFueAbierta =
     localStorage.getItem(
         "cartaYaFueAbierta"
     ) === "true";
+
+
+
+/* =====================================
+   INSTALACIÓN DE LA APP
+===================================== */
+
+let eventoInstalacion = null;
+
+
+window.addEventListener(
+    "beforeinstallprompt",
+    (evento) => {
+
+        evento.preventDefault();
+
+        eventoInstalacion = evento;
+
+        /*
+           El botón aparece solamente
+           cuando Chrome permite instalar.
+        */
+
+        if (botonInstalar) {
+
+            botonInstalar.style.display =
+                "block";
+
+        }
+
+    }
+);
+
+
+
+if (botonInstalar) {
+
+    botonInstalar.addEventListener(
+        "click",
+        async () => {
+
+            if (!eventoInstalacion) {
+
+                return;
+
+            }
+
+
+            eventoInstalacion.prompt();
+
+
+            const resultado =
+                await eventoInstalacion
+                    .userChoice;
+
+
+            if (
+                resultado.outcome ===
+                "accepted"
+            ) {
+
+                botonInstalar.style.display =
+                    "none";
+
+            }
+
+
+            eventoInstalacion = null;
+
+        }
+    );
+
+}
 
 
 
@@ -240,11 +285,6 @@ function comprobarEstado() {
         Date.now();
 
 
-
-    /* =================================
-       SI YA ABRIÓ LA CARTA
-    ================================= */
-
     if (cartaYaFueAbierta) {
 
         const siguiente =
@@ -274,11 +314,6 @@ function comprobarEstado() {
         }
 
 
-        /*
-           Cuando llega la fecha
-           vuelve a aparecer el sobre.
-        */
-
         zonaSobre.style.display =
             "flex";
 
@@ -301,11 +336,6 @@ function comprobarEstado() {
 
     }
 
-
-
-    /* =================================
-       PRIMER CONTADOR
-    ================================= */
 
     const apertura =
         new Date(
@@ -354,7 +384,6 @@ sobre.addEventListener(
     "click",
     function() {
 
-
         if (cartaAbierta) {
             return;
         }
@@ -392,7 +421,6 @@ volver.addEventListener(
     "click",
     function() {
 
-
         pantallaCarta.classList.add(
             "oculto"
         );
@@ -429,11 +457,6 @@ volver.addEventListener(
 
 function iniciar() {
 
-
-    /*
-       SI ESTÁ INSTALADA COMO APP
-    */
-
     if (estaEnLaApp()) {
 
         pantallaNavegador.classList.add(
@@ -455,11 +478,6 @@ function iniciar() {
 
     }
 
-
-    /*
-       SI LA ABRE DESDE GOOGLE/CHROME
-    */
-
     else {
 
         pantallaNavegador.classList.remove(
@@ -479,22 +497,12 @@ function iniciar() {
     }
 
 
-    /*
-       QUITAMOS LA PANTALLA DE CARGA
-       SOLO CUANDO YA SABEMOS QUÉ MOSTRAR.
-    */
-
     document.body.classList.remove(
         "cargando"
     );
 
 }
 
-
-
-/* =====================================
-   INICIAR
-===================================== */
 
 iniciar();
 
@@ -532,35 +540,36 @@ if (
         function() {
 
             navigator.serviceWorker
-                .register("sw.js")
-                .then(registro => {
+                .register(
+                    "sw.js"
+                )
+                .then(
+                    registro => {
 
-                    /*
-                       Comprueba actualizaciones
-                       automáticamente.
-                    */
-
-                    registro.update();
+                        registro.update();
 
 
-                    setInterval(
-                        () => {
+                        setInterval(
+                            () => {
 
-                            registro.update();
+                                registro.update();
 
-                        },
-                        60000
-                    );
+                            },
+                            60000
+                        );
 
-                })
-                .catch(error => {
+                    }
+                )
+                .catch(
+                    error => {
 
-                    console.log(
-                        "Error:",
-                        error
-                    );
+                        console.log(
+                            "Error:",
+                            error
+                        );
 
-                });
+                    }
+                );
 
         }
     );

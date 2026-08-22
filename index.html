@@ -15,13 +15,12 @@
         content="#e9aabd"
     >
 
-    <!-- IMPORTANTE: esto hace que Chrome reconozca la PWA -->
     <link
         rel="manifest"
         href="manifest.json"
     >
 
-    <title>Cartita</title>
+    <title>t-rex</title>
 
     <link
         rel="stylesheet"
@@ -50,7 +49,15 @@
         <div class="brillito-nav bnav3">✦</div>
 
         <div class="mensajeNavegador">
-            ola :3
+
+            <div class="texto-ola">
+                ola :3
+            </div>
+
+            <button id="botonInstalar">
+                Descargar
+            </button>
+
         </div>
 
     </div>
@@ -62,13 +69,11 @@
 
     <div id="pantallaSobre">
 
-
         <div class="nube nube1"></div>
         <div class="nube nube2"></div>
         <div class="nube nube3"></div>
         <div class="nube nube4"></div>
         <div class="nube nube5"></div>
-
 
         <div class="brillo brillo1">✦</div>
         <div class="brillo brillo2">✧</div>
@@ -106,6 +111,8 @@
 
         </div>
 
+
+        <!-- CONTADOR -->
 
         <div id="contador">
 
@@ -156,7 +163,10 @@
          PANTALLA DE LA CARTA
     ========================== -->
 
-    <div id="pantallaCarta">
+    <div
+        id="pantallaCarta"
+        class="oculto"
+    >
 
         <div class="decoracionCarta">
 

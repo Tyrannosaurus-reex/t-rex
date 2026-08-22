@@ -10,6 +10,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+
     font-family: Arial, sans-serif;
 }
 
@@ -32,27 +33,24 @@ body.cargando #pantallaCarta {
 
 
 /* =================================
-   PANTALLA "OLA"
+   PANTALLA DEL NAVEGADOR
 ================================= */
 
 #pantallaNavegador {
 
     position: fixed;
+
     inset: 0;
 
     width: 100vw;
     height: 100vh;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
     overflow: hidden;
-
-    /*
-       SOLO ROSA.
-       Sin el brillo blanco gigante.
-    */
 
     background:
         linear-gradient(
@@ -67,7 +65,7 @@ body.cargando #pantallaCarta {
 
 
 /* =================================
-   NUBES DE "OLA"
+   NUBES
 ================================= */
 
 .nube-navegador,
@@ -78,16 +76,14 @@ body.cargando #pantallaCarta {
     width: 150px;
     height: 43px;
 
-    background:
-        #fffafa;
+    background: #fffafa;
 
     border-radius:
         45% 55% 48% 52%;
 
     opacity: 0.72;
 
-    filter:
-        blur(0.5px);
+    filter: blur(0.5px);
 
     box-shadow:
         0 4px 12px
@@ -99,12 +95,6 @@ body.cargando #pantallaCarta {
         );
 }
 
-
-/*
-   Estas sombras internas hacen que la nube
-   no parezca simplemente un rectángulo
-   con tres círculos encima.
-*/
 
 .nube-navegador::before,
 .nube::before {
@@ -185,14 +175,14 @@ body.cargando #pantallaCarta {
 
 
 /* =================================
-   BRILLITOS DE "OLA"
+   BRILLOS
 ================================= */
 
 .brillito-nav {
 
     position: absolute;
 
-    color: #fff;
+    color: white;
 
     font-size: 20px;
 
@@ -223,16 +213,24 @@ body.cargando #pantallaCarta {
 
 
 /* =================================
-   TEXTO OLA
+   OLA + BOTÓN
 ================================= */
 
 .mensajeNavegador {
 
     position: relative;
+
     z-index: 5;
 
-    padding:
-        20px 32px;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 22px 30px;
 
     border-radius: 25px;
 
@@ -262,16 +260,64 @@ body.cargando #pantallaCarta {
             0.12
         );
 
-    color:
-        #a25870;
-
-    font-size: 24px;
-
-    letter-spacing: 1px;
+    color: #a25870;
 
     animation:
         aparecer
         0.7s ease;
+}
+
+
+.texto-ola {
+
+    font-size: 24px;
+
+    letter-spacing: 1px;
+}
+
+
+#botonInstalar {
+
+    display: none;
+
+    margin-top: 15px;
+
+    padding:
+        11px 27px;
+
+    border: none;
+
+    border-radius: 22px;
+
+    background: #ffffff;
+
+    color: #a25870;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(
+            120,
+            60,
+            80,
+            0.15
+        );
+
+    transition:
+        transform
+        0.2s ease;
+}
+
+
+#botonInstalar:active {
+
+    transform:
+        scale(0.94);
 }
 
 
@@ -528,6 +574,7 @@ body.cargando #pantallaCarta {
 .borde-papel {
 
     position: absolute;
+
     inset: 8px;
 
     border:
@@ -854,7 +901,7 @@ body.cargando #pantallaCarta {
 
 
 /* =================================
-   PANTALLA CARTA
+   CARTA
 ================================= */
 
 #pantallaCarta {
@@ -880,16 +927,6 @@ body.cargando #pantallaCarta {
     overflow: hidden;
 
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(
-                255,
-                255,
-                255,
-                0.45
-            ),
-            transparent 25%
-        ),
         linear-gradient(
             135deg,
             #f7c3d1,
@@ -968,6 +1005,7 @@ body.cargando #pantallaCarta {
 .decoracionCarta {
 
     position: absolute;
+
     inset: 0;
 
     pointer-events: none;
@@ -1058,10 +1096,6 @@ body.cargando #pantallaCarta {
             80,
             0.2
         );
-
-    animation:
-        aparecerCarta
-        0.8s ease;
 }
 
 
@@ -1132,7 +1166,9 @@ body.cargando #pantallaCarta {
 
 
 #volver:active {
-    transform: scale(0.95);
+
+    transform:
+        scale(0.95);
 }
 
 
@@ -1143,24 +1179,6 @@ body.cargando #pantallaCarta {
         transform:
             translateY(12px)
             scale(0.96);
-    }
-
-    to {
-        opacity: 1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-@keyframes aparecerCarta {
-
-    from {
-        opacity: 0;
-        transform:
-            translateY(25px)
-            scale(0.94);
     }
 
     to {
