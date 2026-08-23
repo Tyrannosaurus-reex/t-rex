@@ -2,25 +2,11 @@
    FECHAS
 ===================================== */
 
-/*
-   PRIMERA CARTA
-   25 de agosto de 2026
-   10:00 AM México UTC-6
-*/
-
 const FECHA_APERTURA =
-    "2026-08-22T19:15:00-06:00";
-
-
-/*
-   SEGUNDA CARTA
-   17 de septiembre de 2026
-   10:00 AM México UTC-6
-*/
+    "2026-08-22T19:27:00-06:00";
 
 const FECHA_SIGUIENTE =
     "2026-09-17T10:00:00-06:00";
-
 
 
 /* =====================================
@@ -28,130 +14,67 @@ const FECHA_SIGUIENTE =
 ===================================== */
 
 const pantallaNavegador =
-    document.getElementById(
-        "pantallaNavegador"
-    );
-
+    document.getElementById("pantallaNavegador");
 
 const pantallaCarga =
-    document.getElementById(
-        "pantallaCarga"
-    );
-
+    document.getElementById("pantallaCarga");
 
 const pantallaSobre =
-    document.getElementById(
-        "pantallaSobre"
-    );
-
+    document.getElementById("pantallaSobre");
 
 const pantallaCarta =
-    document.getElementById(
-        "pantallaCarta"
-    );
-
+    document.getElementById("pantallaCarta");
 
 const sobre =
-    document.getElementById(
-        "sobre"
-    );
-
+    document.getElementById("sobre");
 
 const zonaSobre =
-    document.getElementById(
-        "zonaSobre"
-    );
-
+    document.getElementById("zonaSobre");
 
 const contador =
-    document.getElementById(
-        "contador"
-    );
-
+    document.getElementById("contador");
 
 const volver =
-    document.getElementById(
-        "volver"
-    );
-
+    document.getElementById("volver");
 
 const dias =
-    document.getElementById(
-        "dias"
-    );
-
+    document.getElementById("dias");
 
 const horas =
-    document.getElementById(
-        "horas"
-    );
-
+    document.getElementById("horas");
 
 const minutos =
-    document.getElementById(
-        "minutos"
-    );
-
+    document.getElementById("minutos");
 
 const segundos =
-    document.getElementById(
-        "segundos"
-    );
-
+    document.getElementById("segundos");
 
 const botonInstalar =
-    document.getElementById(
-        "botonInstalar"
-    );
-
+    document.getElementById("botonInstalar");
 
 const imagenCarta =
-    document.getElementById(
-        "imagenCarta"
-    );
-
+    document.getElementById("imagenCarta");
 
 const mensajeCartaError =
-    document.getElementById(
-        "mensajeCartaError"
-    );
-
+    document.getElementById("mensajeCartaError");
 
 const barraProgreso =
-    document.getElementById(
-        "barraProgreso"
-    );
-
+    document.getElementById("barraProgreso");
 
 const porcentajeCarga =
-    document.getElementById(
-        "porcentajeCarga"
-    );
-
+    document.getElementById("porcentajeCarga");
 
 const musicaTemporizador =
-    document.getElementById(
-        "musicaTemporizador"
-    );
-
+    document.getElementById("musicaTemporizador");
 
 const musicaCarta =
-    document.getElementById(
-        "musicaCarta"
-    );
-
+    document.getElementById("musicaCarta");
 
 const cdMusica =
-    document.getElementById(
-        "cdMusica"
-    );
-
+    document.getElementById("cdMusica");
 
 const cdCarta =
-    document.getElementById(
-        "cdCarta"
-    );
-
+    document.getElementById("cdCarta");
 
 
 /* =====================================
@@ -160,19 +83,18 @@ const cdCarta =
 
 let cartaAbierta = false;
 
-
 let cartaYaFueAbierta =
-    localStorage.getItem(
-        "cartaYaFueAbierta"
-    ) === "true";
-
+    localStorage.getItem("cartaYaFueAbierta") === "true";
 
 let eventoInstalacion = null;
 
+let appActiva = false;
+
+let cartaCargada = false;
 
 
 /* =====================================
-   DETECTAR APP
+   DETECTAR APP INSTALADA
 ===================================== */
 
 function estaEnLaApp() {
@@ -182,55 +104,75 @@ function estaEnLaApp() {
             "(display-mode: standalone)"
         ).matches;
 
-
     const ios =
         window.navigator.standalone === true;
 
-
     return standalone || ios;
-
 }
-
 
 
 /* =====================================
-   COMPROBAR SI EXISTE CARTA
+   VISIBILIDAD DE LA APP
 ===================================== */
 
-function existeCarta() {
+function actualizarEstadoApp() {
 
-    return new Promise(
-        resolve => {
+    /*
+       La música solamente puede sonar
+       mientras la aplicación instalada
+       está realmente visible y activa.
+    */
 
-            const imagen =
-                new Image();
-
-
-            imagen.onload =
-                function() {
-
-                    resolve(true);
-
-                };
+    appActiva =
+        estaEnLaApp() &&
+        document.visibilityState === "visible";
 
 
-            imagen.onerror =
-                function() {
+    if (!appActiva) {
 
-                    resolve(false);
+        detenerMusica();
 
-                };
-
-
-            imagen.src =
-                "carta.png?v=" +
-                Date.now();
-
-        }
-    );
+    }
 
 }
 
+
+/* =====================================
+   CAMBIO DE VISIBILIDAD
+===================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        actualizarEstadoApp();
+
+    }
+);
+
+window.addEventListener(
+    "pagehide",
+    function() {
+
+        detenerMusica();
+
+        appActiva = false;
+
+    }
+);
+
+window.addEventListener(
+    "blur",
+    function() {
+
+        if (document.visibilityState !== "visible") {
+
+            detenerMusica();
+
+        }
+
+    }
+);
 
 
 /* =====================================
@@ -243,9 +185,7 @@ window.addEventListener(
 
         evento.preventDefault();
 
-        eventoInstalacion =
-            evento;
-
+        eventoInstalacion = evento;
 
         if (
             !estaEnLaApp() &&
@@ -261,7 +201,6 @@ window.addEventListener(
 );
 
 
-
 if (botonInstalar) {
 
     botonInstalar.addEventListener(
@@ -272,18 +211,13 @@ if (botonInstalar) {
                 return;
             }
 
-
             eventoInstalacion.prompt();
 
-
             const resultado =
-                await eventoInstalacion
-                    .userChoice;
-
+                await eventoInstalacion.userChoice;
 
             if (
-                resultado.outcome ===
-                "accepted"
+                resultado.outcome === "accepted"
             ) {
 
                 botonInstalar.style.display =
@@ -291,14 +225,12 @@ if (botonInstalar) {
 
             }
 
-
             eventoInstalacion = null;
 
         }
     );
 
 }
-
 
 
 /* =====================================
@@ -315,7 +247,6 @@ function detenerMusica() {
 
     }
 
-
     if (musicaCarta) {
 
         musicaCarta.pause();
@@ -327,88 +258,128 @@ function detenerMusica() {
 }
 
 
+/*
+   La música del temporizador.
+*/
 
 function reproducirMusicaTemporizador() {
 
-    if (!estaEnLaApp()) {
+    actualizarEstadoApp();
+
+    if (!appActiva) {
         return;
     }
-
 
     if (!musicaTemporizador) {
         return;
     }
 
+    if (
+        pantallaCarta &&
+        !pantallaCarta.classList.contains("oculto")
+    ) {
 
-    musicaCarta.pause();
-
-
-    /*
-       Si ya está sonando,
-       no vuelve a empezar.
-    */
-
-    if (!musicaTemporizador.paused) {
         return;
+
     }
 
+    if (musicaCarta) {
 
-    musicaTemporizador.play()
-        .catch(
-            () => {
+        musicaCarta.pause();
 
-            }
-        );
+    }
+
+    musicaTemporizador
+        .play()
+        .catch(() => {});
 
 }
 
 
-
-/* =====================================
-   MÚSICA DE LA CARTA
-===================================== */
+/*
+   La música de la carta.
+*/
 
 function reproducirMusicaCarta() {
 
-    if (!estaEnLaApp()) {
+    actualizarEstadoApp();
+
+    if (!appActiva) {
         return;
     }
-
 
     if (!musicaCarta) {
         return;
     }
 
+    if (musicaTemporizador) {
 
-    musicaTemporizador.pause();
+        musicaTemporizador.pause();
 
+    }
 
     /*
        IMPORTANTE:
 
-       Ya NO ponemos:
+       NO ponemos currentTime = 0 aquí.
 
-       musicaCarta.currentTime = 0;
-
-       Así, tocar la pantalla no
-       reinicia la canción.
+       Así, tocar la pantalla no reinicia
+       la canción.
     */
 
-
-    if (!musicaCarta.paused) {
-        return;
-    }
-
-
-    musicaCarta.play()
-        .catch(
-            () => {
-
-            }
-        );
+    musicaCarta
+        .play()
+        .catch(() => {});
 
 }
 
+
+/* =====================================
+   REPETIR MÚSICA AL TERMINAR
+===================================== */
+
+if (musicaTemporizador) {
+
+    musicaTemporizador.addEventListener(
+        "ended",
+        function() {
+
+            if (appActiva) {
+
+                musicaTemporizador.currentTime = 0;
+
+                musicaTemporizador
+                    .play()
+                    .catch(() => {});
+
+            }
+
+        }
+    );
+
+}
+
+
+if (musicaCarta) {
+
+    musicaCarta.addEventListener(
+        "ended",
+        function() {
+
+            if (appActiva) {
+
+                musicaCarta.currentTime = 0;
+
+                musicaCarta
+                    .play()
+                    .catch(() => {});
+
+            }
+
+        }
+    );
+
+}
 
 
 /* =====================================
@@ -419,16 +390,23 @@ document.addEventListener(
     "pointerdown",
     function() {
 
-        if (!estaEnLaApp()) {
+        actualizarEstadoApp();
+
+        if (!appActiva) {
             return;
         }
 
+        /*
+           Si la carta está abierta,
+           solamente intenta continuar la
+           canción actual.
+
+           NO la reinicia.
+        */
 
         if (
             pantallaCarta &&
-            !pantallaCarta.classList.contains(
-                "oculto"
-            )
+            !pantallaCarta.classList.contains("oculto")
         ) {
 
             reproducirMusicaCarta();
@@ -441,12 +419,8 @@ document.addEventListener(
 
         }
 
-    },
-    {
-        once: true
     }
 );
-
 
 
 /* =====================================
@@ -458,14 +432,11 @@ function actualizarContador(fecha) {
     const ahora =
         Date.now();
 
-
     const destino =
         new Date(fecha).getTime();
 
-
     let diferencia =
         destino - ahora;
-
 
     if (diferencia < 0) {
 
@@ -473,91 +444,62 @@ function actualizarContador(fecha) {
 
     }
 
-
     const totalSegundos =
         Math.floor(
             diferencia / 1000
         );
-
 
     const diasRestantes =
         Math.floor(
             totalSegundos / 86400
         );
 
-
     const horasRestantes =
         Math.floor(
-            (totalSegundos % 86400) /
-            3600
+            (totalSegundos % 86400) / 3600
         );
-
 
     const minutosRestantes =
         Math.floor(
-            (totalSegundos % 3600) /
-            60
+            (totalSegundos % 3600) / 60
         );
-
 
     const segundosRestantes =
         totalSegundos % 60;
 
 
     dias.textContent =
-        String(
-            diasRestantes
-        ).padStart(
-            2,
-            "0"
-        );
-
+        String(diasRestantes)
+            .padStart(2, "0");
 
     horas.textContent =
-        String(
-            horasRestantes
-        ).padStart(
-            2,
-            "0"
-        );
-
+        String(horasRestantes)
+            .padStart(2, "0");
 
     minutos.textContent =
-        String(
-            minutosRestantes
-        ).padStart(
-            2,
-            "0"
-        );
-
+        String(minutosRestantes)
+            .padStart(2, "0");
 
     segundos.textContent =
-        String(
-            segundosRestantes
-        ).padStart(
-            2,
-            "0"
-        );
+        String(segundosRestantes)
+            .padStart(2, "0");
 
 }
-
 
 
 /* =====================================
    ESTADO PRINCIPAL
 ===================================== */
 
-async function comprobarEstado() {
+function comprobarEstado() {
 
     const ahora =
         Date.now();
-
 
     const apertura =
         new Date(
             FECHA_APERTURA
         ).getTime();
-
 
     const siguiente =
         new Date(
@@ -565,9 +507,8 @@ async function comprobarEstado() {
         ).getTime();
 
 
-
     /*
-       SI LA CARTA YA FUE ABIERTA
+       YA SE ABRIÓ LA PRIMERA CARTA
        Y YA LLEGÓ LA SEGUNDA FECHA
     */
 
@@ -579,11 +520,9 @@ async function comprobarEstado() {
         zonaSobre.style.display =
             "flex";
 
-
         contador.classList.add(
             "oculto"
         );
-
 
         reproducirMusicaTemporizador();
 
@@ -592,11 +531,9 @@ async function comprobarEstado() {
     }
 
 
-
     /*
-       SI LA CARTA YA FUE ABIERTA
-       PERO TODAVÍA NO LLEGA
-       LA SEGUNDA FECHA
+       YA SE ABRIÓ LA PRIMERA CARTA
+       PERO AÚN NO LLEGA LA SEGUNDA FECHA
     */
 
     if (
@@ -607,16 +544,13 @@ async function comprobarEstado() {
         zonaSobre.style.display =
             "none";
 
-
         contador.classList.remove(
             "oculto"
         );
 
-
         actualizarContador(
             FECHA_SIGUIENTE
         );
-
 
         reproducirMusicaTemporizador();
 
@@ -625,9 +559,8 @@ async function comprobarEstado() {
     }
 
 
-
     /*
-       PRIMER TEMPORIZADOR
+       AÚN NO LLEGA LA PRIMERA FECHA
     */
 
     if (ahora < apertura) {
@@ -635,23 +568,19 @@ async function comprobarEstado() {
         zonaSobre.style.display =
             "none";
 
-
         contador.classList.remove(
             "oculto"
         );
 
-
         actualizarContador(
             FECHA_APERTURA
         );
-
 
         reproducirMusicaTemporizador();
 
         return;
 
     }
-
 
 
     /*
@@ -661,32 +590,36 @@ async function comprobarEstado() {
     zonaSobre.style.display =
         "flex";
 
-
     contador.classList.add(
         "oculto"
     );
-
 
     reproducirMusicaTemporizador();
 
 }
 
 
-
 /* =====================================
-   MOSTRAR CARTA
+   PRE-CARGAR CARTA
 ===================================== */
 
-function mostrarCarta() {
+function prepararCarta() {
 
     if (!imagenCarta) {
         return;
     }
 
+    /*
+       Si ya fue cargada correctamente,
+       no volvemos a descargarla.
+    */
+
+    if (cartaCargada) {
+        return;
+    }
 
     imagenCarta.style.display =
         "block";
-
 
     if (mensajeCartaError) {
 
@@ -696,12 +629,31 @@ function mostrarCarta() {
     }
 
 
+    imagenCarta.onload =
+        function() {
+
+            cartaCargada = true;
+
+            imagenCarta.style.display =
+                "block";
+
+            if (mensajeCartaError) {
+
+                mensajeCartaError.style.display =
+                    "none";
+
+            }
+
+        };
+
+
     imagenCarta.onerror =
         function() {
 
+            cartaCargada = false;
+
             imagenCarta.style.display =
                 "none";
-
 
             if (mensajeCartaError) {
 
@@ -713,29 +665,17 @@ function mostrarCarta() {
         };
 
 
-    imagenCarta.onload =
-        function() {
+    /*
+       SIN Date.now()
 
-            imagenCarta.style.display =
-                "block";
-
-
-            if (mensajeCartaError) {
-
-                mensajeCartaError.style.display =
-                    "none";
-
-            }
-
-        };
-
+       Así evitamos que cada intento
+       cree una URL diferente.
+    */
 
     imagenCarta.src =
-        "carta.png?v=" +
-        Date.now();
+        "carta.png";
 
 }
-
 
 
 /* =====================================
@@ -746,65 +686,55 @@ if (sobre) {
 
     sobre.addEventListener(
         "click",
-        async function() {
+        function() {
 
             if (cartaAbierta) {
                 return;
             }
 
-
-            const hayCarta =
-                await existeCarta();
-
-
             /*
-               SI NO EXISTE CARTA
+               Si no existe la imagen,
+               regresamos al temporizador.
             */
 
-            if (!hayCarta) {
+            if (!cartaCargada) {
 
-                cartaAbierta = false;
+                /*
+                   Intentamos cargarla.
+                */
 
+                if (
+                    imagenCarta &&
+                    imagenCarta.complete &&
+                    imagenCarta.naturalWidth > 0
+                ) {
 
-                sobre.classList.remove(
-                    "abriendo"
-                );
+                    cartaCargada = true;
 
+                }
 
-                pantallaCarta.classList.add(
-                    "oculto"
-                );
+                else {
 
+                    /*
+                       La imagen todavía no está
+                       lista. La cargamos y esperamos
+                       antes de abrir la carta.
+                    */
 
-                zonaSobre.style.display =
-                    "none";
+                    prepararCarta();
 
+                    return;
 
-                contador.classList.remove(
-                    "oculto"
-                );
-
-
-                actualizarContador(
-                    FECHA_APERTURA
-                );
-
-
-                reproducirMusicaTemporizador();
-
-
-                return;
+                }
 
             }
 
 
-
             /*
-               SI EXISTE CARTA
+               AQUÍ SÍ EXISTE LA CARTA.
             */
 
             cartaAbierta = true;
-
 
             detenerMusica();
 
@@ -814,16 +744,26 @@ if (sobre) {
             );
 
 
-            mostrarCarta();
+            /*
+               Mostramos la carta DESPUÉS
+               de que la animación del sobre
+               termina.
 
+               La imagen ya está cargada,
+               por lo que no debería aparecer
+               una pantalla vacía.
+            */
 
             setTimeout(
                 function() {
 
-                    pantallaCarta.classList.remove(
+                    pantallaSobre.classList.add(
                         "oculto"
                     );
 
+                    pantallaCarta.classList.remove(
+                        "oculto"
+                    );
 
                     reproducirMusicaCarta();
 
@@ -836,6 +776,27 @@ if (sobre) {
 
 }
 
+
+/* =====================================
+   PREPARAR CARTA AL CARGAR LA APP
+===================================== */
+
+function prepararCartaAlIniciar() {
+
+    if (!estaEnLaApp()) {
+        return;
+    }
+
+    /*
+       Se empieza a cargar en segundo plano.
+
+       Así cuando llegue el momento de abrirla,
+       ya estará lista.
+    */
+
+    prepararCarta();
+
+}
 
 
 /* =====================================
@@ -852,27 +813,25 @@ if (volver) {
                 "oculto"
             );
 
+            pantallaSobre.classList.remove(
+                "oculto"
+            );
 
             sobre.classList.remove(
                 "abriendo"
             );
 
-
             cartaAbierta = false;
-
 
             cartaYaFueAbierta =
                 true;
-
 
             localStorage.setItem(
                 "cartaYaFueAbierta",
                 "true"
             );
 
-
             detenerMusica();
-
 
             comprobarEstado();
 
@@ -880,7 +839,6 @@ if (volver) {
     );
 
 }
-
 
 
 /* =====================================
@@ -893,16 +851,13 @@ function iniciarCargaApp() {
         "oculto"
     );
 
-
     pantallaSobre.classList.add(
         "oculto"
     );
 
-
     pantallaCarta.classList.add(
         "oculto"
     );
-
 
     pantallaCarga.classList.remove(
         "oculto"
@@ -918,7 +873,6 @@ function iniciarCargaApp() {
 
                 progreso += 1;
 
-
                 if (progreso > 100) {
 
                     progreso = 100;
@@ -928,7 +882,6 @@ function iniciarCargaApp() {
 
                 barraProgreso.style.width =
                     progreso + "%";
-
 
                 porcentajeCarga.textContent =
                     progreso + "%";
@@ -948,13 +901,18 @@ function iniciarCargaApp() {
                                 "oculto"
                             );
 
-
                             pantallaSobre.classList.remove(
                                 "oculto"
                             );
 
-
                             comprobarEstado();
+
+                            /*
+                               Comenzamos a cargar
+                               carta.png en segundo plano.
+                            */
+
+                            prepararCartaAlIniciar();
 
                         },
                         250
@@ -969,25 +927,24 @@ function iniciarCargaApp() {
 }
 
 
-
 /* =====================================
    INICIAR
 ===================================== */
 
 function iniciar() {
 
+    actualizarEstadoApp();
+
+
     /*
        NAVEGADOR
 
-       Solo muestra "ola"
-       y el botón de descarga.
+       Solo muestra "ola" y el botón
+       de descargar.
 
-       NO muestra:
-       - carga
-       - temporizador
-       - sobre
-       - carta
-       - música
+       NO carga música.
+       NO muestra temporizador.
+       NO muestra carta.
     */
 
     if (!estaEnLaApp()) {
@@ -996,41 +953,32 @@ function iniciar() {
             "oculto"
         );
 
-
         pantallaCarga.classList.add(
             "oculto"
         );
-
 
         pantallaSobre.classList.add(
             "oculto"
         );
 
-
         pantallaCarta.classList.add(
             "oculto"
         );
 
-
         detenerMusica();
-
 
         return;
 
     }
 
 
-
     /*
-       APP
-
-       Primero muestra la carga.
+       APP INSTALADA
     */
 
     pantallaNavegador.classList.add(
         "oculto"
     );
-
 
     iniciarCargaApp();
 
@@ -1040,13 +988,14 @@ function iniciar() {
 iniciar();
 
 
-
 /* =====================================
    ACTUALIZAR CADA SEGUNDO
 ===================================== */
 
 setInterval(
     function() {
+
+        actualizarEstadoApp();
 
         if (
             estaEnLaApp() &&
@@ -1064,7 +1013,6 @@ setInterval(
 );
 
 
-
 /* =====================================
    SERVICE WORKER
 ===================================== */
@@ -1078,14 +1026,11 @@ if (
         function() {
 
             navigator.serviceWorker
-                .register(
-                    "sw.js"
-                )
+                .register("sw.js")
                 .then(
                     registro => {
 
                         registro.update();
-
 
                         setInterval(
                             function() {
